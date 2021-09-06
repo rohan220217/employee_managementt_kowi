@@ -4,8 +4,12 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
-Vue.config.productionTip = false
+// Dayjs
+import dayjs from 'dayjs'
+Vue.prototype.dayjs = dayjs
 
+
+Vue.config.productionTip = false
 new Vue({
   router,
   store,

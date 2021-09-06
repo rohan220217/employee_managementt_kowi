@@ -22,7 +22,5 @@ export default {
 };
 </script>
 <style>
-/* .v-btn__content{
-  color: grey !important;
-} */
+
 </style>

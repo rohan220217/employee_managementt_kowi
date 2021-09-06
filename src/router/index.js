@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 import Login from '../views/Authorization/Login.vue'
 
 Vue.use(VueRouter)
@@ -13,7 +14,7 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "Home" */ '../views/Home.vue'),
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/Home/Home.vue'),
     meta: {
       requiresAuth: true
     }
@@ -22,13 +23,13 @@ const routes = [
     path: '/about',
     name: 'About',
     component: function () {
-      return import(/* webpackChunkName: "About" */ '../views/About.vue')
+      return import(/* webpackChunkName: "About" */ '@/views/About.vue')
     }
   },
   {
     path: '*',
     name: 'Error',
-    component: () => import(/* webpackChunkName: "Error" */ '../views/Error.vue'),
+    component: () => import(/* webpackChunkName: "Error" */ '@/views/Error.vue'),
   
   },
 ]

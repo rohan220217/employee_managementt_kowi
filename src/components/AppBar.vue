@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-app-bar flat dense app color="transparent">
+      <!--    <v-app-bar flat dense app color="transparent">
       <v-spacer></v-spacer>
-      <!-- <v-toolbar-title
+ <v-toolbar-title
         ><v-img max-height="70" max-width="70" src="@/assets/kowi_logo.svg">
         </v-img
       ></v-toolbar-title>
@@ -19,7 +19,7 @@
         color="#535353"
         class="ml-2"
         >Timeline</v-btn
-      > -->
+      > 
 
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -38,64 +38,59 @@
         <span>Day/ Night mode</span>
       </v-tooltip>
     </v-app-bar>
-
+-->
     <v-navigation-drawer permanent expand-on-hover app>
-      <v-list class="pa-0">
-        <v-list-item class="px-2">
-          <v-list-item-avatar>
-            <v-img
-              src="https://www.pixsy.com/wp-content/uploads/2021/04/ben-sweet-2LowviVHZ-E-unsplash-1.jpeg"
-            ></v-img>
-          </v-list-item-avatar>
-        </v-list-item>
-
-        <v-list-item link>
-          <v-list-item-content>
-            <v-list-item-title class="text-h6"> Rohan Kumar </v-list-item-title>
-            <v-list-item-subtitle>rk220217@gmail.com</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+    
 
       <v-divider></v-divider>
 
       <v-list nav dense>
-        <v-list-item link>
+        <v-list-item link @click="$router.push({ name: 'Home' })">
           <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
+            <v-img contain src="@/assets/icon/logo.svg" width="24px"></v-img>
           </v-list-item-icon>
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link @click="$router.push('/home')">
           <v-list-item-icon>
-            <v-icon>mdi-bell</v-icon>
+             <v-img contain src="@/assets/icon/notification.svg" width="24px"></v-img>
           </v-list-item-icon>
           <v-list-item-title>Notifications</v-list-item-title>
         </v-list-item>
         <v-list-item link>
           <v-list-item-icon>
-            <v-icon>mdi-android-messages</v-icon>
+           <v-img contain src="@/assets/icon/task.svg" width="24px"></v-img>
           </v-list-item-icon>
-          <v-list-item-title>Messages</v-list-item-title>
+          <v-list-item-title>Task</v-list-item-title>
         </v-list-item>
         <v-list-item link>
           <v-list-item-icon>
-            <v-icon>mdi-calendar-month</v-icon>
+             <v-img contain src="@/assets/icon/users.svg" width="24px"></v-img>
           </v-list-item-icon>
-          <v-list-item-title>Calendar</v-list-item-title>
+          <v-list-item-title>Users</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+             <v-img contain src="@/assets/icon/list.svg" width="24px"></v-img>
+          </v-list-item-icon>
+          <v-list-item-title>List</v-list-item-title>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-icon>
+             <v-img contain src="@/assets/icon/add.svg" width="24px"></v-img>
+          </v-list-item-icon>
+          <v-list-item-title>Add Task</v-list-item-title>
         </v-list-item>
       </v-list>
       <v-spacer> </v-spacer>
 
       <template v-slot:append>
         <v-list>
-          <v-list-item link @click="logout()" >
+          <v-list-item link @click="logout()">
             <v-list-item-icon>
               <v-icon style="color: red">mdi-location-exit</v-icon>
             </v-list-item-icon>
-            <v-list-item-title style="color: red">
-              Log Out</v-list-item-title
-            >
+            <v-list-item-title style="color: red"> Log Out</v-list-item-title>
           </v-list-item>
         </v-list>
       </template>
@@ -115,6 +110,7 @@ export default {
 
     logout() {
       this.logoutUser();
+      this.$router.push({name: 'Login'})
     },
   },
   computed: {

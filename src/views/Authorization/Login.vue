@@ -29,7 +29,7 @@ export default {
 
     login() {
       this.loginUser('rohan_test');
-      this.router.push('home')
+      this.$router.push({name: 'Home'})
     },
   },
   computed: {
