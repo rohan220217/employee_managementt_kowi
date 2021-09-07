@@ -11,14 +11,11 @@
         ></v-img>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
-            class="mobile_number"
-            label="Mobile Number"
             outlined
             dense
-             required
-              :counter="10"
-            :rules="mobileRules"
-            v-model="user.mobile_number"
+            :rules="emailRules"
+            label="E-mail"
+            v-model="user.email"
           ></v-text-field>
           <v-text-field
             label="Password"
@@ -46,14 +43,13 @@ export default {
   data() {
     return {
       valid: true,
-
       hidePassword: true,
-      mobileRules: [
-        (v) => !!v || "Mobile Number is required",
-        (v) => v.length == 10 || "Mobile number must be of 10 digit",
+      emailRules: [
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+/.test(v) || "E-mail must be valid",
       ],
       user: {
-        mobile_number: "",
+        email: "",
         password: "",
       },
     };
@@ -62,32 +58,34 @@ export default {
     ...mapActions(["loginUser"]),
 
     login() {
-      // this.$router.push({name: 'Home'})
-
-      this.$vloading.show();
-      this.loginUser(this.user)
-        .then((res) => {
-          this.$vloading.hide();
-          this.$toasted.show("User created Successfully", {
-            type: "success",
-            duration: 3000,
-            position: "top-center",
-            theme: "toasted-primary",
-            icon: "mdi-account",
-            iconPack: "mdi",
+      if (this.$refs.form.validate()) {
+        this.$vloading.show();
+        this.loginUser(this.user)
+          .then((_) => {
+            this.$router.push({ name: "Home" });
+            this.$toasted.show("Logged in Successfully", {
+              type: "success",
+              duration: 3000,
+              position: "top-center",
+              theme: "toasted-primary",
+              icon: "mdi-account",
+              iconPack: "mdi",
+            });
+          })
+          .catch((err) => {
+            this.$toasted.show(err, {
+              type: "error",
+              duration: 3000,
+              position: "top-center",
+              theme: "toasted-primary",
+              icon: "mdi-account-alert",
+              iconPack: "mdi",
+            });
+          })
+          .finally(() => {
+            this.$vloading.hide();
           });
-        })
-        .catch((err) => {
-          this.$vloading.hide();
-          this.$toasted.show(err, {
-            type: "error",
-            duration: 3000,
-            position: "top-center",
-            theme: "toasted-primary",
-            icon: "mdi-account-alert",
-            iconPack: "mdi",
-          });
-        });
+      }
     },
   },
   computed: {
