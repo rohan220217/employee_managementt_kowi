@@ -39,7 +39,7 @@
       </v-tooltip>
     </v-app-bar>
 -->
-    <v-navigation-drawer permanent expand-on-hover app>
+    <v-navigation-drawer permanent expand-on-hover app class="navigation-shadow">
       <v-divider></v-divider>
       <v-list nav dense>
         <v-list-item-group active-class="custom-active-list">
@@ -204,5 +204,11 @@ circle:active {
 }
 .custom-active-list {
   color: red !important;
+}
+.navigation-shadow{
+  
+  box-shadow: 0 0 5px #e0e0e0;
+  -moz-box-shadow: 0 0 5px #e0e0e0;
+  -webkit-box-shadow: 0 0 5px #e0e0e0;
 }
 </style>

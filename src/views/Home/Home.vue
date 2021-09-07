@@ -15,7 +15,7 @@
                   Good <br />
                   Morning
                 </div>
-                <div class="user-name">Sakshi</div>
+                <div class="user-name">Rohan</div>
               </v-col>
               <v-col>
                 <v-img contain src="@/assets/svg/cloud.svg" height="75" />
@@ -62,9 +62,23 @@
         </v-col>
       </v-row>
 
-      <div class="home-box-2">
-        <div class="join-meet">Recent Notifications</div>
-      </div>
+      <!-- Recent Notification section -->
+      <recent-notifications></recent-notifications>
+
+      <!-- Task section -->
+      <v-row class="mt-">
+        <v-col cols="12" sm="3">
+          <div class="home-box-3"> <div class="join-meet">Task status</div></div>
+        </v-col>
+        <v-col cols="12" sm="5">
+          <div class="home-box-3"><div class="join-meet">On Going Task</div></div>
+        </v-col>
+        <v-col cols="12" sm="4">
+        <v-img class="owl-image" height="286px" contain src="@/assets/svg/owl.svg">
+
+        </v-img>
+        </v-col>
+      </v-row>
     </v-container>
 
     <!-- Switch button -->
@@ -75,11 +89,14 @@
 <script>
 import DayNight from "@/components/DayNight";
 import AppBar from "./components/AppBar.vue";
+import TaskStatus from "./components/TaskStatus.vue";
+import RecentNotifications from "./components/RecentNotifications.vue";
 
 export default {
   name: "Home",
-
   components: {
+    RecentNotifications,
+    TaskStatus,
     AppBar,
     DayNight,
   },
@@ -101,10 +118,10 @@ export default {
   -moz-box-shadow: 0 0 5px #e0e0e0;
   -webkit-box-shadow: 0 0 5px #e0e0e0;
 }
-.home-box-2 {
+.home-box-3 {
   padding: 10px 20px;
   margin-top: 20px;
-  height: 306px;
+  height: 286px;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 5px #e0e0e0;
@@ -160,5 +177,8 @@ export default {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+.owl-image{
+  margin: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-container class="fill-height" fluid v-if="!$store.getters.userToken">
     <v-row align="center" justify="center">
       <v-col sm="4">
         <v-img
