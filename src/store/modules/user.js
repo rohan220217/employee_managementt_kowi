@@ -6,8 +6,8 @@ const $http = axios.create({
 
 const state = {
   isLoggedIn: true,
-  userToken: localStorage.getItem('token') ? localStorage.getItem('token') : '',
- 
+  userToken: localStorage.getItem('token') ? localStorage.getItem('token') : 'sss',
+
   user: localStorage.getItem('name') ? localStorage.getItem('name') : '',
   my_profile: null,
 }
@@ -17,9 +17,9 @@ const mutations = {
     state.userToken = token
     localStorage.setItem('token', token)
   },
-  
-  
-  
+
+
+
   SET_USER_PROFILE: (state, token) => {
     state.userToken = token
     localStorage.setItem('token', token)
@@ -43,9 +43,19 @@ const mutations = {
 }
 
 const actions = {
-  loginUser({ commit }, token) {
+  loginUser({ commit }, payload) {
+    console.log(payload);
+    return $http.post('/elogin/', payload).then(res => {
+      console.log(res.data);
+
+    }).catch(err => {
+      console.log(err)
+      return Promise.reject(err)
+    })
+
+
     // context.commit('IS_AUTHENTICATED')
-    commit('SET_TOKEN', token)
+    // commit('SET_TOKEN', token)
   },
 
   username(context) {
@@ -53,8 +63,8 @@ const actions = {
   },
   checkUserLoggedIn({ commit }, payload) {
     // return $http.post('/auth', payload).then(res => {
-      // commit('SET_USER_PROFILE', res.data)
-      commit('SET_USER_PROFILE', payload)
+    // commit('SET_USER_PROFILE', res.data)
+    commit('SET_USER_PROFILE', payload)
     // }).catch(err => {
     //   console.log(err)
     //   return Promise.reject(err)

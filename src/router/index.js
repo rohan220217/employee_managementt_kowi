@@ -20,12 +20,28 @@ const routes = [
     }
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/notifications',
+    name: 'Notifications',
     component: function () {
-      return import(/* webpackChunkName: "About" */ '@/views/About.vue')
+      return import(/* webpackChunkName: "Notifications" */ '@/views/Notifications/Notifications.vue')
     }
   },
+ 
+  {
+    path: '/tasks',
+    name: 'Tasks',
+    component: function () {
+      return import(/* webpackChunkName: "Tasks" */ '@/views/Tasks/Tasks.vue')
+    }
+  },
+  {
+    path: '/collaborators',
+    name: 'Collaborators',
+    component: function () {
+      return import(/* webpackChunkName: "Collaborators" */ '@/views/Collaborators/Collaborators.vue')
+    }
+  },
+ 
   {
     path: '*',
     name: 'Error',

@@ -7,7 +7,7 @@
     <v-container fluid class="px-8">
       <v-row>
         <v-col cols="12" sm="3">
-          <v-card height="136" class="">
+          <v-card height="136" class="rounded-xl">
             <v-card-text>
               <div class="text-body-2 mb-1">{{ dayjs() }}</div>
               <v-row>
@@ -21,15 +21,14 @@
                   <div class="text-h5">Rohan</div>
                 </v-col>
                 <v-col>
-                  <v-img contain src="@/assets/svg/cloud.svg" height="75">
-                  </v-img>
+                  <v-img contain src="@/assets/svg/cloud.svg" height="75" />
                 </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="12" sm="6">
-          <v-card height="136">
+          <v-card height="136" class="rounded-xl">
             <v-card-text>
               <v-row>
                 <v-col>
@@ -55,12 +54,12 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-card>
+          <v-card class="rounded-xl">
             <v-card-title> lsffjj </v-card-title>
           </v-card>
         </v-col>
       </v-row>
-      <v-card height="310" class="mt-4">
+      <v-card height="310" class="mt-4 rounded-xl" >
         <v-card-text>
          <p class="font-weight-bold">Recent Notifications</p>
         </v-card-text>

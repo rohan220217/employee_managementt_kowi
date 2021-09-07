@@ -11,10 +11,8 @@
 import KowiAppBar from "./components/AppBar.vue";
 export default {
   name: "App",
-  data(){
-    return {
-
-    }
+  data() {
+    return {};
   },
   components: {
     KowiAppBar,
@@ -22,5 +20,11 @@ export default {
 };
 </script>
 <style>
-
+/* @font-face {
+  font-family: "Quicksand";
+  src: url("./assets/fonts/Quicksand/Quicksand-Regular.ttf") format("ttf");
+}
+*{
+    font-family: "Quicksand";
+ } */
 </style>

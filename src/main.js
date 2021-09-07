@@ -8,6 +8,20 @@ import vuetify from './plugins/vuetify'
 import dayjs from 'dayjs'
 Vue.prototype.dayjs = dayjs
 
+// Loading spinner
+import { LoadingPlugin } from 'vuetify-loading-overlay'
+Vue.use(LoadingPlugin, {
+  // props
+  spinnerProps: {
+    color: "#ff5a5a"
+  },
+  overlayProps: {
+  }
+})
+
+// Toasted Plugin
+import Toasted from 'vue-toasted'
+Vue.use(Toasted)
 
 Vue.config.productionTip = false
 new Vue({
