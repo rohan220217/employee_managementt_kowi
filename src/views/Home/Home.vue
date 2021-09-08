@@ -53,6 +53,7 @@
         <v-col cols="12" sm="2">
           <div class="home-box">
             <div class="join-meet">Check In</div>
+             <div class="here-button mt-8">I am Here</div>
           </div>
         </v-col>
         <v-col cols="12" sm="2">
@@ -67,16 +68,70 @@
 
       <!-- Task section -->
       <v-row class="mt-">
-        <v-col cols="12" sm="3">
-          <div class="home-box-3"> <div class="join-meet">Task status</div></div>
-        </v-col>
-        <v-col cols="12" sm="5">
-          <div class="home-box-3"><div class="join-meet">On Going Task</div></div>
-        </v-col>
-        <v-col cols="12" sm="4">
-        <v-img class="owl-image" height="286px" contain src="@/assets/svg/owl.svg">
 
-        </v-img>
+        <!-- Task status -->
+        <v-col cols="12" sm="3">
+          <div class="home-box-3">
+            <div class="join-meet">Task status</div>
+            <task-status></task-status>
+          </div>
+        </v-col>
+
+        <!-- Ongoing task -->
+        <v-col cols="12" sm="5">
+          <div class="home-box-3">
+            <div class="join-meet">On Going Task</div>
+            <div>
+              <p class="pl-4 mb-0">
+                <span class="dot ml-n4"> </span> Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Commodi sit nam accusantium,
+                placeat
+              </p>
+              <p style="color: #ff5a5a">
+                <v-avatar size="25">
+                  <img src="@/assets/animated_icon/clock.gif" alt="clock" />
+                </v-avatar>
+                0:30:00 hr
+              </p>
+            </div>
+            <div>
+              <p class="pl-4 mb-0">
+                <span class="dot ml-n4"> </span> Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Commodi sit nam accusantium,
+                placeat
+              </p>
+              <p style="color: #ff5a5a">
+                <v-avatar size="25">
+                  <img src="@/assets/animated_icon/clock.gif" alt="clock" />
+                </v-avatar>
+                0:30:00 hr
+              </p>
+            </div>
+            <div>
+              <p class="pl-4 mb-0">
+                <span class="dot ml-n4"> </span> Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Commodi sit nam accusantium,
+                placeat
+              </p>
+              <p style="color: #ff5a5a">
+                <v-avatar size="25">
+                  <img src="@/assets/animated_icon/clock.gif" alt="clock" />
+                </v-avatar>
+                0:30:00 hr
+              </p>
+            </div>
+          </div>
+        </v-col>
+
+        <!-- owl image -->
+        <v-col cols="12" sm="4">
+          <v-img
+            class="owl-image"
+            height="286px"
+            contain
+            src="@/assets/svg/owl.svg"
+          >
+          </v-img>
         </v-col>
       </v-row>
     </v-container>
@@ -89,18 +144,18 @@
 <script>
 import DayNight from "@/components/DayNight";
 import AppBar from "./components/AppBar.vue";
-import TaskStatus from "./components/TaskStatus.vue";
 import RecentNotifications from "./components/RecentNotifications.vue";
+import TaskStatus from "./components/TaskStatus.vue";
 
 export default {
   name: "Home",
   components: {
+    TaskStatus,
     RecentNotifications,
     TaskStatus,
     AppBar,
     DayNight,
   },
-
   methods: {
     he() {
       console.log("sdfsd");
@@ -121,7 +176,7 @@ export default {
 .home-box-3 {
   padding: 10px 20px;
   margin-top: 20px;
-  height: 286px;
+  /* height: 300px; */
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 5px #e0e0e0;
@@ -144,7 +199,7 @@ export default {
 }
 .join-meet {
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
 }
 .join-button {
   text-align: center;
@@ -179,7 +234,26 @@ export default {
   right: 10px;
   top: 10px;
 }
-.owl-image{
+.owl-image {
   margin: 20px;
+}
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #ff5a5a;
+  border-radius: 50%;
+  display: inline-block;
+}
+.here-button{
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 1px;
+  width: 150px;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 5px;
+  color: white;
+  background-color: #ff5a5a;
+  cursor: pointer;
 }
 </style>

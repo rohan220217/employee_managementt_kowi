@@ -23,6 +23,12 @@ Vue.use(LoadingPlugin, {
 import Toasted from 'vue-toasted'
 Vue.use(Toasted)
 
+// Vue chart
+import Donut from 'vue-css-donut-chart';
+import 'vue-css-donut-chart/dist/vcdonut.css';
+ 
+Vue.use(Donut);
+
 Vue.config.productionTip = false
 new Vue({
   router,

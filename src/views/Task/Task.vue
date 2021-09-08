@@ -146,8 +146,51 @@
         </v-col>
       </v-row>
 
+      <!-- Text area -->
+      <v-textarea class="mt-4" label="Add a Note" auto-grow outlined dense>
+        <template v-slot:prepend-inner>
+          <v-icon color="#FF5959"> mdi-plus </v-icon>
+        </template></v-textarea
+      >
+
+      <!-- Checkbox -->
+      <v-row>
+        <v-col cols="12" sm="3">
+          <v-checkbox class="black--text" color="red" value="red" hide-details>
+            <template v-slot:label>
+              <p
+                :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                class="mb-0"
+              >
+                Pull request added to github
+              </p>
+            </template>
+          </v-checkbox>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-checkbox color="red" value="red" hide-details>
+            <template v-slot:label>
+              <p
+                :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                class="mb-0"
+              >
+                Request Merge
+              </p>
+            </template></v-checkbox
+          >
+        </v-col>
+      </v-row>
+
       <!-- images upload -->
       <h3 class="my-4">Upload image after changes</h3>
+      <v-file-input
+        accept="image/*"
+        small-chips
+        multiple
+        label="File input"
+      ></v-file-input>
+
+      <div class="complete-button">Close Task</div>
     </div>
 
     <!-- Switch button -->

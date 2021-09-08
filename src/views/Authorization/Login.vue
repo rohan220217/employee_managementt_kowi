@@ -11,6 +11,8 @@
         ></v-img>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
+          hint="use @kowi.in to access"
+          persistent-hint
             outlined
             dense
             :rules="emailRules"
