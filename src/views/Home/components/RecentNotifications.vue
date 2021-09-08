@@ -1,7 +1,7 @@
 <template>
   <div class="home-box-2">
     <div class="heading-text">Recent Notifications</div>
-    <v-list-item v-for="i in 10" :key="i">
+    <v-list-item v-for="i in 3" :key="i">
       <v-list-item-avatar>
         <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
       </v-list-item-avatar>
@@ -34,10 +34,8 @@ export default {};
 .home-box-2 {
   padding: 10px 20px;
   margin-top: 20px;
-  height: 306px;
   border-radius: 15px;
-  overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   box-shadow: 0 0 5px #e0e0e0;
   -moz-box-shadow: 0 0 5px #e0e0e0;
   -webkit-box-shadow: 0 0 5px #e0e0e0;

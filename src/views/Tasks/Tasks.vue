@@ -7,7 +7,7 @@
       <v-tab>Done</v-tab>
       <v-spacer></v-spacer>
       <div
-        class="total_task"
+        class="mt-4 mr-4"
         :style="[$vuetify.theme.dark ? { color: 'white' } : { color: 'black' }]"
       >
         Total Tasks: {{getAllTasksCount}}
@@ -81,8 +81,5 @@ export default {
 .task-main-box {
   padding: 0 30px;
 }
-.total_task {
-  margin-top: 15px;
-  margin-right: 20px;
-}
+
 </style>

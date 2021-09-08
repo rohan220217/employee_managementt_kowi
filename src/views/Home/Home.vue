@@ -156,6 +156,7 @@ export default {
   color: white;
   background-color: #ff5a5a;
   float: right;
+  cursor: pointer;
 }
 .meet-link-box {
   margin-top: 15px;

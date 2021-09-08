@@ -17,13 +17,18 @@
       :headers="headers"
       :items="getAllTasks"
       :search="search"
+      @click:row="openTask"
     >
       <template v-slot:[`item.createdat`]="{ item }">
-       {{dayjs(item.createdat).format(' DD MMMM YYYY, HH:mm  A')}}
+        {{ dayjs(item.createdat).format(" DD MMMM YYYY, HH:mm  A") }}
       </template>
       <template v-slot:[`item.taskstatus`]="{ item }">
-        <div v-if="item.taskstatus == 'ongoing'" style="color: #ED8500">
-        <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going
+        <div v-if="item.taskstatus == 'ongoing'" style="color: #ed8500">
+          <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
+          <v-avatar size="25">
+            <img src="@/assets/animated_icon/ongoing.gif" alt="John" />
+          </v-avatar>
+          On-Going
         </div>
       </template>
     </v-data-table>
@@ -55,6 +60,9 @@ export default {
 
   methods: {
     ...mapActions(["fetchAllTasks"]),
+    openTask(item) {
+      this.$router.push({ name: "task_id", params: { id: item.id } });
+    },
   },
   computed: {
     ...mapGetters(["userToken", "getAllTasks"]),

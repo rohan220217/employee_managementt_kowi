@@ -17,12 +17,14 @@
       :headers="headers"
       :items="getNewTasks"
       :search="search"
+      @click:row="openTask"
     >
-     <template v-slot:[`item.createdat`]="{ item }">
-       {{dayjs(item.createdat).format(' DD MMMM YYYY, HH:mm  A')}}
+      <template v-slot:[`item.createdat`]="{ item }">
+        {{ dayjs(item.createdat).format(" DD MMMM YYYY, HH:mm  A") }}
       </template>
-     <template v-slot:[`item.timelimit`]="{ item }">
-       <v-icon  class="mr-1 " color="#ED8500"> mdi-av-timer </v-icon> {{item.timelimit}}
+      <template v-slot:[`item.timelimit`]="{ item }">
+        <v-icon class="mr-1" color="#ED8500"> mdi-av-timer </v-icon>
+        {{ item.timelimit }}
       </template>
     </v-data-table>
   </v-card>
@@ -54,6 +56,9 @@ export default {
 
   methods: {
     ...mapActions(["fetchNewTasks"]),
+    openTask(item){
+      this.$router.push({name: 'task_id',  params: { id: item.id } })
+    }
   },
   computed: {
     ...mapGetters(["userToken", "getNewTasks"]),
