@@ -23,7 +23,9 @@
         {{ dayjs(item.createdat).format(" DD MMMM YYYY, HH:mm  A") }}
       </template>
       <template v-slot:[`item.timelimit`]="{ item }">
-        <v-icon class="mr-1" color="#ED8500"> mdi-av-timer </v-icon>
+        <v-avatar size="25">
+          <img src="@/assets/animated_icon/clock.gif" alt="clock" />
+        </v-avatar>
         {{ item.timelimit }}
       </template>
     </v-data-table>
@@ -47,18 +49,28 @@ export default {
           align: "start",
           value: "title",
         },
-        { text: "Date/Time", align: "end", value: "createdat" },
-        { text: "Time Alloted", align: "end", value: "timelimit" },
-        { text: "Created By", align: "center", value: "assignedby" },
+        { text: "Date/Time", align: "start", value: "createdat", width: "20%" },
+        {
+          text: "Time Alloted",
+          align: "center",
+          value: "timelimit",
+          width: "20%",
+        },
+        {
+          text: "Created By",
+          align: "center",
+          value: "assignedby",
+          width: "20%",
+        },
       ],
     };
   },
 
   methods: {
     ...mapActions(["fetchNewTasks"]),
-    openTask(item){
-      this.$router.push({name: 'task_id',  params: { id: item.id } })
-    }
+    openTask(item) {
+      this.$router.push({ name: "task_id", params: { id: item.id } });
+    },
   },
   computed: {
     ...mapGetters(["userToken", "getNewTasks"]),

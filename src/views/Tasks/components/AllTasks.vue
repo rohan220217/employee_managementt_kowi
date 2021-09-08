@@ -26,7 +26,7 @@
         <div v-if="item.taskstatus == 'ongoing'" style="color: #ed8500">
           <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
           <v-avatar size="25">
-            <img src="@/assets/animated_icon/ongoing.gif" alt="John" />
+            <img src="@/assets/animated_icon/ongoing.gif" alt="ongoing" />
           </v-avatar>
           On-Going
         </div>
@@ -52,8 +52,8 @@ export default {
           align: "start",
           value: "title",
         },
-        { text: "Date/Time", align: "end", value: "createdat" },
-        { text: "Status", align: "center", value: "taskstatus" },
+        { text: "Date/Time", align: "start", value: "createdat",    width: "20%" },
+        { text: "Status", align: "center", value: "taskstatus" ,    width: "20%"},
       ],
     };
   },

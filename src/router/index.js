@@ -44,7 +44,7 @@ const routes = [
   {
     path: '/task/:id',
     name: 'task_id',
-    component: () => import(/* webpackChunkName: "task_id" */ '@/views/Tasks/Task.vue'),
+    component: () => import(/* webpackChunkName: "task_id" */ '@/views/Task/Task.vue'),
     props: true,
     meta: {
       requiresAuth: true

@@ -46,7 +46,7 @@
           >
         </template>
 
-        <v-carousel-item :key="i" v-for="i in 2">
+        <v-carousel-item :key="i" v-for="i in 1">
           <v-layout row>
             <v-flex xs3 :key="j" v-for="j in 4" class="pa-4">
               <v-img
@@ -84,22 +84,58 @@
         </p>
       </div>
 
+      <!-- Chat content -->
+      <div class="suggestion-box">
+        <user-message
+          :userData="{
+            name: 'Rohan Kumar',
+            url: 'https://cdn.vuetifyjs.com/images/john.jpg',
+            message:
+              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
+            time: '9:30 pm',
+          }"
+        ></user-message>
+        <my-message
+          :myData="{
+            name: 'Rohan Kumar',
+            message:
+              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
+            time: '9:30 pm',
+          }"
+        ></my-message>
+        <user-message
+          :userData="{
+            name: 'Rohan Kumar',
+            url: 'https://cdn.vuetifyjs.com/images/john.jpg',
+            message:
+              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
+            time: '9:30 pm',
+          }"
+        ></user-message>
+        <my-message
+          :myData="{
+            name: 'Rohan Kumar',
+            message:
+              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
+            time: '9:30 pm',
+          }"
+        ></my-message>
+      </div>
+
       <v-text-field
-      class="mt-8"
+        class="mt-8"
         label="Add a comment/ doubt"
         outlined
         dense
         hide-details
         append-icon="mdi-send"
-       @click:append="alert()"
+        @click:append="alert()"
       >
         <template v-slot:prepend-inner>
           <v-icon color="#FF5959"> mdi-plus </v-icon>
         </template>
-       
-        
-        </v-text-field
-      >
+      </v-text-field>
+
       <!-- Button -->
       <v-row class="mt-4">
         <v-col cols="12" sm="2">
@@ -123,9 +159,13 @@
 import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import AppBar from "./components/AppBar.vue";
+import UserMessage from "./components/UserMessage.vue";
+import MyMessage from "./components/MyMessage.vue";
 export default {
   components: {
     DayNight,
+    MyMessage,
+    UserMessage,
     AppBar,
   },
   data() {
