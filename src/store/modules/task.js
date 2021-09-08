@@ -6,20 +6,30 @@ const $http = axios.create({
 
 const state = {
     allTasks: [],
+    allTasksCount: 0,
+    newTasks: [],
 
 }
 const getters = {
-
-
-    getAllTask(state) {
+    getAllTasks(state) {
         return state.allTasks
+    },
+    getAllTasksCount(state) {
+        return state.allTasksCount
+    },
+    getNewTasks(state) {
+        return state.newTasks
     },
 
 }
 
 const mutations = {
-    SET_TASKS: (state, _tasks) => {
+    SET_ALL_TASKS: (state, _tasks) => {
         state.allTasks = _tasks;
+        state.allTasksCount = _tasks.length;
+    },
+    SET_NEW_TASKS: (state, _tasks) => {
+        state.newTasks = _tasks;
     },
 
 }
@@ -32,7 +42,23 @@ const actions = {
                 'Content-Type': 'undefined'
             }
         }).then(res => {
-            console.log(res.data);
+            commit('SET_ALL_TASKS', res.data);
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    fetchNewTasks({ commit }, { token, query }) {
+        var bodyFormData = new FormData();
+        bodyFormData.append('query', query);
+        return $http.post('/mytasks/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            commit('SET_NEW_TASKS', res.data);
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

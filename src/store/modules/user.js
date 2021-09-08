@@ -40,8 +40,6 @@ const actions = {
 
 }
 const getters = {
-
-
   userToken(state) {
     return state.userToken
   },
