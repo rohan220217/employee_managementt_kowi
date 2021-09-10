@@ -1,4 +1,4 @@
 module.exports = {
-    baseURL: 'https://dev.kowi.in/tasks'
+    baseURL: 'https://dev.kowi.in/tasks',
   }
   

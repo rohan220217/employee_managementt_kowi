@@ -5,9 +5,10 @@
 
     <!-- Main content -->
     <div class="task-container">
+      {{ getTask }}
       <v-row>
         <v-col>
-          <h2>XYZ Development</h2>
+          <h2>{{ getTask.title }}</h2>
         </v-col>
         <v-col>
           <div class="start-button">Start Now</div>
@@ -19,18 +20,13 @@
         </v-col>
         <v-col>
           <p class="red--text text-right font-weight-medium">
-            13 Aug 2021, 3:44pm
+            <!-- 13 Aug 2021, 3:44pm -->
+            {{ getTask.timelimit }} hr
           </p>
         </v-col>
       </v-row>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quia
-        excepturi quibusdam nisi, assumenda repellendus itaque eligendi
-        provident optio sequi dignissimos, facilis eveniet! Hic illum dolor
-        eveniet eius recusandae nesciunt. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Quam quia excepturi quibusdam nisi, assumenda
-        repellendus itaque eligendi provident optio sequi dignissimos, facilis
-        eveniet! Hic illum dolor eveniet eius recusandae nesciunt.
+        {{ getTask.description }}
       </p>
 
       <!-- carousel -->
@@ -48,11 +44,16 @@
 
         <v-carousel-item :key="i" v-for="i in 1">
           <v-layout row>
-            <v-flex xs3 :key="j" v-for="j in 4" class="pa-4">
+            <v-flex
+              xs3
+              :key="_key"
+              v-for="(img, _key) in getTask.images"
+              class="pa-4"
+            >
               <v-img
                 contain
                 class="image-border"
-                src="https://avatars.githubusercontent.com/u/51409281?v=4"
+                :src="'https://dev.kowi.in' + img.image"
               >
               </v-img>
             </v-flex>
@@ -61,26 +62,30 @@
       </v-carousel>
 
       <div class="suggestion-box">
-        <p>
-          <span class="suggetion-box-heading">Suggestions :- </span> Lorem ipsum
-          dolor sit amet, consectetur adipisicing elit. Quos autem sapiente
-          impedit, pariatur nemo, dolorem voluptate eius repudiandae dicta eos
-          nesciunt, fugiat id necessitatibus! Doloribus dolorum accusantium amet
-          minus ducimus.
+        <p v-if="getTask.assignedby">
+          <span class="suggetion-box-heading">Assigned by :- </span>
+          {{ getTask.assignedby.name }}
         </p>
         <p>
           <span class="suggetion-box-heading"
             >Previous Developer of Screen :-
           </span>
-          Rohan kumar
+          <span v-for="(prevDev, _key) in getTask.previousdev" :key="_key">
+            {{ prevDev.name }}
+          </span>
         </p>
-        <p><span class="suggetion-box-heading">Revisions </span> #10</p>
+        <p>
+          <span class="suggetion-box-heading">Suggestions :- </span>
+          {{ getTask.sugestions }}
+        </p>
+        <p>
+          <span class="suggetion-box-heading">Revisions </span> #{{
+            getTask.revision
+          }}
+        </p>
         <p>
           <span class="suggetion-box-heading">Comments of Reviewer :- </span>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos autem
-          sapiente impedit, pariatur nemo, dolorem voluptate eius repudiandae
-          dicta eos nesciunt, fugiat id necessitatibus! Doloribus dolorum
-          accusantium amet minus ducimus.
+          {{ getTask.comment }}
         </p>
       </div>
 
@@ -122,7 +127,36 @@
         ></my-message>
       </div>
 
+      <!-- Button -->
+      <v-row class="mt-4">
+        <v-col cols="12" sm="2">
+          <div
+            :class="isCompleted ? 'outline-button' : 'fill-button'"
+            @click="switchComplete()"
+          >
+            Completed My Task
+          </div>
+        </v-col>
+        <v-col cols="12" sm="2">
+          <div
+            :class="isDispute ? 'outline-button' : 'fill-button'"
+            @click="switchDispute()"
+          >
+            Dispute
+          </div>
+        </v-col>
+        <v-col cols="12" sm="2">
+          <div
+            :class="isWaitingCollab ? 'outline-button' : 'fill-button'"
+            @click="switchWaitingForCollab()"
+          >
+            Waiting For Collab
+          </div>
+        </v-col>
+      </v-row>
+
       <v-text-field
+        v-if="isWaitingCollab"
         class="mt-8"
         label="Add a comment/ doubt"
         outlined
@@ -136,61 +170,143 @@
         </template>
       </v-text-field>
 
-      <!-- Button -->
-      <v-row class="mt-4">
-        <v-col cols="12" sm="2">
-          <div class="complete-button">Completed My Task</div>
-        </v-col>
-        <v-col cols="12" sm="2">
-          <div class="dispute-button">Dispute</div>
-        </v-col>
-      </v-row>
-
       <!-- Text area -->
-      <v-textarea class="mt-4" label="Add a Note" auto-grow outlined dense>
+      <v-textarea
+        v-if="isDispute"
+        class="mt-4"
+        label="Add a Note"
+        auto-grow
+        outlined
+        dense
+      >
         <template v-slot:prepend-inner>
           <v-icon color="#FF5959"> mdi-plus </v-icon>
         </template></v-textarea
       >
 
-      <!-- Checkbox -->
-      <v-row>
-        <v-col cols="12" sm="3">
-          <v-checkbox class="black--text" color="red" value="red" hide-details>
-            <template v-slot:label>
-              <p
-                :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
-                class="mb-0"
-              >
-                Pull request added to github
-              </p>
-            </template>
-          </v-checkbox>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <v-checkbox color="red" value="red" hide-details>
-            <template v-slot:label>
-              <p
-                :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
-                class="mb-0"
-              >
-                Request Merge
-              </p>
-            </template></v-checkbox
-          >
-        </v-col>
-      </v-row>
+      <!-- Iscomplete task  -->
+      <div v-if="isCompleted">
+        <!-- Checkbox -->
+        <v-row>
+          <v-col cols="12" sm="3">
+            <v-checkbox
+              class="black--text"
+              color="red"
+              value="red"
+              hide-details
+            >
+              <template v-slot:label>
+                <p
+                  :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                  class="mb-0"
+                >
+                  Pull request added to github
+                </p>
+              </template>
+            </v-checkbox>
+          </v-col>
+
+          <v-col cols="12" sm="3">
+            <v-checkbox color="red" value="red" hide-details>
+              <template v-slot:label>
+                <p
+                  :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                  class="mb-0"
+                >
+                  Request Merge
+                </p>
+              </template></v-checkbox
+            >
+          </v-col>
+        </v-row>
+
+        <v-text-field
+          class="mt-8"
+          label="Add a Branch Name"
+          outlined
+          dense
+          hide-details
+        >
+          <template v-slot:prepend-inner>
+            <v-icon color="#FF5959"> mdi-plus </v-icon>
+          </template>
+        </v-text-field>
+
+        <!-- Reviewers -->
+        <v-row>
+          <v-col cols="4">
+            <v-autocomplete
+              v-model="reviewers"
+              :items="getAllReviewers"
+              chips
+              multiple
+              outlined
+              label="Add Reviewers"
+              item-text="name"
+              item-value="id"
+              class="mt-4"
+            >
+              <template v-slot:prepend-inner>
+                <v-icon color="#FF5959"> mdi-plus </v-icon>
+              </template>
+              <template v-slot:selection="data">
+                <v-chip
+                  color="#FFCBCB"
+                  v-bind="data.attrs"
+                  :input-value="data.selected"
+                  @click="data.select"
+                >
+                  <v-avatar left>
+                    <v-img :src="'https://dev.kowi.in' + data.item.pic"></v-img>
+                  </v-avatar>
+                  {{ data.item.name }}
+                </v-chip>
+              </template>
+              <template v-slot:item="data">
+                <v-list-item-avatar>
+                  <img :src="'https://dev.kowi.in' + data.item.pic" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </template>
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+      </div>
 
       <!-- images upload -->
       <h3 class="my-4">Upload image after changes</h3>
+
+      <v-carousel hide-delimiters height="auto" show-arrows-on-hover>
+        <v-carousel-item :key="i" v-for="i in 1">
+          <v-layout row>
+            <v-flex
+              xs3
+              :key="_key"
+              v-for="(img, _key) in getTask.userupload"
+              class="pa-4"
+            >
+              <v-img
+                contain
+                class="image-border"
+                :src="'https://dev.kowi.in' + img.image"
+              >
+              </v-img>
+            </v-flex>
+          </v-layout>
+        </v-carousel-item>
+      </v-carousel>
       <v-file-input
         accept="image/*"
         small-chips
         multiple
         label="File input"
+        v-model="images"
       ></v-file-input>
-
-      <div class="complete-button">Close Task</div>
+      <div class="fill-button">Close Task</div>
     </div>
 
     <!-- Switch button -->
@@ -212,14 +328,43 @@ export default {
     AppBar,
   },
   data() {
-    return {};
+    return {
+      images: [],
+      isCompleted: false,
+      isDispute: false,
+      isWaitingCollab: false,
+      reviewers: null,
+    };
   },
+  props: ["id"],
 
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["fetchTask", "fetchAllReviewers"]),
+
+    switchComplete() {
+      this.isCompleted = !this.isCompleted;
+    },
+    switchDispute() {
+      this.isDispute = !this.isDispute;
+    },
+    switchWaitingForCollab() {
+      this.isWaitingCollab = !this.isWaitingCollab;
+    },
   },
   computed: {
-    ...mapGetters(["getAllTasksCount"]),
+    ...mapGetters([
+      "getAllTasksCount",
+      "userToken",
+      "getTask",
+      "getAllReviewers",
+    ]),
+  },
+
+  async created() {
+    this.$vloading.show();
+    await this.fetchTask({ token: this.userToken, id: this.id });
+    await this.fetchAllReviewers(this.userToken);
+    this.$vloading.hide();
   },
 };
 </script>
@@ -257,7 +402,7 @@ export default {
   font-weight: 700;
   margin-right: 10px;
 }
-.complete-button {
+.fill-button {
   text-align: center;
   font-weight: 600;
   letter-spacing: 1px;
@@ -268,7 +413,7 @@ export default {
   color: #ff5a5a;
   cursor: pointer;
 }
-.dispute-button {
+.outline-button {
   text-align: center;
   font-weight: 500;
   letter-spacing: 1px;
