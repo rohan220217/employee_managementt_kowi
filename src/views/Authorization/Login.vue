@@ -11,8 +11,8 @@
         ></v-img>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
-          hint="use @kowi.in to access"
-          persistent-hint
+            hint="use @kowi.in to access"
+            persistent-hint
             outlined
             dense
             :rules="emailRules"
@@ -32,6 +32,14 @@
           ></v-text-field>
           <v-btn depressed block color="error" @click="login()"> Login </v-btn>
         </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-container v-else class="fill-height">
+    <v-row align="center" justify="center">
+      <v-col sm="6" class="text-center">
+        <v-img height="250" contain src="@/assets/svg/welcome.svg"></v-img>
+        <h1 style="color: #ff5a5a">Welcome to KOWI</h1>
       </v-col>
     </v-row>
   </v-container>

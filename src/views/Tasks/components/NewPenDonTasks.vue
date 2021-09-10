@@ -12,10 +12,53 @@
         hide-details
       ></v-text-field>
     </v-card-title>
+
+    <!-- new task -->
     <v-data-table
+      v-if="isTask == 'new'"
       hide-default-footer
       :headers="headers"
       :items="getNewTasks"
+      :search="search"
+      @click:row="openTask"
+    >
+      <template v-slot:[`item.createdat`]="{ item }">
+        {{ dayjs(item.createdat).format(" DD MMMM YYYY, HH:mm  A") }}
+      </template>
+      <template v-slot:[`item.timelimit`]="{ item }">
+        <v-avatar size="25">
+          <img src="@/assets/animated_icon/clock.gif" alt="clock" />
+        </v-avatar>
+        {{ item.timelimit }}
+      </template>
+    </v-data-table>
+
+    <!-- Pending table -->
+    <v-data-table
+    v-else-if="isTask == 'pending'"
+      hide-default-footer
+      :headers="headers"
+      :items="getPendingTasks"
+      :search="search"
+      @click:row="openTask"
+    >
+      <template v-slot:[`item.createdat`]="{ item }">
+        {{ dayjs(item.createdat).format(" DD MMMM YYYY, HH:mm  A") }}
+      </template>
+      <template v-slot:[`item.timelimit`]="{ item }">
+        <v-avatar size="25">
+          <img src="@/assets/animated_icon/clock.gif" alt="clock" />
+        </v-avatar>
+        {{ item.timelimit }}
+      </template>
+    </v-data-table>
+    
+    <!-- completed table -->
+    <v-data-table
+    v-else-if="isTask == 'completed'"
+      hide-default-footer
+      :headers="headers"
+      :items="getCompletedTasks"
       :search="search"
       @click:row="openTask"
     >
@@ -65,20 +108,30 @@ export default {
       ],
     };
   },
-
+  props: {
+    isTask: {
+      type: String
+    }
+  },
   methods: {
-    ...mapActions(["fetchNewTasks"]),
+    ...mapActions(["fetchNewPenDonTasks"]),
     openTask(item) {
       this.$router.push({ name: "task_id", params: { id: item.id } });
     },
   },
   computed: {
-    ...mapGetters(["userToken", "getNewTasks"]),
+    ...mapGetters(["userToken", "getNewTasks", "getPendingTasks", "getCompletedTasks"]),
   },
 
   async created() {
     this.$vloading.show();
-    await this.fetchNewTasks({ token: this.userToken, query: "new" });
+    if (this.isTask == "new")
+      await this.fetchNewPenDonTasks({ token: this.userToken, query: "new" });
+    else if (this.isTask == "pending")
+      await this.fetchNewPenDonTasks({ token: this.userToken, query: "pending" });
+    else if (this.isTask == "completed")
+      await this.fetchNewPenDonTasks({ token: this.userToken, query: "completed" });
+      
     this.$vloading.hide();
   },
 };

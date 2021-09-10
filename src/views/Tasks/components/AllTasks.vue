@@ -60,6 +60,7 @@ export default {
   components: {
     DayNight,
   },
+
   data() {
     return {
       search: "",

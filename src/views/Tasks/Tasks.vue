@@ -10,7 +10,7 @@
         class="mt-4 mr-4"
         :style="[$vuetify.theme.dark ? { color: 'white' } : { color: 'black' }]"
       >
-        Total Tasks: {{getAllTasksCount}}
+        Total Tasks: {{ getAllTasksCount }}
       </div>
       <v-avatar size="36" class="mt-2">
         <img
@@ -25,15 +25,15 @@
       </v-tab-item>
       <!-- New Tasks -->
       <v-tab-item>
-        <new-tasks></new-tasks>
+        <new-pen-don-tasks :isTask="'new'"></new-pen-don-tasks>
       </v-tab-item>
       <!-- Pending Tasks -->
       <v-tab-item>
-        <p>pending</p>
+        <new-pen-don-tasks :isTask="'pending'"></new-pen-don-tasks>
       </v-tab-item>
       <!-- Done Tasks -->
       <v-tab-item>
-        <p>COmpleted</p>
+        <new-pen-don-tasks :isTask="'completed'"></new-pen-don-tasks>
       </v-tab-item>
     </v-tabs>
 
@@ -46,10 +46,10 @@
 import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import AllTasks from "./components/AllTasks";
-import NewTasks from "./components/NewTasks";
+import NewPenDonTasks from "./components/NewPenDonTasks";
 export default {
   components: {
-    NewTasks,
+    NewPenDonTasks,
     AllTasks,
     DayNight,
   },
@@ -81,5 +81,4 @@ export default {
 .task-main-box {
   padding: 0 30px;
 }
-
 </style>

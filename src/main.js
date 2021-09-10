@@ -29,6 +29,7 @@ import 'vue-css-donut-chart/dist/vcdonut.css';
 
 // Masonry Plugin
 import { VueMasonryPlugin } from 'vue-masonry'
+Vue.use(VueMasonryPlugin)
  
 Vue.use(Donut);
 

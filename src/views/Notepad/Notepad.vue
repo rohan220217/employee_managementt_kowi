@@ -11,9 +11,9 @@
           md="4"
           style="padding: 10px 10px"
         >
-          <v-card elevation="3" class="pa-2" :color="todo.color">
+          <v-card elevation="3" class="pa-2" :color="todo.color" >
             <v-img
-              class=" mt-n3 mr-n3"
+              class="mt-n3 mr-n3"
               style="float: right"
               height="30"
               width="30"
@@ -27,7 +27,7 @@
               v-html="todo.content"
             >
             </v-card-text>
-           
+
             <v-card-subtitle class="">
               <span class="mt-4">{{
                 dayjs().format("DD-MMMM-YYYY, h:mm a")
@@ -58,17 +58,20 @@
         </v-btn>
       </template>
 
-      <v-card >
+      <v-card>
         <v-card-text class="pt-2">
           <v-text-field label="Enter Title" hide-details></v-text-field>
 
           <v-textarea name="input-7-1" label="Write note +"></v-textarea>
           <v-color-picker
-        
+            width="100%"
             v-model="color"
             class="pa-0"
             hide-canvas
             hide-inputs
+            hide-sliders
+            :swatches="swatches"
+            show-swatches
           ></v-color-picker>
         </v-card-text>
 
@@ -84,6 +87,7 @@
 </template>
 
 <script>
+import Masonry from 'masonry-layout'
 export default {
   data() {
     return {
@@ -97,8 +101,45 @@ export default {
             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum, vitae impedit? Aperiam eaque, eveniet ipsum mollitia libero magnam harum sint officia minima cumque quaerat fugiat iusto, nostrum veniam neque! Nobis?",
           color: "#F0FFD8",
         },
+        { title: "sdfsdf", content: "sfdsdfdsf", color: "#FFC0C0" },
+        {
+          title: "sdfsdf",
+          content:
+            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum, vitae impedit? Aperiam eaque, eveniet ipsum mollitia libero magnam harum sint officia minima cumque quaerat fugiat iusto, nostrum veniam neque! Nobis?",
+          color: "#F0FFD8",
+        },
+        { title: "sdfsdf", content: "sfdsdfdsf", color: "#FFC0C0" },
+        {
+          title: "sdfsdf",
+          content:
+            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum, vitae impedit? Aperiam eaque, eveniet ipsum mollitia libero magnam harum sint officia minima cumque quaerat fugiat iusto, nostrum veniam neque! Nobis?",
+          color: "#F0FFD8",
+        },
+        { title: "sdfsdf", content: "sfdsdfdsf", color: "#FFC0C0" },
+        {
+          title: "sdfsdf",
+          content:
+            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum, vitae impedit? Aperiam eaque, eveniet ipsum mollitia libero magnam harum sint officia minima cumque quaerat fugiat iusto, nostrum veniam neque! Nobis?",
+          color: "#F0FFD8",
+        },
+      ],
+      swatches: [
+        ["#FFC0C0"],
+        ["#FFE1C6"],
+        ["#EDFFC8"],
+        ["#E2F8FF"],
+        ["#F8EAFF"],
+        ["#F9CCCC"],
+        ["#F0FFD8"],
+        ["#FFC3D5"],
       ],
     };
+  },
+   mounted: function () {
+    var msnry = new Masonry('.masonry', {
+      // options
+      itemSelector: "[class*='col-']"
+    })
   },
 };
 </script>

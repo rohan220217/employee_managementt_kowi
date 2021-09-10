@@ -9,6 +9,8 @@ const state = {
     allReviewers: [],
     allTasksCount: 0,
     newTasks: [],
+    pendingTasks: [],
+    completedTasks: [],
     task: {}
 
 }
@@ -28,6 +30,12 @@ const getters = {
     getNewTasks(state) {
         return state.newTasks
     },
+    getPendingTasks(state) {
+        return state.pendingTasks
+    },
+    getCompletedTasks(state) {
+        return state.completedTasks
+    },
 
 }
 
@@ -44,6 +52,12 @@ const mutations = {
     },
     SET_NEW_TASKS: (state, _tasks) => {
         state.newTasks = _tasks;
+    },
+    SET_PENDING_TASKS: (state, _tasks) => {
+        state.pendingTasks = _tasks;
+    },
+    SET_COMPLETED_TASKS: (state, _tasks) => {
+        state.completedTasks = _tasks;
     },
 
 }
@@ -94,7 +108,7 @@ const actions = {
         })
     },
 
-    fetchNewTasks({ commit }, { token, query }) {
+    fetchNewPenDonTasks({ commit }, { token, query }) {
         var bodyFormData = new FormData();
         bodyFormData.append('query', query);
         return $http.post('/mytasks/', bodyFormData, {
@@ -103,7 +117,12 @@ const actions = {
                 "Content-Type": "multipart/form-data"
             }
         }).then(res => {
-            commit('SET_NEW_TASKS', res.data);
+            console.log(res.data)
+            if (query == 'new') commit('SET_NEW_TASKS', res.data);
+            else if (query == 'pending')
+                commit('SET_PENDING_TASKS', res.data);
+            else if (query == 'completed')
+                commit('SET_COMPLETED_TASKS', res.data);
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)
