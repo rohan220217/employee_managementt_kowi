@@ -62,6 +62,10 @@
       </v-carousel>
 
       <div class="suggestion-box">
+        <p>
+          <span class="suggetion-box-heading">Status:- </span>
+          {{ getTask.taskstatus }}
+        </p>
         <p v-if="getTask.assignedby">
           <span class="suggetion-box-heading">Assigned by :- </span>
           {{ getTask.assignedby.name }}
@@ -126,9 +130,8 @@
           }"
         ></my-message>
       </div>
-
       <!-- Button -->
-      <v-row class="mt-4">
+      <v-row class="mt-4" v-if="!(getTask.taskstatus == 'completed')">
         <v-col cols="12" sm="2">
           <div
             :class="isCompleted ? 'outline-button' : 'fill-button'"
@@ -145,30 +148,7 @@
             Dispute
           </div>
         </v-col>
-        <v-col cols="12" sm="2">
-          <div
-            :class="isWaitingCollab ? 'outline-button' : 'fill-button'"
-            @click="switchWaitingForCollab()"
-          >
-            Waiting For Collab
-          </div>
-        </v-col>
       </v-row>
-
-      <v-text-field
-        v-if="isWaitingCollab"
-        class="mt-8"
-        label="Add a comment/ doubt"
-        outlined
-        dense
-        hide-details
-        append-icon="mdi-send"
-        @click:append="alert()"
-      >
-        <template v-slot:prepend-inner>
-          <v-icon color="#FF5959"> mdi-plus </v-icon>
-        </template>
-      </v-text-field>
 
       <!-- Text area -->
       <v-textarea
@@ -300,13 +280,14 @@
         </v-carousel-item>
       </v-carousel>
       <v-file-input
+      v-if="isCompleted"
         accept="image/*"
         small-chips
         multiple
         label="File input"
         v-model="images"
       ></v-file-input>
-      <div class="fill-button">Close Task</div>
+      <div  v-if="!(getTask.taskstatus == 'completed')" class="fill-button">Close Task</div>
     </div>
 
     <!-- Switch button -->
@@ -332,7 +313,7 @@ export default {
       images: [],
       isCompleted: false,
       isDispute: false,
-      isWaitingCollab: false,
+
       reviewers: null,
     };
   },
@@ -346,9 +327,6 @@ export default {
     },
     switchDispute() {
       this.isDispute = !this.isDispute;
-    },
-    switchWaitingForCollab() {
-      this.isWaitingCollab = !this.isWaitingCollab;
     },
   },
   computed: {

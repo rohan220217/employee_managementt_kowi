@@ -42,6 +42,13 @@ const routes = [
     }
   },
   {
+    path: '/notepad',
+    name: 'Notepad',
+    component: function () {
+      return import(/* webpackChunkName: "Notepad" */ '@/views/Notepad/Notepad.vue')
+    }
+  },
+  {
     path: '/task/:id',
     name: 'task_id',
     component: () => import(/* webpackChunkName: "task_id" */ '@/views/Task/Task.vue'),

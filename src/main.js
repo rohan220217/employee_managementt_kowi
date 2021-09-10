@@ -26,6 +26,9 @@ Vue.use(Toasted)
 // Vue chart
 import Donut from 'vue-css-donut-chart';
 import 'vue-css-donut-chart/dist/vcdonut.css';
+
+// Masonry Plugin
+import { VueMasonryPlugin } from 'vue-masonry'
  
 Vue.use(Donut);
 

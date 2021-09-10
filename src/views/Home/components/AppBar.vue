@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar dense app :color="$vuetify.theme.dark ? '#363636' : 'white'">
+  <v-app-bar dense app :color="$vuetify.theme.dark ? '#363636' : 'white'" elevation="1">
     <!-- Timer component  -->
     <!-- <div v-if="remaining_time">
       <span v-if="days">{{ days }} : </span>

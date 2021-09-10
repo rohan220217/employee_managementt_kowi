@@ -39,7 +39,12 @@
       </v-tooltip>
     </v-app-bar>
 -->
-    <v-navigation-drawer permanent expand-on-hover app class="navigation-shadow">
+    <v-navigation-drawer
+      permanent
+      expand-on-hover
+      app
+      class="navigation-shadow"
+    >
       <v-divider></v-divider>
       <v-list nav dense>
         <v-list-item-group active-class="custom-active-list">
@@ -118,11 +123,22 @@
             </v-list-item-icon>
             <v-list-item-title>Collaborators</v-list-item-title>
           </v-list-item>
-          <v-list-item link>
+          <v-list-item link to="/notepad" @click="changeActive('notepad')">
             <v-list-item-icon>
-              <v-img contain src="@/assets/icon/list.svg" width="24px"></v-img>
+              <svg
+                width="31"
+                height="26"
+                viewBox="0 0 31 26"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.58333 0C1.89819 0 1.24111 0.273928 0.756641 0.761522C0.272172 1.24912 0 1.91044 0 2.6C0 3.28956 0.272172 3.95088 0.756641 4.43848C1.24111 4.92607 1.89819 5.2 2.58333 5.2C3.26848 5.2 3.92556 4.92607 4.41003 4.43848C4.8945 3.95088 5.16667 3.28956 5.16667 2.6C5.16667 1.91044 4.8945 1.24912 4.41003 0.761522C3.92556 0.273928 3.26848 0 2.58333 0ZM11.625 0L9.04167 2.6L11.625 5.2H24.5417C25.2547 5.2 25.8333 4.6176 25.8333 3.9V1.3C25.8333 0.5824 25.2547 0 24.5417 0H11.625ZM2.58333 10.4C1.89819 10.4 1.24111 10.6739 0.756641 11.1615C0.272172 11.6491 0 12.3104 0 13C0 13.6896 0.272172 14.3509 0.756641 14.8385C1.24111 15.3261 1.89819 15.6 2.58333 15.6C3.26848 15.6 3.92556 15.3261 4.41003 14.8385C4.8945 14.3509 5.16667 13.6896 5.16667 13C5.16667 12.3104 4.8945 11.6491 4.41003 11.1615C3.92556 10.6739 3.26848 10.4 2.58333 10.4ZM11.625 10.4L9.04167 13L11.625 15.6H29.7083C30.4213 15.6 31 15.0176 31 14.3V11.7C31 10.9824 30.4213 10.4 29.7083 10.4H11.625ZM2.58333 20.8C1.89819 20.8 1.24111 21.0739 0.756641 21.5615C0.272172 22.0491 0 22.7104 0 23.4C0 24.0896 0.272172 24.7509 0.756641 25.2385C1.24111 25.7261 1.89819 26 2.58333 26C3.26848 26 3.92556 25.7261 4.41003 25.2385C4.8945 24.7509 5.16667 24.0896 5.16667 23.4C5.16667 22.7104 4.8945 22.0491 4.41003 21.5615C3.92556 21.0739 3.26848 20.8 2.58333 20.8ZM11.625 20.8L9.04167 23.4L11.625 26H19.375C20.088 26 20.6667 25.4176 20.6667 24.7V22.1C20.6667 21.3824 20.088 20.8 19.375 20.8H11.625Z"
+                  :fill="list['notepad'] ? '#FF5A5A' : '#535353'"
+                />
+              </svg>
             </v-list-item-icon>
-            <v-list-item-title>List</v-list-item-title>
+            <v-list-item-title>NotePad</v-list-item-title>
           </v-list-item>
           <v-list-item link>
             <v-list-item-icon>
@@ -161,7 +177,7 @@ export default {
         notifications: false,
         tasks: false,
         collaborators: false,
-        list: false,
+        notepad: false,
         add_task: false,
       },
     };
@@ -179,7 +195,7 @@ export default {
       this.list["notifications"] = false;
       this.list["tasks"] = false;
       this.list["collaborators"] = false;
-      this.list["list"] = false;
+      this.list["notepad"] = false;
       this.list["add_task"] = false;
     },
 
@@ -205,8 +221,7 @@ circle:active {
 .custom-active-list {
   color: red !important;
 }
-.navigation-shadow{
-  
+.navigation-shadow {
   box-shadow: 0 0 5px #e0e0e0;
   -moz-box-shadow: 0 0 5px #e0e0e0;
   -webkit-box-shadow: 0 0 5px #e0e0e0;

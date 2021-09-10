@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar dense app :color="$vuetify.theme.dark ? '#363636' : 'white'">
+  <v-app-bar dense app :color="$vuetify.theme.dark ? '#363636' : 'white'" elevation="1">
     <v-btn text small @click="backButton()"> Back </v-btn>
     <v-spacer></v-spacer>
     <div
