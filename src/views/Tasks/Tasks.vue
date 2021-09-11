@@ -55,16 +55,6 @@ export default {
   },
   data() {
     return {
-      search: "",
-      headers: [
-        {
-          text: "Assigned Task",
-          align: "start",
-          value: "title",
-        },
-        { text: "Date/Time", align: "end", value: "createdat" },
-        { text: "Status", align: "center", value: "taskstatus" },
-      ],
     };
   },
 

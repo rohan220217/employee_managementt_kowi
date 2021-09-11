@@ -133,20 +133,18 @@
       <!-- Button -->
       <v-row class="mt-4" v-if="!(getTask.taskstatus == 'completed')">
         <v-col cols="12" sm="2">
-          <div
-            :class="isCompleted ? 'outline-button' : 'fill-button'"
-            @click="switchComplete()"
-          >
-            Completed My Task
-          </div>
+          <kowi-button
+            :text="'Completed My Task'"
+            :isActive="isCompleted"
+            :onClicked="switchComplete"
+          ></kowi-button>
         </v-col>
         <v-col cols="12" sm="2">
-          <div
-            :class="isDispute ? 'outline-button' : 'fill-button'"
-            @click="switchDispute()"
-          >
-            Dispute
-          </div>
+          <kowi-button
+            :text="'Dispute'"
+            :isActive="isDispute"
+            :onClicked="switchDispute"
+          ></kowi-button>
         </v-col>
       </v-row>
 
@@ -215,44 +213,7 @@
         <!-- Reviewers -->
         <v-row>
           <v-col cols="4">
-            <v-autocomplete
-              v-model="reviewers"
-              :items="getAllReviewers"
-              chips
-              multiple
-              outlined
-              label="Add Reviewers"
-              item-text="name"
-              item-value="id"
-              class="mt-4"
-            >
-              <template v-slot:prepend-inner>
-                <v-icon color="#FF5959"> mdi-plus </v-icon>
-              </template>
-              <template v-slot:selection="data">
-                <v-chip
-                  color="#FFCBCB"
-                  v-bind="data.attrs"
-                  :input-value="data.selected"
-                  @click="data.select"
-                >
-                  <v-avatar left>
-                    <v-img :src="'https://dev.kowi.in' + data.item.pic"></v-img>
-                  </v-avatar>
-                  {{ data.item.name }}
-                </v-chip>
-              </template>
-              <template v-slot:item="data">
-                <v-list-item-avatar>
-                  <img :src="'https://dev.kowi.in' + data.item.pic" />
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title
-                    v-html="data.item.name"
-                  ></v-list-item-title>
-                </v-list-item-content>
-              </template>
-            </v-autocomplete>
+            <all-reviewers></all-reviewers>
           </v-col>
         </v-row>
       </div>
@@ -280,14 +241,19 @@
         </v-carousel-item>
       </v-carousel>
       <v-file-input
-      v-if="isCompleted"
+        v-if="isCompleted"
         accept="image/*"
         small-chips
         multiple
         label="File input"
         v-model="images"
       ></v-file-input>
-      <div  v-if="!(getTask.taskstatus == 'completed')" class="fill-button">Close Task</div>
+
+      <kowi-button
+        v-if="!(getTask.taskstatus == 'Close Task')"
+        :text="'Dispute'"
+        :isActive="false"
+      ></kowi-button>
     </div>
 
     <!-- Switch button -->
@@ -298,11 +264,15 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
+import AllReviewers from "@/components/AllReviewers";
+import KowiButton from "@/components/KowiButton";
 import AppBar from "./components/AppBar.vue";
 import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";
 export default {
   components: {
+    KowiButton,
+    AllReviewers,
     DayNight,
     MyMessage,
     UserMessage,
@@ -313,14 +283,12 @@ export default {
       images: [],
       isCompleted: false,
       isDispute: false,
-
-      reviewers: null,
     };
   },
   props: ["id"],
 
   methods: {
-    ...mapActions(["fetchTask", "fetchAllReviewers"]),
+    ...mapActions(["fetchTask"]),
 
     switchComplete() {
       this.isCompleted = !this.isCompleted;
@@ -330,18 +298,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      "getAllTasksCount",
-      "userToken",
-      "getTask",
-      "getAllReviewers",
-    ]),
+    ...mapGetters(["getAllTasksCount", "userToken", "getTask"]),
   },
 
   async created() {
     this.$vloading.show();
     await this.fetchTask({ token: this.userToken, id: this.id });
-    await this.fetchAllReviewers(this.userToken);
     this.$vloading.hide();
   },
 };
@@ -379,27 +341,5 @@ export default {
 .suggetion-box-heading {
   font-weight: 700;
   margin-right: 10px;
-}
-.fill-button {
-  text-align: center;
-  font-weight: 600;
-  letter-spacing: 1px;
-  width: 200px;
-  border-radius: 10px;
-  border: 2px solid #ff5a5a;
-  padding: 5px;
-  color: #ff5a5a;
-  cursor: pointer;
-}
-.outline-button {
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 1px;
-  width: 200px;
-  border-radius: 10px;
-  padding: 6px;
-  color: white;
-  background-color: #ff5a5a;
-  cursor: pointer;
 }
 </style>

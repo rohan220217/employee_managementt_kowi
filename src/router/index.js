@@ -49,6 +49,13 @@ const routes = [
     }
   },
   {
+    path: '/add_task',
+    name: 'AddTask',
+    component: function () {
+      return import(/* webpackChunkName: "AddTask" */ '@/views/AddTask/AddTask.vue')
+    }
+  },
+  {
     path: '/task/:id',
     name: 'task_id',
     component: () => import(/* webpackChunkName: "task_id" */ '@/views/Task/Task.vue'),
