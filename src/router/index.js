@@ -7,12 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: Login
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "Home" */ '@/views/Home/Home.vue'),
     meta: {
@@ -60,6 +60,14 @@ const routes = [
     name: 'task_id',
     component: () => import(/* webpackChunkName: "task_id" */ '@/views/Task/Task.vue'),
     props: true,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/signup',
+    name: 'SignUp',
+    component: () => import(/* webpackChunkName: "SignUp" */ '@/views/SignUp/SignUp.vue'),
     meta: {
       requiresAuth: true
     }

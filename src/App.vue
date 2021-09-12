@@ -1,6 +1,11 @@
 <template>
-  <v-app>
-    <kowi-app-bar v-if="$store.getters.userToken"></kowi-app-bar>
+  <v-app v-if="!$store.getters.userToken">
+    <v-main>
+      <login-page></login-page>
+    </v-main>
+  </v-app>
+  <v-app v-else>
+    <kowi-app-bar></kowi-app-bar>
     <v-main>
       <router-view />
     </v-main>
@@ -9,13 +14,16 @@
 
 <script>
 import KowiAppBar from "./components/AppBar.vue";
+import LoginPage from "@/views/Authorization/Login";
 export default {
   name: "App",
+
+  components: {
+    LoginPage,
+    KowiAppBar,
+  },
   data() {
     return {};
-  },
-  components: {
-    KowiAppBar,
   },
 };
 </script>

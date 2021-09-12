@@ -48,7 +48,7 @@
       <v-divider></v-divider>
       <v-list nav dense>
         <v-list-item-group active-class="custom-active-list">
-          <v-list-item link to="/home" @click="changeActive('home')">
+          <v-list-item link to="/" @click="changeActive('home')">
             <v-list-item-icon>
               <span class="icon icon-bike"></span>
               <svg

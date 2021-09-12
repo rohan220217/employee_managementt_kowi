@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid v-if="!$store.getters.userToken">
+  <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col sm="4">
         <v-img
@@ -35,14 +35,14 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-container v-else class="fill-height">
+  <!-- <v-container v-else class="fill-height">
     <v-row align="center" justify="center">
       <v-col sm="6" class="text-center">
         <v-img height="250" contain src="@/assets/svg/welcome.svg"></v-img>
         <h1 style="color: #ff5a5a">Welcome to KOWI</h1>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container> -->
 </template>
 
 
