@@ -104,14 +104,5 @@ export default {
 };
 </script>
 <style>
-.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)
-  > .v-input__control
-  > .v-input__slot
-  fieldset {
-  color: gray !important;
-}
 
-.theme--light.v-label {
-  color: #ffcbcb !important;
-}
 </style>

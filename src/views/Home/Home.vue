@@ -10,14 +10,13 @@
           <div class="home-box">
             <div class="date-time">{{ dayjs() }}</div>
             <v-row>
-              <v-col>
+              <v-col cols="12" sm="6">
                 <div class="greet">
-                  Good <br />
-                  Morning
+                 {{wish}}
                 </div>
                 <div class="user-name">Rohan</div>
               </v-col>
-              <v-col>
+              <v-col cols="12" sm="6">
                 <v-img contain src="@/assets/svg/cloud.svg" height="75" />
               </v-col>
             </v-row>
@@ -128,7 +127,9 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Home",
   data() {
-    return {};
+    return {
+      wish: "",
+    };
   },
   components: {
     MeetLink,
@@ -143,11 +144,28 @@ export default {
     he() {
       console.log("sdfsd");
     },
+
+    getWish() {
+      var day = new Date();
+      var hr = day.getHours();
+      if (hr >= 0 && hr < 12) {
+        this.wish = "Good Morning!";
+      } else if (hr == 12) {
+        this.wish = "Good Noon!";
+      } else if (hr >= 12 && hr <= 17) {
+        this.wish = "Good Afternoon!";
+      } else {
+        this.wish = "Good Evening!";
+      }
+    },
   },
+
   computed: {
     // ...mapGetters([""]),
   },
-  async created() {},
+  created() {
+    this.getWish();
+  },
 };
 </script>
 <style scoped>

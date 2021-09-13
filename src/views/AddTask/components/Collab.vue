@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="mt-4">
-    <v-caption>Task Name</v-caption>
+    <v-subheader>Task Name</v-subheader>
     <v-text-field
       outlined
       dense
@@ -11,7 +11,7 @@
       label="Add a title"
     ></v-text-field>
 
-    <v-caption>Task Description</v-caption>
+    <v-subheader>Task Description</v-subheader>
     <v-textarea
       solo
       label="Add a description"
@@ -23,7 +23,7 @@
 
     <v-row>
       <v-col cols="12" sm="2">
-        <v-caption>Time Limit</v-caption>
+        <v-subheader>Time Limit</v-subheader>
         <v-text-field
           outlined
           dense
@@ -36,7 +36,7 @@
       </v-col>
     </v-row>
 
-    <v-caption>Suggestions</v-caption>
+    <v-subheader>Suggestions</v-subheader>
     <v-text-field
       outlined
       dense
@@ -51,7 +51,7 @@
       </template>
     </v-text-field>
 
-    <v-caption>Previous Developer</v-caption>
+    <v-subheader>Previous Developer</v-subheader>
     <v-text-field
       outlined
       dense
@@ -63,7 +63,7 @@
     >
     </v-text-field>
 
-    <v-caption>Comment</v-caption>
+    <v-subheader>Comment</v-subheader>
     <v-text-field
       outlined
       dense

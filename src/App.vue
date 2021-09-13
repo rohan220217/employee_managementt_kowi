@@ -7,7 +7,9 @@
   <v-app v-else>
     <kowi-app-bar></kowi-app-bar>
     <v-main>
-      <router-view />
+      <!-- <v-slide-x-transition mode="in-out"> -->
+        <router-view />
+      <!-- </v-slide-x-transition> -->
     </v-main>
   </v-app>
 </template>
@@ -40,4 +42,19 @@ export default {
 * {
   font-family: "Quicksand", sans-serif;
 }
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state)
+  > .v-input__control
+  > .v-input__slot
+  fieldset {
+  color: gray !important;
+}
+
+.theme--light.v-label {
+  color: #ffcbcb !important;
+}
+.v-subheader{
+    height: 24px !important;
+    padding: 0  !important;
+}
+
 </style>
