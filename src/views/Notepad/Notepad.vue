@@ -11,7 +11,7 @@
           md="4"
           style="padding: 10px 10px"
         >
-          <v-card elevation="3" class="pa-2" :color="todo.color" >
+          <v-card elevation="3" class="pa-2" :color="todo.color">
             <v-img
               class="mt-n3 mr-n3"
               style="float: right"
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import Masonry from 'masonry-layout'
+import Masonry from "masonry-layout";
 export default {
   data() {
     return {
@@ -135,11 +135,11 @@ export default {
       ],
     };
   },
-   mounted: function () {
-    var msnry = new Masonry('.masonry', {
+  mounted: function () {
+    var msnry = new Masonry(".masonry", {
       // options
-      itemSelector: "[class*='col-']"
-    })
+      itemSelector: "[class*='col-']",
+    });
   },
 };
 </script>

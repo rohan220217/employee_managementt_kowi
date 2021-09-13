@@ -5,15 +5,14 @@ const $http = axios.create({
 })
 
 const state = {
-  isLoggedIn: true,
-  userToken: localStorage.getItem('token') ? localStorage.getItem('token') : '',
+  userToken: localStorage.getItem('kowiEmpToken') ? localStorage.getItem('kowiEmpToken') : '',
 
 }
 
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.userToken = token
-    localStorage.setItem('token', token)
+    localStorage.setItem('kowiEmpToken', token)
   },
   DELETE_TOKEN: (state) => {
     state.userToken = ''

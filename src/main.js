@@ -26,12 +26,16 @@ Vue.use(Toasted)
 // Vue chart
 import Donut from 'vue-css-donut-chart';
 import 'vue-css-donut-chart/dist/vcdonut.css';
+Vue.use(Donut);
 
 // Masonry Plugin
 import { VueMasonryPlugin } from 'vue-masonry'
 Vue.use(VueMasonryPlugin)
  
-Vue.use(Donut);
+
+// Copy to clipboard
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 new Vue({

@@ -24,36 +24,13 @@
           </div>
         </v-col>
         <v-col cols="12" sm="5">
-          <div class="home-box">
-            <v-row>
-              <v-col>
-                <div class="join-meet">Join Meet</div>
-              </v-col>
-              <v-col>
-                <div class="join-button">Join</div>
-              </v-col>
-            </v-row>
-            <div
-              class="meet-link-box"
-              :style="[
-                $vuetify.theme.dark
-                  ? { backgroundColor: '#363636' }
-                  : { backgroundColor: '#f0f0f0' },
-              ]"
-            >
-              <div class="meet-link">https://meet.google.com/frn-kvyh-yyj</div>
-              <div class="meet-button">
-                <v-btn icon color="#FF5A5A">
-                  <v-icon>mdi-content-copy</v-icon>
-                </v-btn>
-              </div>
-            </div>
-          </div>
+          <!-- Meet box -->
+          <meet-link></meet-link>
         </v-col>
         <v-col cols="12" sm="2">
           <div class="home-box">
             <div class="join-meet">Check In</div>
-             <div class="here-button mt-8">I am Here</div>
+            <div class="here-button mt-8">I am Here</div>
           </div>
         </v-col>
         <v-col cols="12" sm="2">
@@ -68,7 +45,6 @@
 
       <!-- Task section -->
       <v-row class="mt-">
-
         <!-- Task status -->
         <v-col cols="12" sm="3">
           <div class="home-box-3">
@@ -146,10 +122,16 @@ import DayNight from "@/components/DayNight";
 import AppBar from "./components/AppBar.vue";
 import RecentNotifications from "./components/RecentNotifications.vue";
 import TaskStatus from "./components/TaskStatus.vue";
+import MeetLink from "./components/MeetLink.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
+  data() {
+    return {};
+  },
   components: {
+    MeetLink,
     TaskStatus,
     RecentNotifications,
     TaskStatus,
@@ -157,10 +139,15 @@ export default {
     DayNight,
   },
   methods: {
+    ...mapActions([""]),
     he() {
       console.log("sdfsd");
     },
   },
+  computed: {
+    // ...mapGetters([""]),
+  },
+  async created() {},
 };
 </script>
 <style scoped>
@@ -197,43 +184,7 @@ export default {
   font-size: 1.5rem;
   font-weight: 600;
 }
-.join-meet {
-  font-size: 1rem;
-  font-weight: 700;
-}
-.join-button {
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 1px;
-  width: 150px;
-  border-radius: 15px;
-  padding: 5px;
-  color: white;
-  background-color: #ff5a5a;
-  float: right;
-  cursor: pointer;
-}
-.meet-link-box {
-  margin-top: 15px;
-  padding: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border-radius: 20px;
-  height: 54px;
-  /* background-color: #f0f0f0; */
-  /* background-color: #363636; */
 
-  position: relative;
-}
-.meet-link {
-  font-weight: 500;
-}
-.meet-button {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
 .owl-image {
   margin: 20px;
 }
@@ -244,12 +195,10 @@ export default {
   border-radius: 50%;
   display: inline-block;
 }
-.here-button{
+.here-button {
   text-align: center;
   font-weight: 500;
   letter-spacing: 1px;
-  width: 150px;
-  margin: 0 auto;
   border-radius: 15px;
   padding: 5px;
   color: white;
