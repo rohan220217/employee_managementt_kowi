@@ -8,18 +8,7 @@
       <v-row>
         <v-col cols="12" sm="3">
           <div class="home-box">
-            <div class="date-time">{{ dayjs() }}</div>
-            <v-row>
-              <v-col cols="12" sm="6">
-                <div class="greet">
-                 {{wish}}
-                </div>
-                <div class="user-name">Rohan</div>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-img contain src="@/assets/svg/cloud.svg" height="75" />
-              </v-col>
-            </v-row>
+           <Greet/>
           </div>
         </v-col>
         <v-col cols="12" sm="5">
@@ -28,13 +17,13 @@
         </v-col>
         <v-col cols="12" sm="2">
           <div class="home-box">
-            <div class="join-meet">Check In</div>
-            <div class="here-button mt-8">I am Here</div>
+            <div class="box-heading">Check In</div>
+           <check-in></check-in>
           </div>
         </v-col>
         <v-col cols="12" sm="2">
           <div class="home-box">
-            <div class="join-meet">Points</div>
+            <div class="box-heading">Points</div>
           </div>
         </v-col>
       </v-row>
@@ -47,7 +36,7 @@
         <!-- Task status -->
         <v-col cols="12" sm="3">
           <div class="home-box-3">
-            <div class="join-meet">Task status</div>
+            <div class="box-heading">Task status</div>
             <task-status></task-status>
           </div>
         </v-col>
@@ -122,16 +111,16 @@ import AppBar from "./components/AppBar.vue";
 import RecentNotifications from "./components/RecentNotifications.vue";
 import TaskStatus from "./components/TaskStatus.vue";
 import MeetLink from "./components/MeetLink.vue";
+import CheckIn from "./components/CheckIn.vue";
+import Greet from "./components/Greet.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
-  data() {
-    return {
-      wish: "",
-    };
-  },
+  
   components: {
+    Greet,
+    CheckIn,
     MeetLink,
     TaskStatus,
     RecentNotifications,
@@ -144,31 +133,19 @@ export default {
     he() {
       console.log("sdfsd");
     },
-
-    getWish() {
-      var day = new Date();
-      var hr = day.getHours();
-      if (hr >= 0 && hr < 12) {
-        this.wish = "Good Morning!";
-      } else if (hr == 12) {
-        this.wish = "Good Noon!";
-      } else if (hr >= 12 && hr <= 17) {
-        this.wish = "Good Afternoon!";
-      } else {
-        this.wish = "Good Evening!";
-      }
-    },
   },
-
   computed: {
     // ...mapGetters([""]),
-  },
-  created() {
-    this.getWish();
   },
 };
 </script>
 <style scoped>
+
+.box-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
 .home-box {
   padding: 10px 20px;
   height: 136px;
@@ -188,21 +165,6 @@ export default {
   -moz-box-shadow: 0 0 5px #e0e0e0;
   -webkit-box-shadow: 0 0 5px #e0e0e0;
 }
-.date-time {
-  font-size: 0.9rem;
-  font-weight: 300;
-  margin-bottom: 5px;
-}
-.greet {
-  font-size: 1.5rem;
-  font-weight: 300;
-  line-height: 25px;
-}
-.user-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
 .owl-image {
   margin: 20px;
 }
@@ -213,14 +175,5 @@ export default {
   border-radius: 50%;
   display: inline-block;
 }
-.here-button {
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 1px;
-  border-radius: 15px;
-  padding: 5px;
-  color: white;
-  background-color: #ff5a5a;
-  cursor: pointer;
-}
+
 </style>
