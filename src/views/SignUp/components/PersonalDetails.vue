@@ -126,6 +126,14 @@
       >Colour Selection (this color will represent your id)</v-subheader
     >
     <v-color-picker hide-inputs hide-mode-switch mode="rgba"></v-color-picker>
+    <v-btn
+      class="float-right mt-4"
+      color="#FF5A5A"
+      dark
+      @click="savePersonalDetail()"
+    >
+      Next
+    </v-btn>
   </div>
 </template>
 
@@ -157,6 +165,9 @@ export default {
     },
     save2(date) {
       this.$refs.menu2.save(date);
+    },
+    savePersonalDetail() {
+      this.$emit("next", 2);
     },
   },
 };

@@ -46,6 +46,13 @@
     ></v-text-field>
 
     <p style="color: #ff5a5a" class="font-weight-medium">Current Address</p>
+
+    <v-btn class="float-left mt-4" color="#FF5A5A" dark @click="prevTab()">
+      Prev
+    </v-btn>
+    <v-btn class="float-right mt-4" color="#FF5A5A" dark @click="saveAddress()">
+      Next
+    </v-btn>
   </div>
 </template>
 
@@ -81,6 +88,12 @@ export default {
   },
   methods: {
     ...mapActions(["fetchDetailUsingPinCode"]),
+    saveAddress() {
+      this.$emit("next", 3);
+    },
+    prevTab() {
+      this.$emit("prev", 1);
+    },
   },
   computed: {
     ...mapGetters([]),

@@ -32,6 +32,19 @@ const actions = {
       return Promise.reject(err)
     })
   },
+  sendUserBankDetail({ commit }, { token, detail }) {
+    // return $http.post('/addbank/', detail, {
+    //   headers: {
+    //     'Authorization': `Token ${token}`,
+    //     'Content-Type': 'undefined'
+    //   }
+    // }).then(res => {
+    //   console.log(res.data)
+    // }).catch(err => {
+    //   console.log(err)
+    //   return Promise.reject(err)
+    // })
+  },
 
   logoutUser({ commit }) {
     commit('DELETE_TOKEN')

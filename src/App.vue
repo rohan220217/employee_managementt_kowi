@@ -8,7 +8,7 @@
     <kowi-app-bar></kowi-app-bar>
     <v-main>
       <!-- <v-slide-x-transition mode="in-out"> -->
-        <router-view />
+      <router-view />
       <!-- </v-slide-x-transition> -->
     </v-main>
   </v-app>
@@ -52,9 +52,16 @@ export default {
 .theme--light.v-label {
   color: #ffcbcb !important;
 }
-.v-subheader{
-    height: 24px !important;
-    padding: 0  !important;
+.v-subheader {
+  height: 24px !important;
+  padding: 0 !important;
 }
-
+.v-text-field--solo {
+  border-radius: 10px !important;
+}
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+  > .v-input__control
+  > .v-input__slot {
+  box-shadow: 0 0 8px #e0e0e0 !important;
+}
 </style>

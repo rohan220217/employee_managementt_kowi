@@ -19,36 +19,19 @@
     <v-stepper-items>
       <v-stepper-content step="1" class="py-2">
         <v-container>
-          <personal-details></personal-details>
-
-          <v-btn class="float-right mt-4" color="#FF5A5A" dark @click="e1 = 2">
-            Next
-          </v-btn>
+          <personal-details @next="nextTab"></personal-details>
         </v-container>
       </v-stepper-content>
 
       <v-stepper-content step="2">
         <v-container>
-          <Address></Address>
-
-          <v-btn class="float-left mt-4" color="#FF5A5A" dark @click="e1 = 1">
-            Prev
-          </v-btn>
-          <v-btn class="float-right mt-4" color="#FF5A5A" dark @click="e1 = 3">
-            Next
-          </v-btn>
+          <Address @next="nextTab" @prev="prevTab"></Address>
         </v-container>
       </v-stepper-content>
 
       <v-stepper-content step="3">
         <v-container>
-          <bank-detail></bank-detail>
-          <v-btn class="float-left mt-4" color="#FF5A5A" dark @click="e1 = 2">
-            Prev
-          </v-btn>
-          <v-btn class="float-right mt-4" color="#FF5A5A" dark @click="e1 = 1">
-            Save Details
-          </v-btn>
+          <bank-detail @prev="prevTab"></bank-detail>
         </v-container>
       </v-stepper-content>
     </v-stepper-items>
@@ -64,6 +47,14 @@ export default {
     return {
       e1: 1,
     };
+  },
+  methods: {
+    nextTab(value) {
+      this.e1 = value;
+    },
+    prevTab(value) {
+      this.e1 = value;
+    },
   },
   components: {
     BankDetail,
