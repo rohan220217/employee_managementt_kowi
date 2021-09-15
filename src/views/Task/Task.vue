@@ -112,6 +112,16 @@
             time: '9:30 pm',
           }"
         ></my-message>
+        <my-message
+          :myData="{
+            name: 'Rohan Kumar',
+            message:
+              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
+            time: '9:30 pm',
+          }"
+        ></my-message>
+        <add-comment></add-comment>
+
         <user-message
           :userData="{
             name: 'Rohan Kumar',
@@ -129,7 +139,9 @@
             time: '9:30 pm',
           }"
         ></my-message>
+        <add-comment></add-comment>
       </div>
+      <add-comment class="mt-6" :isComment="true"></add-comment>
       <!-- Button -->
       <v-row class="mt-4" v-if="!(getTask.taskstatus == 'completed')">
         <v-col cols="12" sm="2">
@@ -249,11 +261,11 @@
         v-model="images"
       ></v-file-input>
 
-      <kowi-button
+      <!-- <kowi-button
         v-if="!(getTask.taskstatus == 'Close Task')"
         :text="'Dispute'"
         :isActive="false"
-      ></kowi-button>
+      ></kowi-button> -->
     </div>
 
     <!-- Switch button -->
@@ -269,11 +281,13 @@ import KowiButton from "@/components/KowiButton";
 import AppBar from "./components/AppBar.vue";
 import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";
+import AddComment from "./components/AddComment.vue";
 export default {
   components: {
     KowiButton,
     AllReviewers,
     DayNight,
+    AddComment,
     MyMessage,
     UserMessage,
     AppBar,

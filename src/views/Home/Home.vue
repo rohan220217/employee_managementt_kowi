@@ -8,7 +8,7 @@
       <v-row>
         <v-col cols="12" sm="3">
           <div class="home-box">
-           <Greet/>
+            <Greet />
           </div>
         </v-col>
         <v-col cols="12" sm="5">
@@ -18,7 +18,7 @@
         <v-col cols="12" sm="2">
           <div class="home-box">
             <div class="box-heading">Check In</div>
-           <check-in></check-in>
+            <check-in></check-in>
           </div>
         </v-col>
         <v-col cols="12" sm="2">
@@ -117,7 +117,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
-  
+
   components: {
     Greet,
     CheckIn,
@@ -140,7 +140,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .box-heading {
   font-size: 1rem;
   font-weight: 700;
@@ -175,5 +174,4 @@ export default {
   border-radius: 50%;
   display: inline-block;
 }
-
 </style>

@@ -4,7 +4,7 @@
       colored-border
       color="#0B8871"
       elevation="1"
-      class="py-0 ml-8"
+      class="py-0 ml-8 multi-line"
     >
       <v-list-item class="pa-0">
         <v-list-item-content>
@@ -36,5 +36,4 @@ export default {
 </script>
 
 <style>
-
 </style>
