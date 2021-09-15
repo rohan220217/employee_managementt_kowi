@@ -8,7 +8,7 @@
     >
       Total Tasks: {{ getAllTasksCount }}
     </div>
-    <v-avatar size="36" class="">
+    <v-avatar size="36" class="" @click="$router.push({ name: 'Profile' })">
       <img
         src="https://avatars.githubusercontent.com/u/51409281?v=4"
         alt="user"

@@ -6,7 +6,7 @@
       <v-tab>Review</v-tab>
       <v-spacer></v-spacer>
 
-      <v-avatar size="36" class="mt-2">
+      <v-avatar size="36" class="mt-2" @click="$router.push({ name: 'Profile' })">
         <img
           src="https://avatars.githubusercontent.com/u/51409281?v=4"
           alt="user"

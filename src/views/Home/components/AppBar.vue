@@ -1,5 +1,10 @@
 <template>
-  <v-app-bar dense app :color="$vuetify.theme.dark ? '#363636' : 'white'" elevation="1">
+  <v-app-bar
+    dense
+    app
+    :color="$vuetify.theme.dark ? '#363636' : 'white'"
+    elevation="1"
+  >
     <!-- Timer component  -->
     <!-- <div v-if="remaining_time">
       <span v-if="days">{{ days }} : </span>
@@ -7,7 +12,7 @@
       <span>{{ minutes | formatTime }} : {{ seconds | formatTime }}</span>
     </div> -->
     <v-spacer></v-spacer>
-    <v-avatar size="36">
+    <v-avatar size="36" @click="$router.push({ name: 'Profile' })">
       <img
         src="https://avatars.githubusercontent.com/u/51409281?v=4"
         alt="user"
