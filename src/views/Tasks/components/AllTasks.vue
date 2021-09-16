@@ -96,7 +96,7 @@ export default {
 
 <style>
 th {
-  color: red !important;
+  color: #ff5a5a !important;
   font-size: 20px !important;
   font-weight: 500;
 }

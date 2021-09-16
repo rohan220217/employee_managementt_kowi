@@ -64,4 +64,7 @@ export default {
   > .v-input__slot {
   box-shadow: 0 0 8px #e0e0e0 !important;
 }
+.main-color{
+  color: #ff5a5a
+}
 </style>

@@ -95,6 +95,14 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: '/spotify',
+    name: 'Spotify',
+    component: () => import(/* webpackChunkName: "Spotify" */ '@/views/Spotify/Spotify.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
 
   {
     path: '*',
