@@ -57,7 +57,7 @@ const actions = {
             }
 
         }).then(res => {
-            console.log(res.data)
+            payload.id = res.data.note_id
             commit('ADD_TASK', payload);
         }).catch(err => {
             console.log(err)

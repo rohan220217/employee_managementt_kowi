@@ -70,7 +70,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchUnreadCount"]),
+    ...mapActions(["fetchUnreadCount", "fetchAllNotifications"]),
   },
   computed: {
     ...mapGetters(["userToken"]),
@@ -80,6 +80,7 @@ export default {
       // Set unread count
       this.unread = res.count;
     });
+    await this.fetchAllNotifications(this.userToken)
   },
 };
 </script>

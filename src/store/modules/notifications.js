@@ -28,6 +28,20 @@ const actions = {
             return Promise.reject(err)
         })
     },
+    fetchAllNotifications({ commit }, token) {
+        return $http.get('/getnotification/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            console.log(res.data)
+            return Promise.resolve(res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
 
 
 }

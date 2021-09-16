@@ -32,7 +32,7 @@
               <span class="mt-4">{{
                 dayjs().format("DD-MMMM-YYYY, h:mm a")
               }}</span>
-              <v-btn @click="remove(todo.id)" style="float: right" icon :loading="isDeleteLoading">
+              <v-btn @click="remove(todo.id)" style="float: right" icon>
                 <v-icon>mdi-delete-outline</v-icon>
               </v-btn></v-card-subtitle
             >
@@ -103,7 +103,6 @@ export default {
   data() {
     return {
       isLoading: false,
-      isDeleteLoading: false,
       dialog: false,
       notepad: {
         title: "",
@@ -153,10 +152,9 @@ export default {
         });
     },
     remove(id) {
-      this.isDeleteLoading = true;
       this.deleteNote({ token: this.userToken, id: id })
         .then((res) => {
-          this.$toasted.show('Sticky note deleted successfully', {
+          this.$toasted.show("Sticky note deleted successfully", {
             type: "success",
             duration: 3000,
             position: "top-center",
@@ -174,9 +172,6 @@ export default {
             icon: "mdi-account-alert",
             iconPack: "mdi",
           });
-        })
-        .finally(() => {
-          this.isDeleteLoading = false;
         });
     },
   },
