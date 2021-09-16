@@ -24,14 +24,20 @@ const routes = [
     name: 'Notifications',
     component: function () {
       return import(/* webpackChunkName: "Notifications" */ '@/views/Notifications/Notifications.vue')
+    }, 
+    meta: {
+      requiresAuth: true
     }
   },
- 
+
   {
     path: '/tasks',
     name: 'Tasks',
     component: function () {
       return import(/* webpackChunkName: "Tasks" */ '@/views/Tasks/Tasks.vue')
+    }, 
+    meta: {
+      requiresAuth: true
     }
   },
   {
@@ -39,6 +45,9 @@ const routes = [
     name: 'Collaborators',
     component: function () {
       return import(/* webpackChunkName: "Collaborators" */ '@/views/Collaborators/Collaborators.vue')
+    },
+    meta: {
+      requiresAuth: true
     }
   },
   {
@@ -46,6 +55,9 @@ const routes = [
     name: 'Notepad',
     component: function () {
       return import(/* webpackChunkName: "Notepad" */ '@/views/Notepad/Notepad.vue')
+    },
+    meta: {
+      requiresAuth: true
     }
   },
   {
@@ -53,6 +65,9 @@ const routes = [
     name: 'AddTask',
     component: function () {
       return import(/* webpackChunkName: "AddTask" */ '@/views/AddTask/AddTask.vue')
+    },
+    meta: {
+      requiresAuth: true
     }
   },
   {
@@ -80,12 +95,12 @@ const routes = [
       requiresAuth: true
     }
   },
- 
+
   {
     path: '*',
     name: 'Error',
     component: () => import(/* webpackChunkName: "Error" */ '@/views/Error.vue'),
-  
+
   },
 ]
 
@@ -103,7 +118,7 @@ router.beforeEach((to, _from, next) => {
     if (store.getters.userToken) {
       next()
     } else {
-      next('/')
+      next('/login')
     }
   } else {
     next()

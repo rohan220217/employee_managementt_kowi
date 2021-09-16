@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Notification app bar -->
-    <app-bar />
+    <tool-bar :isDate="true" />
 
     <v-tabs color="#ED8500" vertical class="my-tabs">
       <v-tab class="mt-4"> <v-icon left> mdi-bell-ring </v-icon>All </v-tab>
@@ -54,14 +54,14 @@
 </template>
 
 <script>
-import AppBar from "./components/AppBar.vue";
+import ToolBar from "@/components/ToolBar.vue";
 import NotificationList from "./components/NotificationList.vue";
 import DayNight from "@/components/DayNight";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     NotificationList,
-    AppBar,
+    ToolBar,
     DayNight,
   },
   data() {

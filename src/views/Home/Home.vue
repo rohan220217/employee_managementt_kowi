@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Home app bar -->
-    <app-bar />
+    <tool-bar />
 
     <!-- weather & meet -->
     <v-container fluid class="px-8">
@@ -107,7 +107,7 @@
 
 <script>
 import DayNight from "@/components/DayNight";
-import AppBar from "./components/AppBar.vue";
+import ToolBar from "@/components/ToolBar.vue";
 import RecentNotifications from "./components/RecentNotifications.vue";
 import TaskStatus from "./components/TaskStatus.vue";
 import MeetLink from "./components/MeetLink.vue";
@@ -125,7 +125,7 @@ export default {
     TaskStatus,
     RecentNotifications,
     TaskStatus,
-    AppBar,
+    ToolBar,
     DayNight,
   },
   methods: {

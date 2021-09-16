@@ -1,11 +1,11 @@
 <template>
-  <v-app v-if="!$store.getters.userToken">
+  <!-- <v-app v-if="!$store.getters.userToken">
     <v-main>
       <login-page></login-page>
     </v-main>
-  </v-app>
-  <v-app v-else>
-    <kowi-app-bar></kowi-app-bar>
+  </v-app> -->
+  <v-app>
+    <kowi-app-bar  v-if="$store.getters.userToken"></kowi-app-bar>
     <v-main>
       <!-- <v-slide-x-transition mode="in-out"> -->
       <router-view />

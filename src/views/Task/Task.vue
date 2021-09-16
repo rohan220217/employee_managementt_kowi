@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Home app bar -->
-    <app-bar />
+    <tool-bar :isBack="true" :isTaskCount="true" />
 
     <!-- Main content -->
     <div class="task-container">
@@ -278,7 +278,7 @@ import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import AllReviewers from "@/components/AllReviewers";
 import KowiButton from "@/components/KowiButton";
-import AppBar from "./components/AppBar.vue";
+import ToolBar from "@/components/ToolBar.vue";
 import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";
 import AddComment from "./components/AddComment.vue";
@@ -290,7 +290,7 @@ export default {
     AddComment,
     MyMessage,
     UserMessage,
-    AppBar,
+    ToolBar,
   },
   data() {
     return {
