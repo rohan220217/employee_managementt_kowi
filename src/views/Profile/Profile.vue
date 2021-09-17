@@ -33,11 +33,7 @@
         </v-list>
       </v-tab-item>
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">Starred</h3>
-        <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
-          <p>sldfkjsdlf</p>
-          <v-divider></v-divider>
-        </v-list>
+       <user-attendance></user-attendance>
       </v-tab-item>
     </v-tabs>
 
@@ -49,10 +45,12 @@
 <script>
 import ToolBar from "@/components/ToolBar.vue";
 import UserProfile from "./components/UserProfile.vue";
+import UserAttendance from "./components/UserAttendance.vue";
 import DayNight from "@/components/DayNight";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
+    UserAttendance,
     UserProfile,
     ToolBar,
     DayNight,
