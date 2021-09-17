@@ -10,6 +10,7 @@ const state = {
     taskNotifications: [],
     unreadNotifications: [],
     starredNotifications: [],
+    recentNotifications: [],
 
 }
 const getters = {
@@ -28,6 +29,9 @@ const getters = {
     getUnreadCount(state) {
         return state.unReadCount
     },
+    getRecentNotifications(state) {
+        return state.recentNotifications
+    },
 
 }
 
@@ -44,6 +48,9 @@ const mutations = {
     },
     SET_STARRED_NOTIFICATIONS: (state, _notifications) => {
         state.starredNotifications = _notifications;
+    },
+    SET_RECENT_NOTIFICATIONS: (state, _notifications) => {
+        state.recentNotifications = _notifications;
     },
     SET_UNREAD_COUNT: (state, count) => {
         state.unReadCount = count;
@@ -119,6 +126,19 @@ const actions = {
         })
     },
 
+    fetchRecentNotifications({ commit }, token) {
+        return $http.get('/recentnotif/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            commit('SET_RECENT_NOTIFICATIONS', res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
 
 }
 

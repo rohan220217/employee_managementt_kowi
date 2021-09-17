@@ -1,34 +1,77 @@
 <template>
   <div class="home-box-2">
     <div class="heading-text">Recent Notifications</div>
-    <v-list-item v-for="i in 3" :key="i">
-      <v-list-item-avatar>
-        <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-      </v-list-item-avatar>
-
-      <v-list-item-content>
-        <v-list-item-title class="font-weight-bold">
-          <span style="color: #0b8871"> Sakshi Sinha</span> created a new task:
-          “Create a website for employee management”
-        </v-list-item-title>
-
-        <v-list-item-subtitle>
-          <span style="color: #ff5a5a"> CEO</span> please look into the website
-          layout and alignment and description the alignement of the buttons and
-          description the alignement of the buttons...</v-list-item-subtitle
+    <Loading v-if="isLoading" />
+    <div v-else>
+      <div v-if="getRecentNotifications.length != 0">
+        <v-list-item
+          v-for="(notification, key) in getRecentNotifications"
+          :key="`notifi-${key}`"
         >
-      </v-list-item-content>
+          <v-list-item-avatar>
+            <img
+              :src="'https://dev.kowi.in' + notification.createdby.pic"
+              alt="User"
+            />
+          </v-list-item-avatar>
 
-      <v-list-item-action>
-        <p class="caption">9:30 pm</p>
-      </v-list-item-action>
-    </v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="font-weight-bold">
+              <span :style="`color: ${notification.hexcode}`">{{
+                notification.createdby.name
+              }}</span>
+              {{
+                notification.task ? "created a new task:" : ".................."
+              }}
+              “{{ notification.title }}”
+            </v-list-item-title>
+
+            <v-list-item-subtitle>
+              {{ notification.desc }}</v-list-item-subtitle
+            >
+          </v-list-item-content>
+
+          <v-list-item-action>
+            <p class="caption">
+              {{ dayjs(notification.time).format("h:mm a") }}
+            </p>
+          </v-list-item-action>
+        </v-list-item>
+      </div>
+
+      <div class="text-center caption" v-else>No new notification</div>
+    </div>
   </div>
 </template>
 
+
 <script>
-export default {};
+import Loading from "@/components/Loading";
+import { mapGetters, mapActions } from "vuex";
+export default {
+  components: {
+    Loading,
+  },
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+  methods: {
+    ...mapActions(["fetchRecentNotifications"]),
+  },
+  computed: {
+    ...mapGetters(["userToken", "getRecentNotifications"]),
+  },
+  async created() {
+    this.isLoading = true;
+    await this.fetchRecentNotifications(this.userToken);
+    this.isLoading = false;
+  },
+};
 </script>
+<style>
+</style>
 
 <style scoped>
 .home-box-2 {

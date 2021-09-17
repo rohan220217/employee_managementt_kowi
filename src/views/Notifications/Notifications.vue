@@ -40,7 +40,7 @@
 <script>
 import ToolBar from "@/components/ToolBar.vue";
 import DayNight from "@/components/DayNight";
-import NotificationList from "./components/NotificationList.vue";
+import NotificationList from "../../components/NotificationTemplate.vue";
 import AllNotification from "./components/AllNotification.vue";
 import TaskNotification from "./components/TaskNotification.vue";
 import UnreadNotification from "./components/UnreadNotification.vue";

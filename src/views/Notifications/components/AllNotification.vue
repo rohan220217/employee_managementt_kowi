@@ -9,28 +9,25 @@
         :key="`notifi-${key}`"
         three-line
       >
-        <notification-list :data="notification"></notification-list>
+        <notification-template :data="notification"></notification-template>
         <v-divider></v-divider>
       </v-list>
     </div>
-    <v-img
-      v-else
-      height="100vh"
-      contain
-      width="100%"
-      src="@/assets/svg/empty.svg"
-    ></v-img>
+
+    <Empty v-else />
   </div>
 </template>
 
 <script>
-import NotificationList from "./NotificationList.vue";
+import NotificationTemplate from "@/components/NotificationTemplate.vue";
 import Loading from "@/components/Loading";
+import Empty from "@/components/Empty";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
+    Empty,
     Loading,
-    NotificationList,
+    NotificationTemplate,
   },
   data() {
     return {
