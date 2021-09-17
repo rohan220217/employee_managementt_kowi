@@ -5,11 +5,53 @@ const $http = axios.create({
 })
 
 const state = {
+    unReadCount: 0,
+    allNotifications: [],
+    taskNotifications: [],
+    unreadNotifications: [],
+    starredNotifications: [],
+
+}
+const getters = {
+    getAllNotifications(state) {
+        return state.allNotifications
+    },
+    getTaskNotifications(state) {
+        return state.taskNotifications
+    },
+    getUnreadNotifications(state) {
+        return state.unreadNotifications
+    },
+    getStarredNotifications(state) {
+        return state.starredNotifications
+    },
+    getUnreadCount(state) {
+        return state.unReadCount
+    },
 
 }
 
-const mutations = {
 
+const mutations = {
+    SET_ALL_NOTIFICATIONS: (state, _notifications) => {
+        state.allNotifications = _notifications;
+    },
+    SET_TASK_NOTIFICATIONS: (state, _notifications) => {
+        state.taskNotifications = _notifications;
+    },
+    SET_UNREAD_NOTIFICATIONS: (state, _notifications) => {
+        state.unreadNotifications = _notifications;
+    },
+    SET_STARRED_NOTIFICATIONS: (state, _notifications) => {
+        state.starredNotifications = _notifications;
+    },
+    SET_UNREAD_COUNT: (state, count) => {
+        state.unReadCount = count;
+    },
+    READ_2_UNREAD: (state) => {
+        state.unReadCount = 0;
+        // state.unreadNotifications = [];
+    },
 
 
 }
@@ -22,7 +64,20 @@ const actions = {
                 'Content-Type': 'undefined'
             }
         }).then(res => {
-            return Promise.resolve(res.data)
+            commit('SET_UNREAD_COUNT', res.data.count)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    read2UnreadNotification({ commit }, token) {
+        return $http.get('/readallnotifs/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            commit('READ_2_UNREAD')
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)
@@ -35,17 +90,34 @@ const actions = {
                 'Content-Type': 'undefined'
             }
         }).then(res => {
-            console.log(res.data)
-            return Promise.resolve(res.data)
+            commit('SET_ALL_NOTIFICATIONS', res.data)
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)
         })
     },
+    fetchQueryNotifications({ commit }, { token, query }) {
+        var bodyFormData = new FormData();
+        bodyFormData.append('query', query);
+        return $http.post('/getnotification/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            if (query == 'task')
+                commit('SET_TASK_NOTIFICATIONS', res.data)
+            else if (query == 'unread')
+                commit('SET_UNREAD_NOTIFICATIONS', res.data)
+            else if (query == 'starred')
+                commit('SET_STARRED_NOTIFICATIONS', res.data)
 
-
-}
-const getters = {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
 
 
 }

@@ -9,7 +9,7 @@
       <v-tab>
         <v-icon left> mdi-email-minus </v-icon>
 
-        <v-badge :content="unread" :value="unread" color="#ED8500">
+        <v-badge :content="getUnreadCount" :value="getUnreadCount" color="#ED8500">
           Unread
         </v-badge>
       </v-tab>
@@ -18,33 +18,17 @@
         Starred
       </v-tab>
 
-      <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">All</h3>
-        <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
-          <notification-list></notification-list>
-          <v-divider></v-divider>
-        </v-list>
+      <v-tab-item class="mt-7 mr-8 ml-1" style="height: 80vh">
+        <all-notification></all-notification>
       </v-tab-item>
-      <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">Tasks</h3>
-        <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
-          <notification-list></notification-list>
-          <v-divider></v-divider>
-        </v-list>
+      <v-tab-item class="mt-7 mr-8 ml-1" style="height: 80vh">
+        <task-notification></task-notification>
       </v-tab-item>
-      <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">Unread</h3>
-        <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
-          <notification-list></notification-list>
-          <v-divider></v-divider>
-        </v-list>
+      <v-tab-item class="mt-7 mr-8 ml-1" style="height: 80vh">
+        <unread-notification></unread-notification>
       </v-tab-item>
-      <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">Starred</h3>
-        <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
-          <notification-list></notification-list>
-          <v-divider></v-divider>
-        </v-list>
+      <v-tab-item class="mt-7 mr-8 ml-1" style="height: 80vh">
+        <starred-notification></starred-notification>
       </v-tab-item>
     </v-tabs>
 
@@ -55,32 +39,35 @@
 
 <script>
 import ToolBar from "@/components/ToolBar.vue";
-import NotificationList from "./components/NotificationList.vue";
 import DayNight from "@/components/DayNight";
+import NotificationList from "./components/NotificationList.vue";
+import AllNotification from "./components/AllNotification.vue";
+import TaskNotification from "./components/TaskNotification.vue";
+import UnreadNotification from "./components/UnreadNotification.vue";
+import StarredNotification from "./components/StarredNotification.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
+    StarredNotification,
+    UnreadNotification,
+    TaskNotification,
+    AllNotification,
     NotificationList,
     ToolBar,
     DayNight,
   },
   data() {
     return {
-      unread: 0,
     };
   },
   methods: {
-    ...mapActions(["fetchUnreadCount", "fetchAllNotifications"]),
+    ...mapActions(["fetchUnreadCount"]),
   },
   computed: {
-    ...mapGetters(["userToken"]),
+    ...mapGetters(["userToken", "getUnreadCount"]),
   },
   async created() {
-    await this.fetchUnreadCount(this.userToken).then((res) => {
-      // Set unread count
-      this.unread = res.count;
-    });
-    await this.fetchAllNotifications(this.userToken)
+    await this.fetchUnreadCount(this.userToken);
   },
 };
 </script>

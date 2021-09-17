@@ -1,30 +1,24 @@
 <template>
   <v-list-item>
     <v-list-item-avatar size="55">
-      <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+      <img :src="'https://dev.kowi.in' + data.createdby.pic" alt="User" />
     </v-list-item-avatar>
 
     <v-list-item-content>
       <v-list-item-title class="font-weight-bold">
-        <span style="color: #0b8871"> Sakshi Sinha</span> created a new task:
-        “Create a website for employee management”
+        <span :style="`color: ${data.hexcode}`">{{ data.createdby.name }}</span>
+        {{ data.task ? "created a new task:" : ".................." }} “{{
+          data.title
+        }}”
       </v-list-item-title>
 
-      <v-list-item-subtitle>
-        <span style="color: #ff5a5a"> CEO</span> please look into the website
-        layout and alignment and description the alignement of the buttons and
-        description the alignement of the buttons... Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Suscipit ab numquam, impedit eaque sit
-        explicabo cumque dolores et, nemo dolorem, itaque voluptates debitis
-        sed. Suscipit repellendus eveniet sed officia
-        nemo!</v-list-item-subtitle
-      >
+      <v-list-item-subtitle> {{ data.desc }}</v-list-item-subtitle>
     </v-list-item-content>
 
     <v-list-item-action>
       <p class="caption">
-        9:30 pm
-        <v-btn x-small icon color="#ED8500">
+        {{ dayjs(data.time).format("h:mm a") }}
+        <v-btn x-small icon :color="data.starred ? '#ED8500' : 'gray'">
           <v-icon>mdi-star</v-icon>
         </v-btn>
       </p>
@@ -33,7 +27,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["data"],
+};
 </script>
 
 <style>
