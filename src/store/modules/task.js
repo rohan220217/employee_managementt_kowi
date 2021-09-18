@@ -11,7 +11,8 @@ const state = {
     newTasks: [],
     pendingTasks: [],
     completedTasks: [],
-    task: {}
+    task: {},
+    allThreads: null
 
 }
 const getters = {
@@ -36,6 +37,9 @@ const getters = {
     getCompletedTasks(state) {
         return state.completedTasks
     },
+    getAllThreads(state) {
+        return state.allThreads
+    },
 
 }
 
@@ -58,6 +62,9 @@ const mutations = {
     },
     SET_COMPLETED_TASKS: (state, _tasks) => {
         state.completedTasks = _tasks;
+    },
+    SET_ALL_THREADS: (state, _threads) => {
+        state.allThreads = _threads;
     },
 
 }
@@ -123,6 +130,24 @@ const actions = {
                 commit('SET_PENDING_TASKS', res.data);
             else if (query == 'completed')
                 commit('SET_COMPLETED_TASKS', res.data);
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    fetchAllThreads({ commit }, { token, id }) {
+        var bodyFormData = new FormData();
+        bodyFormData.append('id', id);
+        return $http.post('/getthread/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+
+        }).then(res => {
+            commit('SET_ALL_THREADS', res.data)
+            console.log(res.data)
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

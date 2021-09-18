@@ -16,7 +16,7 @@
 
     <v-list-item-action>
       <p class="caption">
-        {{ dayjs(data.time).format("h:mm a") }}
+        {{ dayjs(data.time).format("DD-MM-YY, h:mm a") }}
         <v-btn
           x-small
           icon

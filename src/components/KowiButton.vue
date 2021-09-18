@@ -19,6 +19,7 @@ export default {
 
 <style scoped>
 .fill-button {
+  display: inline-block;
   text-align: center;
   font-weight: 600;
   letter-spacing: 1px;
@@ -30,6 +31,7 @@ export default {
   cursor: pointer;
 }
 .outline-button {
+  display: inline-block;
   text-align: center;
   font-weight: 500;
   letter-spacing: 1px;

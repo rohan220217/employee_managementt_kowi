@@ -94,77 +94,63 @@
       </div>
 
       <!-- Chat content -->
-      <div class="suggestion-box">
-        <user-message
-          :userData="{
-            name: 'Rohan Kumar',
-            url: 'https://cdn.vuetifyjs.com/images/john.jpg',
-            message:
-              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
-            time: '9:30 pm',
-          }"
-        ></user-message>
-        <my-message
-          :myData="{
-            name: 'Rohan Kumar',
-            message:
-              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
-            time: '9:30 pm',
-          }"
-        ></my-message>
-        <my-message
-          :myData="{
-            name: 'Rohan Kumar',
-            message:
-              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
-            time: '9:30 pm',
-          }"
-        ></my-message>
-        <add-comment v-if="isGetPending"></add-comment>
-
-        <user-message
-          :userData="{
-            name: 'Rohan Kumar',
-            url: 'https://cdn.vuetifyjs.com/images/john.jpg',
-            message:
-              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
-            time: '9:30 pm',
-          }"
-        ></user-message>
-        <my-message
-          :myData="{
-            name: 'Rohan Kumar',
-            message:
-              ' please look into the website layout and alignment and description the alignement of the buttons and description the alignement of the   buttons...',
-            time: '9:30 pm',
-          }"
-        ></my-message>
-        <add-comment v-if="isGetPending"></add-comment>
+      <div
+        class="suggestion-box"
+        v-if="getAllThreads && getAllThreads.length > 0"
+      >
+        <div v-for="(message, key) in getAllThreads" :key="`message-${key}`">
+          <user-message
+            :userData="{
+              name: message.username,
+              url: 'https://cdn.vuetifyjs.com/images/john.jpg',
+              message: message.comment,
+              time: message.time,
+              hexcode: message.hexcode,
+              tagged: message.tagged,
+            }"
+          ></user-message>
+          <div
+            v-for="(sub_message, key) in message.sub"
+            :key="`sub-message-${key}`"
+          >
+            <my-message
+              :myData="{
+                name: sub_message.username,
+                url: 'https://cdn.vuetifyjs.com/images/john.jpg',
+                message: sub_message.comment,
+                time: sub_message.time,
+                hexcode: sub_message.hexcode,
+                tagged: message.tagged,
+              }"
+            ></my-message>
+            <add-comment
+              :task_id="getTask.id"
+              :comment_id="message.id"
+            ></add-comment>
+          </div>
+        </div>
       </div>
       <add-comment
-        v-if="isGetPending"
+        :task_id="getTask.id"
         class="mt-6"
         :isComment="true"
       ></add-comment>
 
       <div v-if="!isGetPending && !isGetDispute">
         <!-- Button -->
-        <v-row class="mt-4" v-if="isGetOngoing">
-          <v-col cols="12" sm="2">
-            <kowi-button
-              :text="'Completed My Task'"
-              :isActive="isCompleted"
-              :onClicked="switchComplete"
-            ></kowi-button>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <kowi-button
-              :text="'Dispute'"
-              :isActive="isDispute"
-              :onClicked="switchDispute"
-            ></kowi-button>
-          </v-col>
-        </v-row>
+        <div class="mt-8 mb-4" v-if="isGetOngoing">
+          <kowi-button
+            :text="'Completed My Task'"
+            :isActive="isCompleted"
+            :onClicked="switchComplete"
+          ></kowi-button>
+          <kowi-button
+            class="ml-4"
+            :text="'Dispute'"
+            :isActive="isDispute"
+            :onClicked="switchDispute"
+          ></kowi-button>
+        </div>
 
         <!-- Text area -->
         <v-textarea
@@ -324,7 +310,7 @@ export default {
   props: ["id"],
 
   methods: {
-    ...mapActions(["fetchTask"]),
+    ...mapActions(["fetchTask", "fetchAllThreads"]),
 
     switchComplete() {
       if (this.isDispute) this.isDispute = false;
@@ -339,7 +325,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getAllTasksCount", "userToken", "getTask"]),
+    ...mapGetters([
+      "getAllTasksCount",
+      "userToken",
+      "getTask",
+      "getAllThreads",
+    ]),
     isGetCompleted() {
       var iscomplete = false;
       if (this.getTask.taskstatus == "completed") iscomplete = true;
@@ -369,6 +360,7 @@ export default {
   async created() {
     this.$vloading.show();
     await this.fetchTask({ token: this.userToken, id: this.id });
+    await this.fetchAllThreads({ token: this.userToken, id: this.id });
     this.$vloading.hide();
   },
 };
