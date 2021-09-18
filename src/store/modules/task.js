@@ -128,11 +128,6 @@ const actions = {
             return Promise.reject(err)
         })
     },
-
-    logoutUser({ commit }) {
-        commit('DELETE_TOKEN')
-    },
-
 }
 
 

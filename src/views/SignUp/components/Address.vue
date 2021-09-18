@@ -146,15 +146,41 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchDetailUsingPinCode"]),
+    ...mapActions(["fetchDetailUsingPinCode", "sendUserAddressDetail"]),
     saveAddress() {
       this.userAddress.name = this.name;
       this.userAddress.mobno = this.mobno;
-      console.log(this.userAddress);
-      // this.isButtonLoading = true;
+
       if (this.$refs.addForm.validate()) {
-        // this.isButtonLoading = false;
-        this.$emit("next", 3);
+        this.isButtonLoading = true;
+        this.sendUserAddressDetail({
+          token: this.userToken,
+          detail: this.userAddress,
+        })
+          .then((_) => {
+            this.$emit("next", 3);
+            this.$toasted.show("User Address saved", {
+              type: "success",
+              duration: 3000,
+              position: "top-center",
+              theme: "toasted-primary",
+              icon: "mdi-account",
+              iconPack: "mdi",
+            });
+          })
+          .catch((err) => {
+            this.$toasted.show(err, {
+              type: "error",
+              duration: 3000,
+              position: "top-center",
+              theme: "toasted-primary",
+              icon: "mdi-account-alert",
+              iconPack: "mdi",
+            });
+          })
+          .finally(() => {
+            this.isButtonLoading = false;
+          });
       }
     },
     prevTab() {

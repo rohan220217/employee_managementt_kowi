@@ -75,7 +75,7 @@ export default {
         })
           .then((_) => {
             this.$router.push({ name: "Home" });
-            this.$toasted.show("User detail saved", {
+            this.$toasted.show("User Bank Detail saved", {
               type: "success",
               duration: 3000,
               position: "top-center",

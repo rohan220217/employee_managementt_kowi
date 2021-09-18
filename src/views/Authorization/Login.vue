@@ -71,8 +71,9 @@ export default {
       if (this.$refs.form.validate()) {
         this.$vloading.show();
         this.loginUser(this.user)
-          .then((_) => {
-            this.$router.push({ name: "Home" });
+          .then((res) => {
+            if (res.first_login) this.$router.push({ name: "SignUp" });
+            else this.$router.push({ name: "Home" });
             this.$toasted.show("Logged in Successfully", {
               type: "success",
               duration: 3000,
@@ -104,5 +105,4 @@ export default {
 };
 </script>
 <style>
-
 </style>

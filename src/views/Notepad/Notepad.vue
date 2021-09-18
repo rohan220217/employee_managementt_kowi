@@ -30,7 +30,7 @@
 
             <v-card-subtitle class="">
               <span class="mt-4">{{
-                dayjs().format("DD-MMMM-YYYY, h:mm a")
+                dayjs(todo.createdat).format("DD-MMMM-YYYY, h:mm a")
               }}</span>
               <v-btn @click="remove(todo.id)" style="float: right" icon>
                 <v-icon>mdi-delete-outline</v-icon>

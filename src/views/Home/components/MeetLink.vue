@@ -37,7 +37,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      meetLink: "",
+      meetLink: "https://meet.google.com/",
     };
   },
   methods: {

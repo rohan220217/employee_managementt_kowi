@@ -3,9 +3,9 @@
     <v-row>
       <v-col cols="12" sm="6">
         <v-alert text dense type="warning" class="mb-0">
-          you won’t be able to change the below information 
+          you won’t be able to change the below information
         </v-alert></v-col
-      >{{ personalDetail }}
+      >
     </v-row>
 
     <!-- First and Last Name -->
@@ -79,7 +79,13 @@
     ></v-text-field>
 
     <!-- Email -->
-    <v-text-field disabled solo label="E-mail" required></v-text-field>
+    <v-text-field
+      :value="userEmail"
+      disabled
+      solo
+      label="E-mail"
+      required
+    ></v-text-field>
 
     <!-- Adhar Card -->
     <v-text-field
@@ -92,11 +98,23 @@
     ></v-text-field>
 
     <!-- Employee Id -->
-    <v-text-field disabled solo label="Employee Id" required></v-text-field>
+    <v-text-field
+      :value="`Employee Id: ${userId}`"
+      disabled
+      solo
+      label="Employee Id"
+      required
+    ></v-text-field>
 
     <!-- date Joining -->
 
-    <v-text-field disabled label="Date of Joining" readonly solo>
+    <v-text-field
+      disabled
+      label="Date of Joining"
+      :value="userDoj"
+      readonly
+      solo
+    >
       <template v-slot:prepend-inner>
         <v-icon color="#FF5A5A" class="mr-1"> mdi-calendar</v-icon>
       </template>
@@ -126,6 +144,7 @@
       class="float-right mt-4"
       color="#FF5A5A"
       dark
+      :loading="isLoading"
       @click="savePersonalDetail()"
     >
       Next
@@ -134,6 +153,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     isDobMenu: false,
@@ -151,17 +171,47 @@ export default {
   }),
 
   methods: {
+    ...mapActions(["sendUserPersonalDetail"]),
     saveDobMenu(date) {
       this.$refs.dobMenu.save(date);
     },
     savePersonalDetail() {
-      this.isLoading = true;
       if (this.$refs.personalForm.validate()) {
-        this.isLoading = false;
+        this.isLoading = true;
+        this.sendUserPersonalDetail({
+          token: this.userToken,
+          detail: this.personalDetail,
+        })
+          .then((_) => {
+            this.$emit("next", 2);
+            this.$emit("nameMobno", this.personalDetail);
+            this.$toasted.show("User detail saved", {
+              type: "success",
+              duration: 3000,
+              position: "top-center",
+              theme: "toasted-primary",
+              icon: "mdi-account",
+              iconPack: "mdi",
+            });
+          })
+          .catch((err) => {
+            this.$toasted.show(err, {
+              type: "error",
+              duration: 3000,
+              position: "top-center",
+              theme: "toasted-primary",
+              icon: "mdi-account-alert",
+              iconPack: "mdi",
+            });
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
       }
-      this.$emit("next", 2);
-      this.$emit("nameMobno", this.personalDetail);
     },
+  },
+  computed: {
+    ...mapGetters(["userToken", "userEmail", "userId", "userDoj"]),
   },
 };
 </script>
