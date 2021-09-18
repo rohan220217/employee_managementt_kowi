@@ -120,7 +120,7 @@
             time: '9:30 pm',
           }"
         ></my-message>
-        <add-comment></add-comment>
+        <add-comment v-if="isGetPending"></add-comment>
 
         <user-message
           :userData="{
@@ -139,133 +139,155 @@
             time: '9:30 pm',
           }"
         ></my-message>
-        <add-comment></add-comment>
+        <add-comment v-if="isGetPending"></add-comment>
       </div>
-      <add-comment class="mt-6" :isComment="true"></add-comment>
-      <!-- Button -->
-      <v-row class="mt-4" v-if="!(getTask.taskstatus == 'completed')">
-        <v-col cols="12" sm="2">
-          <kowi-button
-            :text="'Completed My Task'"
-            :isActive="isCompleted"
-            :onClicked="switchComplete"
-          ></kowi-button>
-        </v-col>
-        <v-col cols="12" sm="2">
-          <kowi-button
-            :text="'Dispute'"
-            :isActive="isDispute"
-            :onClicked="switchDispute"
-          ></kowi-button>
-        </v-col>
-      </v-row>
+      <add-comment
+        v-if="isGetPending"
+        class="mt-6"
+        :isComment="true"
+      ></add-comment>
 
-      <!-- Text area -->
-      <v-textarea
-        v-if="isDispute"
-        class="mt-4"
-        label="Add a Note"
-        auto-grow
-        outlined
-        dense
-      >
-        <template v-slot:prepend-inner>
-          <v-icon color="#FF5959"> mdi-plus </v-icon>
-        </template></v-textarea
-      >
-
-      <!-- Iscomplete task  -->
-      <div v-if="isCompleted">
-        <!-- Checkbox -->
-        <v-row>
-          <v-col cols="12" sm="3">
-            <v-checkbox
-              class="black--text"
-              color="red"
-              value="red"
-              hide-details
-            >
-              <template v-slot:label>
-                <p
-                  :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
-                  class="mb-0"
-                >
-                  Pull request added to github
-                </p>
-              </template>
-            </v-checkbox>
+      <div v-if="!isGetPending && !isGetDispute">
+        <!-- Button -->
+        <v-row class="mt-4" v-if="isGetOngoing">
+          <v-col cols="12" sm="2">
+            <kowi-button
+              :text="'Completed My Task'"
+              :isActive="isCompleted"
+              :onClicked="switchComplete"
+            ></kowi-button>
           </v-col>
-
-          <v-col cols="12" sm="3">
-            <v-checkbox color="red" value="red" hide-details>
-              <template v-slot:label>
-                <p
-                  :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
-                  class="mb-0"
-                >
-                  Request Merge
-                </p>
-              </template></v-checkbox
-            >
+          <v-col cols="12" sm="2">
+            <kowi-button
+              :text="'Dispute'"
+              :isActive="isDispute"
+              :onClicked="switchDispute"
+            ></kowi-button>
           </v-col>
         </v-row>
 
-        <v-text-field
-          class="mt-8"
-          label="Add a Branch Name"
+        <!-- Text area -->
+        <v-textarea
+          v-if="isDispute"
+          class="mt-4"
+          label="Add a Note"
+          auto-grow
           outlined
           dense
-          hide-details
         >
           <template v-slot:prepend-inner>
             <v-icon color="#FF5959"> mdi-plus </v-icon>
-          </template>
-        </v-text-field>
-
-        <!-- Reviewers -->
-        <v-row>
-          <v-col cols="4">
-            <all-reviewers></all-reviewers>
-          </v-col>
-        </v-row>
-      </div>
-
-      <!-- images upload -->
-      <h3 class="my-4">Upload image after changes</h3>
-
-      <v-carousel hide-delimiters height="auto" show-arrows-on-hover>
-        <v-carousel-item :key="i" v-for="i in 1">
-          <v-layout row>
-            <v-flex
-              xs3
-              :key="_key"
-              v-for="(img, _key) in getTask.userupload"
-              class="pa-4"
-            >
-              <v-img
-                contain
-                class="image-border"
-                :src="'https://dev.kowi.in' + img.image"
+          </template></v-textarea
+        >
+        <kowi-button
+          v-if="isDispute"
+          :onClicked="closeTask"
+          :text="'Submit'"
+          :isActive="false"
+        ></kowi-button>
+        <!-- Iscomplete task  -->
+        <div v-if="isCompleted">
+          <!-- Checkbox -->
+          <v-row>
+            <v-col cols="12" sm="3">
+              <v-checkbox
+                class="black--text"
+                color="red"
+                :input-value="getTask.pullrequest"
+                hide-details
               >
-              </v-img>
-            </v-flex>
-          </v-layout>
-        </v-carousel-item>
-      </v-carousel>
-      <v-file-input
-        v-if="isCompleted"
-        accept="image/*"
-        small-chips
-        multiple
-        label="File input"
-        v-model="images"
-      ></v-file-input>
+                <template v-slot:label>
+                  <p
+                    :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                    class="mb-0"
+                  >
+                    Pull request added to github
+                  </p>
+                </template>
+              </v-checkbox>
+            </v-col>
 
-      <!-- <kowi-button
-        v-if="!(getTask.taskstatus == 'Close Task')"
-        :text="'Dispute'"
-        :isActive="false"
-      ></kowi-button> -->
+            <v-col cols="12" sm="3">
+              <v-checkbox
+                color="red"
+                :input-value="getTask.mergerequest"
+                hide-details
+              >
+                <template v-slot:label>
+                  <p
+                    :class="$vuetify.theme.dark ? 'white--text' : 'black--text'"
+                    class="mb-0"
+                  >
+                    Request Merge
+                  </p>
+                </template></v-checkbox
+              >
+            </v-col>
+          </v-row>
+
+          <v-text-field
+            class="mt-8"
+            label="Add a Branch Name"
+            outlined
+            dense
+            hide-details
+            :value="getTask.branchname"
+          >
+            <template v-slot:prepend-inner>
+              <v-icon color="#FF5959"> mdi-plus </v-icon>
+            </template>
+          </v-text-field>
+
+          <!-- Reviewers -->
+          <v-row>
+            <v-col cols="4">
+              <all-reviewers></all-reviewers>
+            </v-col>
+          </v-row>
+          <v-file-input
+            v-if="!isGetCompleted"
+            accept="image/*"
+            small-chips
+            multiple
+            label="File input"
+            v-model="images"
+          ></v-file-input>
+          <kowi-button
+            v-if="!isGetCompleted"
+            :onClicked="closeTask"
+            :text="'Close Task'"
+            :isActive="false"
+          ></kowi-button>
+        </div>
+
+        <!-- images upload -->
+        <h3 v-if="isGetCompleted" class="my-4">Upload image after changes</h3>
+
+        <v-carousel
+          v-if="isGetCompleted"
+          hide-delimiters
+          height="auto"
+          show-arrows-on-hover
+        >
+          <v-carousel-item :key="i" v-for="i in 1">
+            <v-layout row>
+              <v-flex
+                xs3
+                :key="_key"
+                v-for="(img, _key) in getTask.userupload"
+                class="pa-4"
+              >
+                <v-img
+                  contain
+                  class="image-border"
+                  :src="'https://dev.kowi.in' + img.image"
+                >
+                </v-img>
+              </v-flex>
+            </v-layout>
+          </v-carousel-item>
+        </v-carousel>
+      </div>
     </div>
 
     <!-- Switch button -->
@@ -305,14 +327,43 @@ export default {
     ...mapActions(["fetchTask"]),
 
     switchComplete() {
+      if (this.isDispute) this.isDispute = false;
       this.isCompleted = !this.isCompleted;
     },
     switchDispute() {
+      if (this.isCompleted) this.isCompleted = false;
       this.isDispute = !this.isDispute;
+    },
+    closeTask() {
+      alert();
     },
   },
   computed: {
     ...mapGetters(["getAllTasksCount", "userToken", "getTask"]),
+    isGetCompleted() {
+      var iscomplete = false;
+      if (this.getTask.taskstatus == "completed") iscomplete = true;
+      this.isCompleted = true;
+      this.isDispute = false;
+      return iscomplete;
+    },
+    isGetPending() {
+      var ispending = false;
+      if (this.getTask.taskstatus == "pending") ispending = true;
+      return ispending;
+    },
+    isGetOngoing() {
+      var isongoing = false;
+      if (this.getTask.taskstatus == "ongoing") isongoing = true;
+      return isongoing;
+    },
+    isGetDispute() {
+      var isdispute = false;
+      if (this.getTask.taskstatus == "dispute") isdispute = true;
+      this.isCompleted = false;
+      this.isDispute = true;
+      return isdispute;
+    },
   },
 
   async created() {

@@ -36,17 +36,21 @@ const mutations = {
 
   SET_USER_DATA: (state, data) => {
     state.userToken = data.token
-    state.userName = data.name
     state.userId = data.emp_id
     state.userDoj = data.emp_dateofjoining
     state.userEmail = data.email
+    state.userName = data.name
     localStorage.setItem('kowiEmpToken', data.token)
-    localStorage.setItem('kowiEmpName', data.name)
     localStorage.setItem('kowiEmpId', data.emp_id)
     localStorage.setItem('kowiEmpDoj', data.emp_dateofjoining)
     localStorage.setItem('kowiEmpEmail', data.email)
+    localStorage.setItem('kowiEmpName', data.name)
   },
 
+  SET_USER_NAME: (state, name) => {
+    state.userName = name
+    localStorage.setItem('kowiEmpName', name)
+  },
   DELETE_DATA: (state) => {
     state.userToken = ''
     localStorage.clear();
@@ -67,7 +71,17 @@ const actions = {
     })
   },
   sendUserPersonalDetail({ commit }, { token, detail }) {
-    return $http.post('/addpersonal/', detail, {
+    var bodyFormData = new FormData();
+
+    bodyFormData.append('fname', detail.fname);
+    bodyFormData.append('lname', detail.lname);
+    bodyFormData.append('mobno', detail.mobno);
+    bodyFormData.append('dob', detail.dob);
+    bodyFormData.append('aadhar', detail.aadhar);
+    bodyFormData.append('bloodgroup', detail.bloodgroup);
+    bodyFormData.append('colorhex', detail.colorhex);
+
+    return $http.post('/addpersonal/', bodyFormData, {
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'undefined'
@@ -80,7 +94,14 @@ const actions = {
     })
   },
   sendUserBankDetail({ commit }, { token, detail }) {
-    return $http.post('/addbank/', detail, {
+    var bodyFormData = new FormData();
+
+    bodyFormData.append('accountno', detail.accountno);
+    bodyFormData.append('branchname', detail.branchname);
+    bodyFormData.append('accountname', detail.accountname);
+    bodyFormData.append('ifsc', detail.ifsc);
+
+    return $http.post('/addbank/', bodyFormData, {
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'undefined'
@@ -93,12 +114,26 @@ const actions = {
     })
   },
   sendUserAddressDetail({ commit }, { token, detail }) {
-    return $http.post('/addaddress/', detail, {
+    var bodyFormData = new FormData();
+
+    bodyFormData.append('main_address', detail.main_address);
+    bodyFormData.append('address_type', detail.address_type);
+    bodyFormData.append('city', detail.city);
+    bodyFormData.append('state', detail.state);
+    bodyFormData.append('landmark', detail.landmark);
+    bodyFormData.append('mobno', detail.mobno);
+    bodyFormData.append('name', detail.name);
+    bodyFormData.append('pincode', detail.pincode);
+    bodyFormData.append('locality', detail.locality);
+    bodyFormData.append('alternatemobno', detail.alternatemobno);
+
+    return $http.post('/addaddress/', bodyFormData, {
       headers: {
         'Authorization': `Token ${token}`,
         'Content-Type': 'undefined'
       }
     }).then(res => {
+      commit('SET_USER_NAME', detail.name)
       console.log(res.data)
     }).catch(err => {
       console.log(err)

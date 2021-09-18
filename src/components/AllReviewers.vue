@@ -58,6 +58,7 @@ export default {
       type: String,
       default: "Add Reviewers",
     },
+
   },
 
   methods: {

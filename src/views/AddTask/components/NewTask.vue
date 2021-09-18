@@ -1,7 +1,6 @@
 <template>
   <v-container fluid class="mt-4">
-    
-  <v-subheader>Task Name</v-subheader>
+    <v-subheader>Task Name</v-subheader>
     <v-text-field
       outlined
       dense
@@ -87,7 +86,12 @@
       label="File input"
     ></v-file-input>
 
-    <kowi-button class="mt-8" :text="'Review'" :isActive="true"></kowi-button>
+    <kowi-button
+      :onClicked="review"
+      class="mt-8"
+      :text="'Review'"
+      :isActive="true"
+    ></kowi-button>
   </v-container>
 </template>
 
@@ -99,6 +103,11 @@ export default {
     KowiButton,
     AllReviewers,
   },
+  methods: {
+    review(){
+      
+    }
+  }
 };
 </script>
 

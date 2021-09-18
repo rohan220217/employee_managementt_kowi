@@ -3,10 +3,9 @@
     <div class="date-time">{{ dayjs().format("dddd, DD, MMM YYYY") }}</div>
     <v-row>
       <v-col cols="12" sm="6">
-        <div class="greet">
-          {{ wish }}
+        <div class="greet" v-html="wish">
         </div>
-        <div class="user-name">Rohan</div>
+        <div class="user-name">{{userName}}</div>
       </v-col>
       <v-col cols="12" sm="6">
         <v-img contain src="@/assets/svg/cloud.svg" height="75" />
@@ -16,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -27,17 +27,19 @@ export default {
       var day = new Date();
       var hr = day.getHours();
       if (hr >= 0 && hr < 12) {
-        this.wish = "Good Morning!";
+        this.wish = "Good <br> Morning!";
       } else if (hr == 12) {
-        this.wish = "Good Noon!";
+        this.wish = "Good <br> Noon!";
       } else if (hr >= 12 && hr <= 17) {
-        this.wish = "Good Afternoon!";
+        this.wish = "Good <br> Afternoon!";
       } else {
-        this.wish = "Good Evening!";
+        this.wish = "Good <br> Evening!";
       }
     },
   },
-
+ computed: {
+    ...mapGetters(["userName"]),
+  },
   created() {
     this.getWish();
   },

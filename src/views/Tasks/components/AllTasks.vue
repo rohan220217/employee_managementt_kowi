@@ -40,9 +40,9 @@
          <v-icon color="#E13939" size="22">mdi-alert-octagon-outline</v-icon>
         Pending
         </div>
-        <div v-if="item.taskstatus == 'dispute'" style="color: #E13939">
+        <div v-if="item.taskstatus == 'dispute'" style="color: #2634af">
           <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
-          <v-avatar size="20">
+          <v-avatar size="30">
             <img src="@/assets/animated_icon/error.gif" alt="dispute" />
           </v-avatar>
         Dispute

@@ -139,6 +139,21 @@ const actions = {
             return Promise.reject(err)
         })
     },
+    starNotification({ commit }, {token, value}) {
+        var bodyFormData = new FormData();
+        bodyFormData.append('id', value);
+        return $http.post('/startnotif/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            return Promise.resolve(res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
 
 }
 
