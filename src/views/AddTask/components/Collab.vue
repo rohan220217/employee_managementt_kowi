@@ -121,7 +121,7 @@
 
 <script>
 import KowiButton from "@/components/KowiButton";
-import AllReviewers from "@/components/AllReviewers";
+import AllReviewers from "./CollabReviewers";
 export default {
   components: {
     AllReviewers,

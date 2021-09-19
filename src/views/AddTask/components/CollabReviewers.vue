@@ -1,9 +1,9 @@
 <template>
-    <!-- multiple -->
   <v-autocomplete
     v-model="reviewers"
     :items="getAllReviewers"
     chips
+    multiple
     outlined
     :label="label"
     item-text="name"
@@ -54,12 +54,13 @@ export default {
   },
   props: {
     value: {
-      type: Number,
+      type: Object,
     },
     label: {
       type: String,
       default: "Add Reviewers",
     },
+
   },
 
   methods: {
@@ -67,7 +68,7 @@ export default {
   },
   watch: {
     reviewers: function (new_val) {
-      this.$emit("input", new_val);
+      this.$emit("input", { collaborator: new_val });
     },
   },
   computed: {
