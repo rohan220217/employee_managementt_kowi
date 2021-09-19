@@ -179,7 +179,7 @@
       <v-spacer> </v-spacer>
 
       <template v-slot:append>
-        <v-list>
+        <v-list dense>
           <v-list-item link @click="logout()">
             <v-list-item-icon>
               <v-icon style="color: #ff5a5a">mdi-location-exit</v-icon>
@@ -246,10 +246,10 @@ svg {
   height: 24px;
 }
 circle:active {
-  fill: red;
+  fill: #ff5a5a;
 }
 .custom-active-list {
-  color: red !important;
+  color: #ff5a5a !important;
 }
 .navigation-shadow {
   box-shadow: 0 0 5px #e0e0e0;

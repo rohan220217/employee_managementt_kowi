@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+    @click="darkButton"
     absolute
     dark
     fixed
@@ -16,3 +16,26 @@
     }}</v-icon>
   </v-btn>
 </template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    ...mapActions(["toggleDark"]),
+    darkButton() {
+      this.toggleDark();
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+  },
+  computed: {
+    ...mapGetters(["getIsDark"]),
+  },
+  created() {
+    if (this.getIsDark == "true") this.$vuetify.theme.dark = true;
+    else this.$vuetify.theme.dark = false;
+  },
+};
+</script>

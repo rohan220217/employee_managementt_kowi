@@ -6,11 +6,13 @@ import home from './modules/home'
 import extra from './modules/extra'
 import notifications from './modules/notifications'
 import notepad from './modules/notepad'
+import comments from './modules/comments'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    comments,
     notepad,
     notifications,
     extra,

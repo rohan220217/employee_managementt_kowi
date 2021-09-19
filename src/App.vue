@@ -5,23 +5,21 @@
     </v-main>
   </v-app> -->
   <v-app>
-    <kowi-app-bar  v-if="$store.getters.userToken"></kowi-app-bar>
+    <kowi-app-bar v-if="$store.getters.userToken"></kowi-app-bar>
     <v-main>
       <!-- <v-slide-x-transition mode="in-out"> -->
       <router-view />
       <!-- </v-slide-x-transition> -->
     </v-main>
-  </v-app>
+  </v-app> 
 </template>
 
 <script>
 import KowiAppBar from "./components/AppBar.vue";
-import LoginPage from "@/views/Authorization/Login";
 export default {
   name: "App",
 
   components: {
-    LoginPage,
     KowiAppBar,
   },
   data() {
@@ -64,7 +62,7 @@ export default {
   > .v-input__slot {
   box-shadow: 0 0 8px #e0e0e0 !important;
 }
-.main-color{
-  color: #ff5a5a
+.main-color {
+  color: #ff5a5a;
 }
 </style>

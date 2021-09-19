@@ -191,7 +191,7 @@ export default {
   },
   components: {
     Empty,
-    Loading
+    Loading,
   },
   mounted: function () {
     var msnry = new Masonry(".masonry", {

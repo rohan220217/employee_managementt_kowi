@@ -76,7 +76,7 @@ export default {
           value: "title",
         },
         { text: "Date/Time", align: "start", value: "createdat", width: "20%" },
-        { text: "Status", align: "start", value: "taskstatus", width: "10%" },
+        { text: "Status", align: "start", value: "taskstatus", width: "15%" },
       ],
     };
   },

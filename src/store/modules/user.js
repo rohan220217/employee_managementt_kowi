@@ -10,9 +10,13 @@ const state = {
   userId: localStorage.getItem('kowiEmpId') ? localStorage.getItem('kowiEmpId') : '',
   userDoj: localStorage.getItem('kowiEmpDoj') ? localStorage.getItem('kowiEmpDoj') : '',
   userEmail: localStorage.getItem('kowiEmpEmail') ? localStorage.getItem('kowiEmpEmail') : '',
-
+  
+  isKowiDark: localStorage.getItem('isKowiDark') ? localStorage.getItem('isKowiDark') : false,
 }
 const getters = {
+  getIsDark(state) {
+    return state.isKowiDark
+  },
   userToken(state) {
     return state.userToken
   },
@@ -55,6 +59,10 @@ const mutations = {
     state.userToken = ''
     localStorage.clear();
   },
+  TOGGLE_DARK_MODE: (state) => {
+    state.isKowiDark = !state.isKowiDark
+    localStorage.setItem('isKowiDark', state.isKowiDark)
+  },
 
 
 }
@@ -72,14 +80,17 @@ const actions = {
   },
   sendUserPersonalDetail({ commit }, { token, detail }) {
     var bodyFormData = new FormData();
+    for (let detail_key in detail)
+      bodyFormData.append(detail_key, detail[detail_key]);
 
-    bodyFormData.append('fname', detail.fname);
-    bodyFormData.append('lname', detail.lname);
-    bodyFormData.append('mobno', detail.mobno);
-    bodyFormData.append('dob', detail.dob);
-    bodyFormData.append('aadhar', detail.aadhar);
-    bodyFormData.append('bloodgroup', detail.bloodgroup);
-    bodyFormData.append('colorhex', detail.colorhex);
+
+    // bodyFormData.append('fname', detail.fname);
+    // bodyFormData.append('lname', detail.lname);
+    // bodyFormData.append('mobno', detail.mobno);
+    // bodyFormData.append('dob', detail.dob);
+    // bodyFormData.append('aadhar', detail.aadhar);
+    // bodyFormData.append('bloodgroup', detail.bloodgroup);
+    // bodyFormData.append('colorhex', detail.colorhex);
 
     return $http.post('/addpersonal/', bodyFormData, {
       headers: {
@@ -96,9 +107,12 @@ const actions = {
   sendUserBankDetail({ commit }, { token, detail }) {
     var bodyFormData = new FormData();
 
-    bodyFormData.append('accountno', detail.accountno);
-    bodyFormData.append('branchname', detail.branchname);
-    bodyFormData.append('accountname', detail.accountname);
+    for (let detail_key in detail)
+      bodyFormData.append(detail_key, detail[detail_key]);
+
+    // bodyFormData.append('accountno', detail.accountno);
+    // bodyFormData.append('branchname', detail.branchname);
+    // bodyFormData.append('accountname', detail.accountname);
     bodyFormData.append('ifsc', detail.ifsc);
 
     return $http.post('/addbank/', bodyFormData, {
@@ -116,16 +130,19 @@ const actions = {
   sendUserAddressDetail({ commit }, { token, detail }) {
     var bodyFormData = new FormData();
 
-    bodyFormData.append('main_address', detail.main_address);
-    bodyFormData.append('address_type', detail.address_type);
-    bodyFormData.append('city', detail.city);
-    bodyFormData.append('state', detail.state);
-    bodyFormData.append('landmark', detail.landmark);
-    bodyFormData.append('mobno', detail.mobno);
-    bodyFormData.append('name', detail.name);
-    bodyFormData.append('pincode', detail.pincode);
-    bodyFormData.append('locality', detail.locality);
-    bodyFormData.append('alternatemobno', detail.alternatemobno);
+    for (let detail_key in detail)
+      bodyFormData.append(detail_key, detail[detail_key]);
+
+    // bodyFormData.append('main_address', detail.main_address);
+    // bodyFormData.append('address_type', detail.address_type);
+    // bodyFormData.append('city', detail.city);
+    // bodyFormData.append('state', detail.state);
+    // bodyFormData.append('landmark', detail.landmark);
+    // bodyFormData.append('mobno', detail.mobno);
+    // bodyFormData.append('name', detail.name);
+    // bodyFormData.append('pincode', detail.pincode);
+    // bodyFormData.append('locality', detail.locality);
+    // bodyFormData.append('alternatemobno', detail.alternatemobno);
 
     return $http.post('/addaddress/', bodyFormData, {
       headers: {
@@ -143,6 +160,9 @@ const actions = {
 
   logoutUser({ commit }) {
     commit('DELETE_DATA')
+  },
+  toggleDark({ commit }) {
+    commit('TOGGLE_DARK_MODE')
   },
 
 }

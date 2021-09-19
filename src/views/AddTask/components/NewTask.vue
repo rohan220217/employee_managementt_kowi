@@ -45,10 +45,10 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="4">
-          <all-reviewers
+          <all-employee
             :label="'Assign'"
             v-model="task.assignedto"
-          ></all-reviewers>
+          ></all-employee>
         </v-col>
       </v-row>
 
@@ -69,11 +69,11 @@
       </v-text-field>
 
       <v-subheader class="mb-n5">Previous Developer</v-subheader>
-      <all-reviewers
+      <all-employee
         :label="'If none leave it blank'"
         v-model="task.previousdev"
         class="mb-4 mt-0"
-      ></all-reviewers>
+      ></all-employee>
       <v-subheader>Comment</v-subheader>
       <v-text-field
         outlined
@@ -108,11 +108,12 @@
 
 <script>
 import KowiButton from "@/components/KowiButton";
-import AllReviewers from "@/components/AllReviewers";
+import AllEmployee from "@/components/AllEmployee";
+import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     KowiButton,
-    AllReviewers,
+    AllEmployee,
   },
   data() {
     return {
@@ -135,11 +136,15 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["sendNewTask"]),
     review() {
       if (this.$refs.newTask.validate()) {
-        console.log(this.task);
+        this.sendNewTask({token: this.userToken, data: this.task})
       }
     },
+  },
+  computed: {
+    ...mapGetters(["userToken"]),
   },
 };
 </script>

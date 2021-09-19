@@ -6,23 +6,18 @@ const $http = axios.create({
 
 const state = {
     allTasks: [],
-    allReviewers: [],
     allTasksCount: 0,
     newTasks: [],
     pendingTasks: [],
     completedTasks: [],
     task: {},
-    allThreads: null,
-    // taskStatus:null
 
 }
 const getters = {
     getAllTasks(state) {
         return state.allTasks
     },
-    getAllReviewers(state) {
-        return state.allReviewers
-    },
+
     getTask(state) {
         return state.task
     },
@@ -38,22 +33,12 @@ const getters = {
     getCompletedTasks(state) {
         return state.completedTasks
     },
-    getAllThreads(state) {
-        return state.allThreads
-    },
-    // getTaskStatus(state) {
-    //     return state.taskStatus
-    // },
-
 }
 
 const mutations = {
     SET_ALL_TASKS: (state, _tasks) => {
         state.allTasks = _tasks;
         state.allTasksCount = _tasks.length;
-    },
-    SET_REVIEWERS: (state, _reviewers) => {
-        state.allReviewers = _reviewers;
     },
     SET_TASK: (state, _task) => {
         state.task = _task;
@@ -67,12 +52,6 @@ const mutations = {
     SET_COMPLETED_TASKS: (state, _tasks) => {
         state.completedTasks = _tasks;
     },
-    SET_ALL_THREADS: (state, _threads) => {
-        state.allThreads = _threads;
-    },
-    // SET_TASK_COUNT: (state, _data) => {
-    //     state.taskStatus = _data;
-    // },
 
 }
 
@@ -85,20 +64,6 @@ const actions = {
             }
         }).then(res => {
             commit('SET_ALL_TASKS', res.data);
-        }).catch(err => {
-            console.log(err)
-            return Promise.reject(err)
-        })
-    },
-
-    fetchAllReviewers({ commit }, token) {
-        return $http.get('/showrev/', {
-            headers: {
-                'Authorization': `Token ${token}`,
-                'Content-Type': 'undefined'
-            }
-        }).then(res => {
-            commit('SET_REVIEWERS', res.data);
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)
@@ -143,23 +108,6 @@ const actions = {
         })
     },
 
-    fetchAllThreads({ commit }, { token, id }) {
-        var bodyFormData = new FormData();
-        bodyFormData.append('id', id);
-        return $http.post('/getthread/', bodyFormData, {
-            headers: {
-                'Authorization': `Token ${token}`,
-                "Content-Type": "multipart/form-data"
-            }
-
-        }).then(res => {
-            commit('SET_ALL_THREADS', res.data)
-            console.log(res.data)
-        }).catch(err => {
-            console.log(err)
-            return Promise.reject(err)
-        })
-    },
     fetchTaskStatus({ commit }, token) {
         return $http.get('/taskcount/', {
             headers: {
@@ -173,6 +121,7 @@ const actions = {
             return Promise.reject(err)
         })
     },
+
     fetchOnGoingTask({ commit }, token) {
         return $http.get('/ongoingtask/', {
             headers: {
@@ -181,6 +130,33 @@ const actions = {
             }
         }).then(res => {
             return Promise.resolve(res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    sendNewTask({ commit }, { token, data }) {
+        var bodyFormData = new FormData();
+
+        for (let data_item in data)
+            bodyFormData.append(data_item, data[data_item]);
+        // bodyFormData.append('title', data.title);
+        // bodyFormData.append('description', data.description);
+        // bodyFormData.append('sugestions', data.sugestions);
+        // bodyFormData.append('previousdev', data.previousdev);
+        // bodyFormData.append('timelimit', data.timelimit);
+        // bodyFormData.append('comment', data.comment);
+        // bodyFormData.append('assignedto', data.assignedto);
+
+        return $http.post('/addtask/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            console.log(res.data)
+
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

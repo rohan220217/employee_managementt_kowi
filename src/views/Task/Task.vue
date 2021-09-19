@@ -136,7 +136,6 @@
         </div>
       </div>
       <add-comment
-        v-if="isGetPending"
         :task_id="getTask.id"
         class="mt-6"
         :isComment="true"

@@ -28,16 +28,21 @@
         </v-col>
       </v-row>
     </v-container>
+    
+    <!-- Switch button -->
+    <day-night />
   </div>
 </template>
 
 <script>
 import ToolBar from "@/components/ToolBar";
 import SpotifyCard from "./components/SpotifyCard";
+import DayNight from "@/components/DayNight";
 export default {
   components: {
     SpotifyCard,
     ToolBar,
+    DayNight
   },
 };
 </script>

@@ -3,8 +3,10 @@
     <v-row>
       <v-col cols="3">
         <v-autocomplete
-          v-model="values"
-          :items="items"
+          v-model="tags"
+          :items="getAllEmployees"
+          item-text="name"
+          item-value="empid"
           dense
           hide-details
           chips
@@ -12,18 +14,26 @@
           label="Tag User"
           multiple
           solo
-        ></v-autocomplete
-      ></v-col>
+          :loading="isLoading"
+        >
+          <template v-slot:selection="data">
+            <v-chip small color="#FFCBCB" v-bind="data.attrs">
+              {{ data.item.name }}
+            </v-chip>
+          </template>
+        </v-autocomplete></v-col
+      >
       <v-col cols="9" class="pl-0">
         <v-text-field
           hide-details
+          v-model="comment"
           solo
           dense
           :label="isComment ? 'Add Comment' : 'Add Sub Comment'"
           required
         >
           <template v-slot:append>
-            <v-icon color="#FF5A5A" @click="sendComment()"> mdi-send</v-icon>
+            <v-icon color="#FF5A5A" @click="send()"> mdi-send</v-icon>
           </template></v-text-field
         >
       </v-col>
@@ -32,11 +42,12 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
-    items: ["foo", "bar", "fizz", "buzz"],
-    values: ["foo", "bar"],
-    value: null,
+    tags: 0,
+    comment: "",
+    isLoading: false,
   }),
   props: {
     isComment: {
@@ -52,11 +63,29 @@ export default {
     },
   },
   methods: {
-    sendComment() {
+    ...mapActions(["fetchAllEmployees", "sendComment"]),
+    send() {
       console.log(this.task_id);
       console.log(this.comment_id);
       console.log(this.isComment);
+
+      if (this.isComment)
+        this.sendComment({
+          token: this.userToken,
+          task_id: this.task_id,
+          comment: this.comment,
+          tags: this.tags
+        });
     },
+  },
+  computed: {
+    ...mapGetters(["getAllEmployees", "userToken"]),
+  },
+
+  async created() {
+    this.isLoading = true;
+    await this.fetchAllEmployees(this.userToken);
+    this.isLoading = false;
   },
 };
 </script>
