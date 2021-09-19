@@ -1,7 +1,13 @@
 <template>
-  <div>
+  <Loading v-if="isLoading" />
+  <div v-else>
     <v-container class="mt-8">
-      <v-row v-masonry transition-duration="0.3s" item-selector=".item">
+      <v-row
+        v-masonry
+        transition-duration="0.3s"
+        item-selector=".item"
+        v-if="getAllNotes.length != 0"
+      >
         <v-col
           v-for="(todo, no) in getAllNotes"
           :key="no"
@@ -39,6 +45,8 @@
           </v-card>
         </v-col></v-row
       >
+
+      <Empty v-else />
     </v-container>
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }">
@@ -87,7 +95,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="#2888FF" text @click="add()" :loading="isLoading"
+          <v-btn color="#2888FF" text @click="add()" :loading="isButtonLoading"
             >Add
           </v-btn>
         </v-card-actions>
@@ -99,9 +107,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Masonry from "masonry-layout";
+import Empty from "@/components/Empty";
+import Loading from "@/components/Loading";
 export default {
   data() {
     return {
+      isButtonLoading: false,
       isLoading: false,
       dialog: false,
       notepad: {
@@ -124,7 +135,7 @@ export default {
   methods: {
     ...mapActions(["fetchUserNotepad", "addNote", "deleteNote"]),
     add() {
-      this.isLoading = true;
+      this.isButtonLoading = true;
       this.addNote({ token: this.userToken, payload: this.notepad })
         .then((_) => {
           this.$toasted.show("Note added successfully", {
@@ -147,7 +158,7 @@ export default {
           });
         })
         .finally(() => {
-          this.isLoading = false;
+          this.isButtonLoading = false;
           this.dialog = false;
         });
     },
@@ -178,6 +189,10 @@ export default {
   computed: {
     ...mapGetters(["userToken", "getAllNotes"]),
   },
+  components: {
+    Empty,
+    Loading
+  },
   mounted: function () {
     var msnry = new Masonry(".masonry", {
       // options
@@ -185,9 +200,9 @@ export default {
     });
   },
   async created() {
-    this.$vloading.show();
+    this.isLoading = true;
     await this.fetchUserNotepad(this.userToken);
-    this.$vloading.hide();
+    this.isLoading = false;
   },
 };
 </script>

@@ -9,7 +9,7 @@
           hide-details
           chips
           small-chips
-          label="Solo"
+          label="Tag User"
           multiple
           solo
         ></v-autocomplete

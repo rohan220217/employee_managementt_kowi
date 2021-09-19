@@ -12,7 +12,9 @@
         hide-details
       ></v-text-field>
     </v-card-title>
+    <Loading class="mt-8" v-if="isLoading" />
     <v-data-table
+      v-else
       hide-default-footer
       :headers="headers"
       :items="getAllTasks"
@@ -30,22 +32,22 @@
           </v-avatar>
           On-Going
         </div>
-        <div v-if="item.taskstatus == 'completed'" style="color: #32973C">
+        <div v-if="item.taskstatus == 'completed'" style="color: #32973c">
           <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
           <v-icon color="#32973C" size="20">mdi-check-circle-outline</v-icon>
-        Completed
+          Completed
         </div>
-        <div v-if="item.taskstatus == 'pending'" style="color: #E13939">
+        <div v-if="item.taskstatus == 'pending'" style="color: #e13939">
           <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
-         <v-icon color="#E13939" size="22">mdi-alert-octagon-outline</v-icon>
-        Pending
+          <v-icon color="#E13939" size="22">mdi-alert-octagon-outline</v-icon>
+          Pending
         </div>
         <div v-if="item.taskstatus == 'dispute'" style="color: #2634af">
           <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
           <v-avatar size="30">
             <img src="@/assets/animated_icon/error.gif" alt="dispute" />
           </v-avatar>
-        Dispute
+          Dispute
         </div>
       </template>
     </v-data-table>
@@ -55,23 +57,26 @@
 
 <script>
 import DayNight from "@/components/DayNight";
+import Loading from "@/components/Loading";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     DayNight,
+    Loading,
   },
 
   data() {
     return {
       search: "",
+      isLoading: false,
       headers: [
         {
           text: "Assigned Task",
           align: "start",
           value: "title",
         },
-        { text: "Date/Time", align: "start", value: "createdat",    width: "20%" },
-        { text: "Status", align: "start", value: "taskstatus" ,    width: "10%"},
+        { text: "Date/Time", align: "start", value: "createdat", width: "20%" },
+        { text: "Status", align: "start", value: "taskstatus", width: "10%" },
       ],
     };
   },
@@ -87,9 +92,9 @@ export default {
   },
 
   async created() {
-    this.$vloading.show();
+    this.isLoading = true;
     await this.fetchAllTasks(this.userToken);
-    this.$vloading.hide();
+    this.isLoading = false;
   },
 };
 </script>

@@ -12,6 +12,7 @@
     hide-details
     height="10"
     dense
+    :loading="isLoading"
   >
     <template v-slot:prepend-inner>
       <v-icon color="#FF5959"> mdi-plus </v-icon>
@@ -47,6 +48,7 @@ export default {
   components: {},
   data() {
     return {
+      isLoading: false,
       reviewers: this.value ? this.value.collaborator : null,
     };
   },
@@ -74,9 +76,9 @@ export default {
   },
 
   async created() {
-    this.$vloading.show();
+    this.isLoading = true;
     await this.fetchAllReviewers(this.userToken);
-    this.$vloading.hide();
+    this.isLoading = false;
   },
 };
 </script>

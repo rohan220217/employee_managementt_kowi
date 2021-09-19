@@ -68,14 +68,18 @@
         </p>
         <p v-if="getTask.assignedby">
           <span class="suggetion-box-heading">Assigned by :- </span>
-          {{ getTask.assignedby.name }}
+          <span :style="`color: ${getTask.assignedby.colorhex}`">
+            {{ getTask.assignedby.name }}
+          </span>
         </p>
         <p>
           <span class="suggetion-box-heading"
             >Previous Developer of Screen :-
           </span>
           <span v-for="(prevDev, _key) in getTask.previousdev" :key="_key">
-            {{ prevDev.name }}
+            <span :style="`color: ${prevDev.colorhex}`">
+              {{ prevDev.name }} 
+            </span>
           </span>
         </p>
         <p>
@@ -124,6 +128,7 @@
               }"
             ></my-message>
             <add-comment
+              v-if="isGetPending"
               :task_id="getTask.id"
               :comment_id="message.id"
             ></add-comment>
@@ -131,6 +136,7 @@
         </div>
       </div>
       <add-comment
+        v-if="isGetPending"
         :task_id="getTask.id"
         class="mt-6"
         :isComment="true"

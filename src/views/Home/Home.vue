@@ -44,46 +44,8 @@
         <!-- Ongoing task -->
         <v-col cols="12" sm="5">
           <div class="home-box-3">
-            <div class="join-meet">On Going Task</div>
-            <div>
-              <p class="pl-4 mb-0">
-                <span class="dot ml-n4"> </span> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Commodi sit nam accusantium,
-                placeat
-              </p>
-              <p style="color: #ff5a5a">
-                <v-avatar size="25">
-                  <img src="@/assets/animated_icon/clock.gif" alt="clock" />
-                </v-avatar>
-                0:30:00 hr
-              </p>
-            </div>
-            <div>
-              <p class="pl-4 mb-0">
-                <span class="dot ml-n4"> </span> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Commodi sit nam accusantium,
-                placeat
-              </p>
-              <p style="color: #ff5a5a">
-                <v-avatar size="25">
-                  <img src="@/assets/animated_icon/clock.gif" alt="clock" />
-                </v-avatar>
-                0:30:00 hr
-              </p>
-            </div>
-            <div>
-              <p class="pl-4 mb-0">
-                <span class="dot ml-n4"> </span> Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Commodi sit nam accusantium,
-                placeat
-              </p>
-              <p style="color: #ff5a5a">
-                <v-avatar size="25">
-                  <img src="@/assets/animated_icon/clock.gif" alt="clock" />
-                </v-avatar>
-                0:30:00 hr
-              </p>
-            </div>
+            <div class="box-heading">On Going Task</div>
+            <on-going-task></on-going-task>
           </div>
         </v-col>
 
@@ -113,12 +75,14 @@ import TaskStatus from "./components/TaskStatus.vue";
 import MeetLink from "./components/MeetLink.vue";
 import CheckIn from "./components/CheckIn.vue";
 import Greet from "./components/Greet.vue";
+import OnGoingTask from "./components/OnGoingTask.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Home",
 
   components: {
+    OnGoingTask,
     Greet,
     CheckIn,
     MeetLink,
@@ -155,6 +119,7 @@ export default {
   -webkit-box-shadow: 0 0 5px #e0e0e0;
 }
 .home-box-3 {
+  min-height: 325px;
   padding: 10px 20px;
   margin-top: 20px;
   /* height: 300px; */
@@ -166,12 +131,5 @@ export default {
 }
 .owl-image {
   margin: 20px;
-}
-.dot {
-  height: 10px;
-  width: 10px;
-  background-color: #ff5a5a;
-  border-radius: 50%;
-  display: inline-block;
 }
 </style>

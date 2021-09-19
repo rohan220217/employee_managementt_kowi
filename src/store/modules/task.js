@@ -12,7 +12,8 @@ const state = {
     pendingTasks: [],
     completedTasks: [],
     task: {},
-    allThreads: null
+    allThreads: null,
+    // taskStatus:null
 
 }
 const getters = {
@@ -40,6 +41,9 @@ const getters = {
     getAllThreads(state) {
         return state.allThreads
     },
+    // getTaskStatus(state) {
+    //     return state.taskStatus
+    // },
 
 }
 
@@ -66,6 +70,9 @@ const mutations = {
     SET_ALL_THREADS: (state, _threads) => {
         state.allThreads = _threads;
     },
+    // SET_TASK_COUNT: (state, _data) => {
+    //     state.taskStatus = _data;
+    // },
 
 }
 
@@ -148,6 +155,32 @@ const actions = {
         }).then(res => {
             commit('SET_ALL_THREADS', res.data)
             console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    fetchTaskStatus({ commit }, token) {
+        return $http.get('/taskcount/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            return Promise.resolve(res.data)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    fetchOnGoingTask({ commit }, token) {
+        return $http.get('/ongoingtask/', {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'Content-Type': 'undefined'
+            }
+        }).then(res => {
+            return Promise.resolve(res.data)
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

@@ -84,7 +84,7 @@ const actions = {
     return $http.post('/addpersonal/', bodyFormData, {
       headers: {
         'Authorization': `Token ${token}`,
-        'Content-Type': 'undefined'
+        "Content-Type": "multipart/form-data"
       }
     }).then(res => {
       console.log(res.data)
@@ -104,7 +104,7 @@ const actions = {
     return $http.post('/addbank/', bodyFormData, {
       headers: {
         'Authorization': `Token ${token}`,
-        'Content-Type': 'undefined'
+        "Content-Type": "multipart/form-data"
       }
     }).then(res => {
       console.log(res.data)
@@ -130,7 +130,7 @@ const actions = {
     return $http.post('/addaddress/', bodyFormData, {
       headers: {
         'Authorization': `Token ${token}`,
-        'Content-Type': 'undefined'
+        "Content-Type": "multipart/form-data"
       }
     }).then(res => {
       commit('SET_USER_NAME', detail.name)

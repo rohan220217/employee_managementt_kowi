@@ -19,6 +19,7 @@
       <div class="meet-link">{{ meetLink }}</div>
       <div class="meet-button">
         <v-btn
+          :loading="isLoading"
           icon
           color="#FF5A5A"
           v-clipboard:copy="meetLink"
@@ -38,6 +39,7 @@ export default {
   data() {
     return {
       meetLink: "https://meet.google.com/",
+      isLoading: false,
     };
   },
   methods: {
@@ -72,10 +74,12 @@ export default {
     ...mapGetters(["userToken"]),
   },
   async created() {
+    this.isLoading = true;
     await this.fetchMeetLink(this.userToken).then((res) => {
       // set meet link
       this.meetLink = res.link;
     });
+    this.isLoading = false;
   },
 };
 </script>

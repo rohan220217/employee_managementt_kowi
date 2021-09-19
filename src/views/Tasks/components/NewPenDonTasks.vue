@@ -35,7 +35,7 @@
 
     <!-- Pending table -->
     <v-data-table
-    v-else-if="isTask == 'pending'"
+      v-else-if="isTask == 'pending'"
       hide-default-footer
       :headers="headers"
       :items="getPendingTasks"
@@ -52,10 +52,10 @@
         {{ item.timelimit }}
       </template>
     </v-data-table>
-    
+
     <!-- completed table -->
     <v-data-table
-    v-else-if="isTask == 'completed'"
+      v-else-if="isTask == 'completed'"
       hide-default-footer
       :headers="headers"
       :items="getCompletedTasks"
@@ -110,8 +110,8 @@ export default {
   },
   props: {
     isTask: {
-      type: String
-    }
+      type: String,
+    },
   },
   methods: {
     ...mapActions(["fetchNewPenDonTasks"]),
@@ -120,7 +120,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["userToken", "getNewTasks", "getPendingTasks", "getCompletedTasks"]),
+    ...mapGetters([
+      "userToken",
+      "getNewTasks",
+      "getPendingTasks",
+      "getCompletedTasks",
+    ]),
   },
 
   async created() {
@@ -128,10 +133,16 @@ export default {
     if (this.isTask == "new")
       await this.fetchNewPenDonTasks({ token: this.userToken, query: "new" });
     else if (this.isTask == "pending")
-      await this.fetchNewPenDonTasks({ token: this.userToken, query: "pending" });
+      await this.fetchNewPenDonTasks({
+        token: this.userToken,
+        query: "pending",
+      });
     else if (this.isTask == "completed")
-      await this.fetchNewPenDonTasks({ token: this.userToken, query: "completed" });
-      
+      await this.fetchNewPenDonTasks({
+        token: this.userToken,
+        query: "completed",
+      });
+
     this.$vloading.hide();
   },
 };
