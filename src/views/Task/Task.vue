@@ -30,36 +30,7 @@
       </p>
 
       <!-- carousel -->
-      <v-carousel hide-delimiters height="auto" show-arrows-on-hover>
-        <template v-slot:prev="{ on, attrs }">
-          <v-btn small color="#FF5A5A" fab v-bind="attrs" v-on="on">
-            <v-icon>mdi-chevron-left</v-icon></v-btn
-          >
-        </template>
-        <template v-slot:next="{ on, attrs }">
-          <v-btn small color="#FF5A5A" fab v-bind="attrs" v-on="on">
-            <v-icon>mdi-chevron-right</v-icon></v-btn
-          >
-        </template>
-
-        <v-carousel-item :key="i" v-for="i in 1">
-          <v-layout row>
-            <v-flex
-              xs3
-              :key="_key"
-              v-for="(img, _key) in getTask.images"
-              class="pa-4"
-            >
-              <v-img
-                contain
-                class="image-border"
-                :src="'https://dev.kowi.in' + img.image"
-              >
-              </v-img>
-            </v-flex>
-          </v-layout>
-        </v-carousel-item>
-      </v-carousel>
+      <kowi-carousel :images="getTask.images"></kowi-carousel>
 
       <div class="suggestion-box">
         <p>
@@ -78,7 +49,7 @@
           </span>
           <span v-for="(prevDev, _key) in getTask.previousdev" :key="_key">
             <span :style="`color: ${prevDev.colorhex}`">
-              {{ prevDev.name }} 
+              {{ prevDev.name }}
             </span>
           </span>
         </p>
@@ -106,7 +77,7 @@
           <user-message
             :userData="{
               name: message.username,
-              url: 'https://cdn.vuetifyjs.com/images/john.jpg',
+              url: 'https://dev.kowi.in' + message.pic,
               message: message.comment,
               time: message.time,
               hexcode: message.hexcode,
@@ -120,27 +91,28 @@
             <my-message
               :myData="{
                 name: sub_message.username,
-                url: 'https://cdn.vuetifyjs.com/images/john.jpg',
                 message: sub_message.comment,
                 time: sub_message.time,
                 hexcode: sub_message.hexcode,
                 tagged: message.tagged,
               }"
             ></my-message>
-            <add-comment
-              v-if="isGetPending"
-              :task_id="getTask.id"
-              :comment_id="message.id"
-            ></add-comment>
           </div>
+          <add-comment
+            v-if="isGetPending"
+            :task_id="getTask.id"
+            :comment_id="message.id"
+          ></add-comment>
         </div>
       </div>
       <add-comment
+        v-if="isGetPending"
         :task_id="getTask.id"
         class="mt-6"
         :isComment="true"
       ></add-comment>
 
+      <!-- complete and dispute button -->
       <div v-if="!isGetPending && !isGetDispute">
         <!-- Button -->
         <div class="mt-8 mb-4" v-if="isGetOngoing">
@@ -165,6 +137,7 @@
           auto-grow
           outlined
           dense
+          v-model="dispute.note"
         >
           <template v-slot:prepend-inner>
             <v-icon color="#FF5959"> mdi-plus </v-icon>
@@ -254,30 +227,11 @@
         <!-- images upload -->
         <h3 v-if="isGetCompleted" class="my-4">Upload image after changes</h3>
 
-        <v-carousel
+        <!-- carousel -->
+        <kowi-carousel
           v-if="isGetCompleted"
-          hide-delimiters
-          height="auto"
-          show-arrows-on-hover
-        >
-          <v-carousel-item :key="i" v-for="i in 1">
-            <v-layout row>
-              <v-flex
-                xs3
-                :key="_key"
-                v-for="(img, _key) in getTask.userupload"
-                class="pa-4"
-              >
-                <v-img
-                  contain
-                  class="image-border"
-                  :src="'https://dev.kowi.in' + img.image"
-                >
-                </v-img>
-              </v-flex>
-            </v-layout>
-          </v-carousel-item>
-        </v-carousel>
+          :images="getTask.userupload"
+        ></kowi-carousel>
       </div>
     </div>
 
@@ -295,6 +249,7 @@ import ToolBar from "@/components/ToolBar.vue";
 import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";
 import AddComment from "./components/AddComment.vue";
+import KowiCarousel from "@/components/KowiCarousel";
 export default {
   components: {
     KowiButton,
@@ -304,18 +259,22 @@ export default {
     MyMessage,
     UserMessage,
     ToolBar,
+    KowiCarousel,
   },
   data() {
     return {
       images: [],
       isCompleted: false,
       isDispute: false,
+      dispute: {
+        note: "",
+      },
     };
   },
   props: ["id"],
 
   methods: {
-    ...mapActions(["fetchTask", "fetchAllThreads"]),
+    ...mapActions(["fetchTask", "fetchAllThreads", "sendDoubt"]),
 
     switchComplete() {
       if (this.isDispute) this.isDispute = false;
@@ -325,8 +284,17 @@ export default {
       if (this.isCompleted) this.isCompleted = false;
       this.isDispute = !this.isDispute;
     },
-    closeTask() {
-      alert();
+    async closeTask() {
+      this.$vloading.show();
+      await this.sendDoubt({
+        token: this.userToken,
+        doubt: this.dispute.note,
+        doubt_id: this.id,
+      }).then((res) => {
+        console.log(res.data);
+      });
+
+      this.$vloading.hide();
     },
   },
   computed: {

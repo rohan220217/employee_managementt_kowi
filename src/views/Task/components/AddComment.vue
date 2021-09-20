@@ -1,5 +1,5 @@
 <template>
-  <div :class="isComment ? '' : 'ml-8'">
+  <div :class="isComment ? '' : 'ml-8 mb-3'">
     <v-row>
       <v-col cols="3">
         <v-autocomplete
@@ -63,18 +63,30 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchAllEmployees", "sendComment"]),
+    ...mapActions(["fetchAllEmployees", "sendComment", "sendSubComment"]),
     send() {
-      console.log(this.task_id);
-      console.log(this.comment_id);
-      console.log(this.isComment);
-
       if (this.isComment)
         this.sendComment({
           token: this.userToken,
           task_id: this.task_id,
           comment: this.comment,
-          tags: this.tags
+          tags: this.tags,
+        }).then((res) => {
+          console.log(res.data);
+          this.comment = "";
+          this.tags = 0;
+        });
+      else
+        this.sendSubComment({
+          token: this.userToken,
+          task_id: this.task_id,
+          comment: this.comment,
+          tags: this.tags,
+          comment_id: this.comment_id,
+        }).then((res) => {
+          console.log(res.data);
+          this.comment = "";
+          this.tags = 0;
         });
     },
   },

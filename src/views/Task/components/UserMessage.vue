@@ -1,7 +1,7 @@
 <template>
   <v-list-item class="pa-0">
     <v-list-item-avatar>
-      <img :src="userData.url" alt="John" />
+      <img :src="userData.url" alt="user" />
     </v-list-item-avatar>
 
     <v-list-item-content>

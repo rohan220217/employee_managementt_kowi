@@ -141,14 +141,7 @@ const actions = {
 
         for (let data_item in data)
             bodyFormData.append(data_item, data[data_item]);
-        // bodyFormData.append('title', data.title);
-        // bodyFormData.append('description', data.description);
-        // bodyFormData.append('sugestions', data.sugestions);
-        // bodyFormData.append('previousdev', data.previousdev);
-        // bodyFormData.append('timelimit', data.timelimit);
-        // bodyFormData.append('comment', data.comment);
-        // bodyFormData.append('assignedto', data.assignedto);
-
+            
         return $http.post('/addtask/', bodyFormData, {
             headers: {
                 'Authorization': `Token ${token}`,

@@ -6,7 +6,11 @@
       <v-tab>Review</v-tab>
       <v-spacer></v-spacer>
 
-      <v-avatar size="36" class="mt-2" @click="$router.push({ name: 'Profile' })">
+      <v-avatar
+        size="36"
+        class="mt-2"
+        @click="$router.push({ name: 'Profile' })"
+      >
         <img
           src="https://avatars.githubusercontent.com/u/51409281?v=4"
           alt="user"
@@ -20,7 +24,9 @@
       <!--Collab -->
       <v-tab-item> <collab-task></collab-task> </v-tab-item>
       <!-- Review -->
-      <v-tab-item> <p>sdljfdfk</p> </v-tab-item>
+      <v-tab-item>
+        <review-task></review-task>
+      </v-tab-item>
     </v-tabs>
 
     <!-- Switch button -->
@@ -33,8 +39,10 @@ import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import NewTask from "./components/NewTask";
 import CollabTask from "./components/Collab";
+import ReviewTask from "@/views/Review/Review";
 export default {
   components: {
+    ReviewTask,
     CollabTask,
     NewTask,
     DayNight,
