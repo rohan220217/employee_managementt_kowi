@@ -27,15 +27,15 @@ export default {
     ...mapActions(["toggleDark"]),
     darkButton() {
       this.toggleDark();
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
   },
   computed: {
     ...mapGetters(["getIsDark"]),
   },
   created() {
-    if (this.getIsDark == "true") this.$vuetify.theme.dark = true;
-    else this.$vuetify.theme.dark = false;
+    if (this.getIsDark == "dark") this.$vuetify.theme.dark = true;
+    else if (this.getIsDark == "light") this.$vuetify.theme.dark = false;
   },
 };
 </script>

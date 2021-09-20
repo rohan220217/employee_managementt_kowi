@@ -5,7 +5,7 @@
     </v-main>
   </v-app> -->
   <v-app>
-    <kowi-app-bar v-if="$store.getters.userToken"></kowi-app-bar>
+    <kowi-app-bar v-if="$store.getters.userToken && $store.getters.isShowNavBar"></kowi-app-bar>
     <v-main>
       <!-- <v-slide-x-transition mode="in-out"> -->
       <router-view />

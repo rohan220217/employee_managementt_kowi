@@ -59,6 +59,7 @@ import PersonalDetails from "./components/PersonalDetails.vue";
 import Address from "./components/Address.vue";
 import BankDetail from "./components/BankDetail.vue";
 import DayNight from "@/components/DayNight";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -68,6 +69,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["switchNavBar"]),
     nextTab(value) {
       this.e1 = value;
     },
@@ -85,6 +87,14 @@ export default {
     PersonalDetails,
     DayNight,
   },
+  
+  created(){
+    this.switchNavBar()
+  },
+  destroyed: function() {
+    this.switchNavBar()
+  }
+
 };
 </script>
 

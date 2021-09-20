@@ -7,6 +7,7 @@ const $http = axios.create({
 const state = {
     allReviewers: [],
     allEmployees: [],
+    isShowNavBar: true
 }
 const getters = {
     getAllReviewers(state) {
@@ -14,6 +15,9 @@ const getters = {
     },
     getAllEmployees(state) {
         return state.allEmployees
+    },
+    isShowNavBar(state) {
+        return state.isShowNavBar
     },
 
 }
@@ -26,10 +30,18 @@ const mutations = {
     SET_EMPLOYEES: (state, _employees) => {
         state.allEmployees = _employees;
     },
+    SWITCH_NAVBAR: (state,) => {
+        state.isShowNavBar = !state.isShowNavBar;
+    },
 
 }
 
 const actions = {
+    
+    switchNavBar({ commit },) {
+        commit('SWITCH_NAVBAR');
+      
+    },
     fetchDetailUsingPinCode({ commit }, pincode) {
         return axios
             .get(`https://api.postalpincode.in/pincode/${pincode}`)

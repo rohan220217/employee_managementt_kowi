@@ -10,8 +10,8 @@ const state = {
   userId: localStorage.getItem('kowiEmpId') ? localStorage.getItem('kowiEmpId') : '',
   userDoj: localStorage.getItem('kowiEmpDoj') ? localStorage.getItem('kowiEmpDoj') : '',
   userEmail: localStorage.getItem('kowiEmpEmail') ? localStorage.getItem('kowiEmpEmail') : '',
-  
-  isKowiDark: localStorage.getItem('isKowiDark') ? localStorage.getItem('isKowiDark') : false,
+
+  isKowiDark: localStorage.getItem('isKowiDark') ? localStorage.getItem('isKowiDark') : 'light',
 }
 const getters = {
   getIsDark(state) {
@@ -60,8 +60,16 @@ const mutations = {
     localStorage.clear();
   },
   TOGGLE_DARK_MODE: (state) => {
-    state.isKowiDark = !state.isKowiDark
+    localStorage.removeItem('isKowiDark')
+    if (state.isKowiDark == 'light') {
+      state.isKowiDark = 'dark'
+    } else {
+      state.isKowiDark = 'light'
+    }
     localStorage.setItem('isKowiDark', state.isKowiDark)
+    // state.isKowiDark = data
+    // console.log(data)
+    // localStorage.setItem('isKowiDark', data)
   },
 
 
@@ -161,7 +169,7 @@ const actions = {
   logoutUser({ commit }) {
     commit('DELETE_DATA')
   },
-  toggleDark({ commit }) {
+  toggleDark({ commit }, data) {
     commit('TOGGLE_DARK_MODE')
   },
 

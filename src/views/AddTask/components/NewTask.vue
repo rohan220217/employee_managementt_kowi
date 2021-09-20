@@ -86,13 +86,14 @@
         v-model="task.comment"
       >
       </v-text-field>
-
+      
       <v-subheader>Upload Images</v-subheader>
       <v-file-input
         accept="image/*"
         small-chips
         multiple
         label="File input"
+        v-model="images"
       ></v-file-input>
       <v-btn
         color="#ff5a5a"
@@ -118,6 +119,7 @@ export default {
   data() {
     return {
       newTask: true,
+      images:null,
       task: {
         title: "",
         description: "",
