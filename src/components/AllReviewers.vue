@@ -2,7 +2,7 @@
     <!-- multiple -->
   <v-autocomplete
     v-model="reviewers"
-    :items="getAllReviewers"
+    :items=" getAllReviewers"
     chips
     outlined
     :label="label"
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      reviewers: this.value ? this.value.collaborator : null,
+      reviewers: this.value ? this.value : null,
     };
   },
   props: {
@@ -60,6 +60,9 @@ export default {
       type: String,
       default: "Add Reviewers",
     },
+    // default_value: {
+    //   type: String
+    // }
   },
 
   methods: {

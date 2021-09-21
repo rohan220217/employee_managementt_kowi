@@ -81,6 +81,7 @@ const actions = {
 
         }).then(res => {
             commit('SET_TASK', res.data);
+            return Promise.resolve(res.data)
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)
@@ -148,8 +149,62 @@ const actions = {
                 "Content-Type": "multipart/form-data"
             }
         }).then(res => {
-            console.log(res.data)
+            return Promise.resolve(res)
 
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    completeTask({ commit }, { token, data }) {
+        var bodyFormData = new FormData();
+
+        for (let data_item in data)
+            bodyFormData.append(data_item, data[data_item]);
+            
+        return $http.post('/update/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            return Promise.resolve(res)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    taskImageUpload({ commit }, { token, data }) {
+        var bodyFormData = new FormData();
+
+        for (let data_item in data)
+            bodyFormData.append(data_item, data[data_item]);
+            
+        return $http.post('/addimage/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            return Promise.resolve(res)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    newTaskImageUpload({ commit }, { token, data }) {
+        var bodyFormData = new FormData();
+
+        for (let data_item in data)
+            bodyFormData.append(data_item, data[data_item]);
+            
+        return $http.post('/createtaskimg/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            return Promise.resolve(res)
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

@@ -74,6 +74,7 @@
         v-if="getAllThreads && getAllThreads.length > 0"
       >
         <div v-for="(message, key) in getAllThreads" :key="`message-${key}`">
+          {{message}}
           <user-message
             :userData="{
               name: message.username,
@@ -157,7 +158,7 @@
               <v-checkbox
                 class="black--text"
                 color="red"
-                :input-value="getTask.pullrequest"
+                v-model="taskDetail.pullrequest"
                 hide-details
               >
                 <template v-slot:label>
@@ -174,7 +175,7 @@
             <v-col cols="12" sm="3">
               <v-checkbox
                 color="red"
-                :input-value="getTask.mergerequest"
+                v-model="taskDetail.mergerequest"
                 hide-details
               >
                 <template v-slot:label>
@@ -195,7 +196,7 @@
             outlined
             dense
             hide-details
-            :value="getTask.branchname"
+            v-model="taskDetail.branchname"
           >
             <template v-slot:prepend-inner>
               <v-icon color="#FF5959"> mdi-plus </v-icon>
@@ -205,9 +206,39 @@
           <!-- Reviewers -->
           <v-row>
             <v-col cols="4">
-              <all-reviewers></all-reviewers>
+              <v-text-field
+                v-if="isGetCompleted"
+                class="mt-8"
+                label="Reviewers"
+                outlined
+                dense
+                hide-details
+                :value="getTask.reviewer.name"
+              >
+                <template v-slot:prepend-inner>
+                  <v-icon color="#FF5959"> mdi-plus </v-icon>
+                </template>
+              </v-text-field>
+
+              <all-reviewers
+                v-model="taskDetail.reviews"
+                v-else
+              ></all-reviewers>
             </v-col>
           </v-row>
+          <v-text-field
+            class="mt-8"
+            label="Add a Comment"
+            outlined
+            dense
+            hide-details
+            v-model="taskDetail.comment"
+            :value="getTask.comment"
+          >
+            <template v-slot:prepend-inner>
+              <v-icon color="#FF5959"> mdi-plus </v-icon>
+            </template>
+          </v-text-field>
           <v-file-input
             v-if="!isGetCompleted"
             accept="image/*"
@@ -218,7 +249,7 @@
           ></v-file-input>
           <kowi-button
             v-if="!isGetCompleted"
-            :onClicked="closeTask"
+            :onClicked="completeTaskButton"
             :text="'Close Task'"
             :isActive="false"
           ></kowi-button>
@@ -263,18 +294,31 @@ export default {
   },
   data() {
     return {
-      images: [],
       isCompleted: false,
       isDispute: false,
       dispute: {
         note: "",
+      },
+      images: null,
+      taskDetail: {
+        branchname: "",
+        mergerequest: false,
+        pullrequest: false,
+        taskstatus: "completed",
+        comment: "",
       },
     };
   },
   props: ["id"],
 
   methods: {
-    ...mapActions(["fetchTask", "fetchAllThreads", "sendDoubt"]),
+    ...mapActions([
+      "fetchTask",
+      "fetchAllThreads",
+      "sendDoubt",
+      "completeTask",
+      "taskImageUpload",
+    ]),
 
     switchComplete() {
       if (this.isDispute) this.isDispute = false;
@@ -295,6 +339,37 @@ export default {
       });
 
       this.$vloading.hide();
+      // Refresh page
+      location.reload();
+    },
+    async completeTaskButton() {
+      this.taskDetail.id = this.id;
+
+      this.$vloading.show();
+      await this.completeTask({
+        token: this.userToken,
+        data: this.taskDetail,
+      }).then((res) => {
+        console.log('success task');
+      });
+      // Image upload
+      for (var image_index in this.images) {
+        var _data = {
+          image: this.images[image_index],
+          id: this.id,
+          caption: 'kowi'
+        };
+        await this.taskImageUpload({
+          token: this.userToken,
+          data: _data,
+        }).then((res) => {
+          console.log(res);
+        });
+      }
+
+      this.$vloading.hide();
+      // Refresh page
+      location.reload();
     },
   },
   computed: {
@@ -332,8 +407,16 @@ export default {
 
   async created() {
     this.$vloading.show();
-    await this.fetchTask({ token: this.userToken, id: this.id });
+    await this.fetchTask({ token: this.userToken, id: this.id }).then((res) => {
+      if (res.taskstatus == "completed") {
+        this.taskDetail.pullrequest = res.pullrequest;
+        this.taskDetail.mergerequest = res.mergerequest;
+        this.taskDetail.branchname = res.branchname;
+        this.taskDetail.comment = res.comment;
+      }
+    });
     await this.fetchAllThreads({ token: this.userToken, id: this.id });
+
     this.$vloading.hide();
   },
 };

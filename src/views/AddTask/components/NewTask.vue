@@ -86,7 +86,7 @@
         v-model="task.comment"
       >
       </v-text-field>
-      
+
       <v-subheader>Upload Images</v-subheader>
       <v-file-input
         accept="image/*"
@@ -119,7 +119,7 @@ export default {
   data() {
     return {
       newTask: true,
-      images:null,
+      images: null,
       task: {
         title: "",
         description: "",
@@ -138,10 +138,28 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["sendNewTask"]),
-    review() {
+    ...mapActions(["sendNewTask", "newTaskImageUpload"]),
+    async review() {
       if (this.$refs.newTask.validate()) {
-        this.sendNewTask({token: this.userToken, data: this.task})
+        await this.sendNewTask({ token: this.userToken, data: this.task }).then(
+          (res) => {
+            console.log(res.data);
+          }
+        );
+        this.$router.push({ name: "Tasks" });
+        //     for (var image_index in this.images) {
+        //   var _data = {
+        //     image: this.images[image_index],
+        //     id: this.id,
+        //     caption: 'kowi'
+        //   };
+        //   await this.newTaskImageUpload({
+        //     token: this.userToken,
+        //     data: _data,
+        //   }).then((res) => {
+        //     console.log(res);
+        //   });
+        // }
       }
     },
   },

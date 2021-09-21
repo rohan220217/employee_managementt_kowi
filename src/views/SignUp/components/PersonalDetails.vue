@@ -91,10 +91,13 @@
     <v-text-field
       v-model="personalDetail.aadhar"
       solo
-      :counter="10"
+      :counter="12"
       label="Aadhar Card"
       required
-      :rules="[(v) => !!v || 'Aadhar Card is required']"
+      :rules="[
+        (v) => !!v || 'Aadhar Card is required',
+        (v) => v.length == 12 || 'Adhar must be less than 12 characters',
+      ]"
     ></v-text-field>
 
     <!-- Employee Id -->

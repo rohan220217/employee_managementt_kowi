@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data != null">
+  <div v-if="data.length != 0 ">
     <div v-for="(task, key) in data" :key="`on-going-${key}`">
       <p class="pl-4 mb-0"><span class="dot ml-n4"> </span> {{ task.title }}</p>
       <p style="color: #ff5a5a">
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="text-center caption mt-8" v-else>No Ongoing Task</div>
+  <div class="text-center caption mt-8" v-else>No Ongoing Task </div>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      data: null,
+      data: [],
     };
   },
   methods: {
@@ -30,7 +30,7 @@ export default {
   },
   async created() {
     await this.fetchOnGoingTask(this.userToken).then((res) => {
-        this.data = res;
+      this.data = res;
     });
   },
 };
