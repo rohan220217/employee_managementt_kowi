@@ -15,10 +15,10 @@
     <Loading class="mt-8" v-if="isLoading" />
     <v-data-table
       v-else
-      hide-default-footer
       :headers="headers"
       :items="getAllTasks"
       :search="search"
+       :items-per-page="10"
       @click:row="openTask"
     >
       <template v-slot:[`item.createdat`]="{ item }">

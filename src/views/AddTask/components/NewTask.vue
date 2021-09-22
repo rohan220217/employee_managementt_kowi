@@ -125,11 +125,12 @@ export default {
         description: "",
         sugestions: "",
         comment: "",
-        previousdev: null,
-        assignedto: null,
+        previousdev: [],
+        assignedto: [],
         timelimit: "",
       },
       custom_time_limit: "",
+      task_id: null,
     };
   },
   watch: {
@@ -141,25 +142,29 @@ export default {
     ...mapActions(["sendNewTask", "newTaskImageUpload"]),
     async review() {
       if (this.$refs.newTask.validate()) {
+        this.$vloading.show();
         await this.sendNewTask({ token: this.userToken, data: this.task }).then(
           (res) => {
-            console.log(res.data);
+            this.task_id = res.data.task_id;
+              console.log(res);
           }
         );
+        if (this.images != null)
+          for (var image_index in this.images) {
+            var _data = {
+              image: this.images[image_index],
+              id: this.task_id,
+              caption: "kowi",
+            };
+            await this.newTaskImageUpload({
+              token: this.userToken,
+              data: _data,
+            }).then((res) => {
+              console.log(res);
+            });
+          }
+        this.$vloading.hide();
         this.$router.push({ name: "Tasks" });
-        //     for (var image_index in this.images) {
-        //   var _data = {
-        //     image: this.images[image_index],
-        //     id: this.id,
-        //     caption: 'kowi'
-        //   };
-        //   await this.newTaskImageUpload({
-        //     token: this.userToken,
-        //     data: _data,
-        //   }).then((res) => {
-        //     console.log(res);
-        //   });
-        // }
       }
     },
   },

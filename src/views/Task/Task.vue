@@ -5,7 +5,7 @@
 
     <!-- Main content -->
     <div class="task-container">
-      {{ getTask }}
+      <!-- {{ getTask }} -->
       <v-row>
         <v-col>
           <h2>{{ getTask.title }}</h2>
