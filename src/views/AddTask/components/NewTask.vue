@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="mt-4">
-    {{ task }}
+    {{ task }} {{custom_time_limit}}
     <v-form ref="newTask" v-model="newTask" lazy-validation>
       <v-subheader>Task Name</v-subheader>
       <v-text-field
@@ -29,8 +29,16 @@
 
       <v-row>
         <v-col cols="12" sm="2">
-          <v-subheader>Time Limit</v-subheader>
-          <v-text-field
+          <v-subheader class="mb-n2">Time Limit</v-subheader>
+          <v-datetime-picker  label="Select Datetime" v-model="custom_time_limit">
+            <template slot="dateIcon">
+              <v-icon>mdi-calendar</v-icon>
+            </template>
+            <template slot="timeIcon">
+              <v-icon>mdi-clock</v-icon>
+            </template>
+          </v-datetime-picker>
+          <!-- <v-text-field
             maxlength="2"
             outlined
             dense
@@ -42,7 +50,7 @@
             label="00:00:00"
             suffix="hr"
             v-model="custom_time_limit"
-          ></v-text-field>
+          ></v-text-field> -->
         </v-col>
         <v-col cols="12" sm="4">
           <all-employee
@@ -127,7 +135,7 @@ export default {
         comment: "",
         previousdev: [],
         assignedto: [],
-        timelimit: "",
+        endtime: "",
       },
       custom_time_limit: "",
       task_id: null,
@@ -135,7 +143,9 @@ export default {
   },
   watch: {
     custom_time_limit: function (new_val) {
-      this.task.timelimit = new_val + ":00:00";
+      console.log(this.dayjs(new_val).format("YYYY-MM-DDTHH:mm:ss"));
+      this.task.endtime = this.dayjs(new_val).format("YYYY-MM-DDTHH:mm:ss");
+      // 2021-09-23 18:45:44.421025
     },
   },
   methods: {
@@ -146,7 +156,7 @@ export default {
         await this.sendNewTask({ token: this.userToken, data: this.task }).then(
           (res) => {
             this.task_id = res.data.task_id;
-              console.log(res);
+            console.log(res);
           }
         );
         if (this.images != null)

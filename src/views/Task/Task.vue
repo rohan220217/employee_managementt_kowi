@@ -11,7 +11,7 @@
           <h2>{{ getTask.title }}</h2>
         </v-col>
         <v-col>
-          <div class="start-button">Start Now</div>
+          <start-button :endtime="getTask.endtim" :taskstatus="getTask.taskstatus" :taskid="getTask.id" :starttime="getTask.starttim"></start-button>
         </v-col>
       </v-row>
       <v-row class="mt-0">
@@ -21,7 +21,7 @@
         <v-col>
           <p class="red--text text-right font-weight-medium">
             <!-- 13 Aug 2021, 3:44pm -->
-            {{ getTask.timelimit }} hr
+            {{ dayjs(getTask.endtim).format("DD MMM YYYY hh:mm:ss A ") }}
           </p>
         </v-col>
       </v-row>
@@ -74,7 +74,7 @@
         v-if="getAllThreads && getAllThreads.length > 0"
       >
         <div v-for="(message, key) in getAllThreads" :key="`message-${key}`">
-          {{message}}
+          <!-- {{message}} -->
           <user-message
             :userData="{
               name: message.username,
@@ -276,6 +276,7 @@ import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import AllReviewers from "@/components/AllReviewers";
 import KowiButton from "@/components/KowiButton";
+import StartButton from "./components/StartButton";
 import ToolBar from "@/components/ToolBar.vue";
 import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";
@@ -283,6 +284,7 @@ import AddComment from "./components/AddComment.vue";
 import KowiCarousel from "@/components/KowiCarousel";
 export default {
   components: {
+    StartButton,
     KowiButton,
     AllReviewers,
     DayNight,
@@ -350,14 +352,14 @@ export default {
         token: this.userToken,
         data: this.taskDetail,
       }).then((res) => {
-        console.log('success task');
+        console.log("success task");
       });
       // Image upload
       for (var image_index in this.images) {
         var _data = {
           image: this.images[image_index],
           id: this.id,
-          caption: 'kowi'
+          caption: "kowi",
         };
         await this.taskImageUpload({
           token: this.userToken,
@@ -371,6 +373,8 @@ export default {
       // Refresh page
       location.reload();
     },
+
+
   },
   computed: {
     ...mapGetters([
@@ -426,18 +430,7 @@ export default {
 .task-container {
   padding: 20px 40px;
 }
-.start-button {
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 1px;
-  width: 150px;
-  border-radius: 15px;
-  padding: 5px;
-  color: white;
-  background-color: #ff5a5a;
-  float: right;
-  cursor: pointer;
-}
+
 .image-border {
   border-radius: 15px;
   border: 2px solid black;

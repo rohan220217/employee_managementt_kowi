@@ -37,10 +37,10 @@ const mutations = {
 }
 
 const actions = {
-    
+
     switchNavBar({ commit },) {
         commit('SWITCH_NAVBAR');
-      
+
     },
     fetchDetailUsingPinCode({ commit }, pincode) {
         return axios
@@ -73,6 +73,26 @@ const actions = {
             }
         }).then(res => {
             commit('SET_EMPLOYEES', res.data);
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+
+    startTask({ commit }, { token, data }) {
+        var bodyFormData = new FormData();
+
+        bodyFormData.append('id', data);
+
+        return $http.post('/start/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            return Promise.resolve(res)
+
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

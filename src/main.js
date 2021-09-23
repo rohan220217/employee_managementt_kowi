@@ -37,6 +37,10 @@ Vue.use(VueMasonryPlugin)
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
+// Date time picker
+import DatetimePicker from 'vuetify-datetime-picker'
+Vue.use(DatetimePicker)
+
 Vue.config.productionTip = false
 new Vue({
   router,
