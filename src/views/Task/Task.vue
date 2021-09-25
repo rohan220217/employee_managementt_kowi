@@ -5,13 +5,19 @@
 
     <!-- Main content -->
     <div class="task-container">
-      {{ getTask }}
+      <!-- {{ getTask }} -->
       <v-row>
         <v-col>
           <h2>{{ getTask.title }}</h2>
         </v-col>
         <v-col>
-          <start-button :endtime="getTask.endtim" :taskstatus="getTask.taskstatus" :taskid="getTask.id" :starttime="getTask.starttim" :disputetime="getTask.dispstart"></start-button>
+          <start-button
+            :endtime="getTask.endtim"
+            :taskstatus="getTask.taskstatus"
+            :taskid="getTask.id"
+            :starttime="getTask.starttim"
+            :disputetime="getTask.dispstart"
+          ></start-button>
         </v-col>
       </v-row>
       <v-row class="mt-0">
@@ -25,9 +31,14 @@
           </p>
         </v-col>
       </v-row>
-      <p>
-        {{ getTask.description }}
-      </p>
+
+      <!-- quill editor -->
+      <div class="ql-snow">
+        <div class="ql-editor">
+          <div v-html="getTask.description"></div>
+        </div>
+      </div>
+      <!-- {{ getTask.description }} -->
 
       <!-- carousel -->
       <kowi-carousel :images="getTask.images"></kowi-carousel>
@@ -282,6 +293,11 @@ import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";
 import AddComment from "./components/AddComment.vue";
 import KowiCarousel from "@/components/KowiCarousel";
+
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
+
 export default {
   components: {
     StartButton,
@@ -373,8 +389,6 @@ export default {
       // Refresh page
       location.reload();
     },
-
-
   },
   computed: {
     ...mapGetters([

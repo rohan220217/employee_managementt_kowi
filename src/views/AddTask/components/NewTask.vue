@@ -16,7 +16,7 @@
       ></v-text-field>
 
       <v-subheader>Task Description</v-subheader>
-      <v-textarea
+      <!-- <v-textarea
         solo
         label="Add a description"
         outlined
@@ -24,13 +24,22 @@
         class="mb-n4"
         required
         :rules="[(v) => !!v || 'Description is required']"
-        v-model="task.description"
-      ></v-textarea>
+       
+      ></v-textarea> -->
+       <quill-editor
+         v-model="task.description"
+          :config="editorOption"
+          class="mb-4"
+        >
+        </quill-editor>
 
       <v-row>
         <v-col cols="12" sm="2">
           <v-subheader class="mb-n2">Time Limit</v-subheader>
-          <v-datetime-picker  label="Select Datetime" v-model="custom_time_limit">
+          <v-datetime-picker
+            label="Select Datetime"
+            v-model="custom_time_limit"
+          >
             <template slot="dateIcon">
               <v-icon>mdi-calendar</v-icon>
             </template>
@@ -118,11 +127,13 @@
 <script>
 import KowiButton from "@/components/KowiButton";
 import AllEmployee from "@/components/AllEmployee";
+import { quillEditor } from "vue-quill-editor";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     KowiButton,
     AllEmployee,
+    quillEditor,
   },
   data() {
     return {
@@ -139,6 +150,7 @@ export default {
       },
       custom_time_limit: "",
       task_id: null,
+      editorOption: {},
     };
   },
   watch: {

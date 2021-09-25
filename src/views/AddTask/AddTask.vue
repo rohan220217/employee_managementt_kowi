@@ -19,10 +19,10 @@
       <!-- Task -->
       <v-tab-item>
         <new-task></new-task>
+       
       </v-tab-item>
       <!--Collab -->
       <v-tab-item> <collab-task></collab-task> </v-tab-item>
- 
     </v-tabs>
 
     <!-- Switch button -->
@@ -35,6 +35,7 @@ import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import NewTask from "./components/NewTask";
 import CollabTask from "./components/Collab";
+
 export default {
   components: {
     CollabTask,
@@ -42,7 +43,9 @@ export default {
     DayNight,
   },
   data() {
-    return {};
+    return {
+     
+    };
   },
 
   methods: {
