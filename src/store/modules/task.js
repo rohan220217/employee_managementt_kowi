@@ -15,7 +15,7 @@ const state = {
 }
 const getters = {
     getAllTasks(state) {
-        return state.allTasks
+        return state.allTasks.reverse()
     },
 
     getTask(state) {
@@ -25,13 +25,13 @@ const getters = {
         return state.allTasksCount
     },
     getNewTasks(state) {
-        return state.newTasks
+        return state.newTasks.reverse()
     },
     getPendingTasks(state) {
-        return state.pendingTasks
+        return state.pendingTasks.reverse()
     },
     getCompletedTasks(state) {
-        return state.completedTasks
+        return state.completedTasks.reverse()
     },
 }
 

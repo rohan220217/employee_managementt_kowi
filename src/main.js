@@ -41,6 +41,15 @@ Vue.use(VueClipboard)
 import DatetimePicker from 'vuetify-datetime-picker'
 Vue.use(DatetimePicker)
 
+// quill editor
+import VueQuillEditor from 'vue-quill-editor'
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+ 
+Vue.use(VueQuillEditor, /* { default global options } */)
+
 Vue.config.productionTip = false
 new Vue({
   router,

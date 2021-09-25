@@ -11,21 +11,21 @@
             <Greet />
           </div>
         </v-col>
-        <v-col cols="12" sm="5">
+        <v-col cols="12" sm="6">
           <!-- Meet box -->
           <meet-link></meet-link>
         </v-col>
-        <v-col cols="12" sm="2">
+        <v-col cols="12" sm="3">
           <div class="home-box">
             <div class="box-heading">Check In</div>
             <check-in></check-in>
           </div>
         </v-col>
-        <v-col cols="12" sm="2">
+        <!-- <v-col cols="12" sm="2">
           <div class="home-box">
             <div class="box-heading">Points</div>
           </div>
-        </v-col>
+        </v-col> -->
       </v-row>
 
       <!-- Recent Notification section -->

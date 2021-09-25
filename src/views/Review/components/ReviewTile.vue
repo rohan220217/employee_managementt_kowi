@@ -12,7 +12,7 @@
       </v-list-item-title>
 
       <v-list-item-subtitle>
-        <v-btn outlined color="#ff5a5a" small @click="openReview(2)"
+        <v-btn outlined color="#ff5a5a" small @click="openReview()"
           >Review</v-btn
         >
       </v-list-item-subtitle>
@@ -46,8 +46,9 @@ export default {
 
   methods: {
     ...mapActions(["starNotification"]),
-    openReview(id) {
-      this.$emit("id", id);
+    openReview() { 
+      this.$router.push({ name: "Review"});
+
     },
     toggleStar(id) {
       // var starValue = 0;

@@ -115,13 +115,13 @@
           </v-list-item>
           <v-list-item
             link
-            to="/collaborators"
-            @click="changeActive('collaborators')"
+            to="/reviews"
+            @click="changeActive('review')"
           >
             <v-list-item-icon>
               <v-img contain src="@/assets/icon/users.svg" width="24px"></v-img>
             </v-list-item-icon>
-            <v-list-item-title>Collaborators</v-list-item-title>
+            <v-list-item-title>Reviews</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/notepad" @click="changeActive('notepad')">
             <v-list-item-icon>
@@ -204,7 +204,7 @@ export default {
         home: true,
         notifications: false,
         tasks: false,
-        collaborators: false,
+        review: false,
         notepad: false,
         add_task: false,
         spotify: false,
@@ -223,7 +223,7 @@ export default {
       this.list["home"] = false;
       this.list["notifications"] = false;
       this.list["tasks"] = false;
-      this.list["collaborators"] = false;
+      this.list["review"] = false;
       this.list["notepad"] = false;
       this.list["add_task"] = false;
       this.list["spotify"] = false;

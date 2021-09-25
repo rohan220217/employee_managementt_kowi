@@ -5,13 +5,13 @@
 
     <!-- Main content -->
     <div class="task-container">
-      <!-- {{ getTask }} -->
+      {{ getTask }}
       <v-row>
         <v-col>
           <h2>{{ getTask.title }}</h2>
         </v-col>
         <v-col>
-          <start-button :endtime="getTask.endtim" :taskstatus="getTask.taskstatus" :taskid="getTask.id" :starttime="getTask.starttim"></start-button>
+          <start-button :endtime="getTask.endtim" :taskstatus="getTask.taskstatus" :taskid="getTask.id" :starttime="getTask.starttim" :disputetime="getTask.dispstart"></start-button>
         </v-col>
       </v-row>
       <v-row class="mt-0">
@@ -21,7 +21,7 @@
         <v-col>
           <p class="red--text text-right font-weight-medium">
             <!-- 13 Aug 2021, 3:44pm -->
-            {{ dayjs(getTask.endtim).format("DD MMM YYYY hh:mm:ss A ") }}
+            {{ dayjs(getTask.endtim).format("DD MMM YYYY | hh:mm:ss A ") }}
           </p>
         </v-col>
       </v-row>

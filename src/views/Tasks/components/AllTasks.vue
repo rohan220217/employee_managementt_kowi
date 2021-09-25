@@ -37,9 +37,9 @@
           <v-icon color="#32973C" size="20">mdi-check-circle-outline</v-icon>
           Completed
         </div>
-        <div v-if="item.taskstatus == 'pending'" style="color: #e13939">
+        <div v-if="item.taskstatus == 'pending'" style="color: #ff5a5a">
           <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
-          <v-icon color="#E13939" size="22">mdi-alert-octagon-outline</v-icon>
+          <v-icon color="#ff5a5a" size="22">mdi-alert-octagon-outline</v-icon>
           Pending
         </div>
         <div v-if="item.taskstatus == 'dispute'" style="color: #2634af">

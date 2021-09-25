@@ -41,10 +41,20 @@ const routes = [
     }
   },
   {
-    path: '/collaborators',
-    name: 'Collaborators',
+    path: '/reviews',
+    name: 'Reviews',
     component: function () {
-      return import(/* webpackChunkName: "Collaborators" */ '@/views/Collaborators/Collaborators.vue')
+      return import(/* webpackChunkName: "Collaborators" */ '@/views/Review/Reviews.vue')
+    },
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/review',
+    name: 'Review',
+    component: function () {
+      return import(/* webpackChunkName: "Collaborators" */ '@/views/Review/ReviewDetail.vue')
     },
     meta: {
       requiresAuth: true

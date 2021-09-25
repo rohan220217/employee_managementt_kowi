@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="mt-4">
-    {{ task }} {{custom_time_limit}}
+    <!-- {{ task }} {{custom_time_limit}} -->
     <v-form ref="newTask" v-model="newTask" lazy-validation>
       <v-subheader>Task Name</v-subheader>
       <v-text-field

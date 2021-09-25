@@ -1,5 +1,8 @@
 <template>
-  <div>
+ <div>
+    <!-- Notification app bar -->
+    <tool-bar :isDate="true" />
+
     <v-tabs color="#ED8500" vertical class="my-tabs">
       <v-tab class="mt-4">
         <v-icon left> mdi-checkbox-multiple-marked </v-icon>All
@@ -44,9 +47,11 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import AllReview from "./components/AllReview.vue";
+import ToolBar from "@/components/ToolBar.vue";
 export default {
   components: {
     AllReview,
+    ToolBar
   },
   data() {
     return {};

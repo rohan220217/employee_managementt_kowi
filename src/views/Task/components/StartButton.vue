@@ -1,19 +1,41 @@
 <template>
-  <div class="start-button">
+  <div
+    class="start-button"
+    v-if="taskstatus == 'pending'"
+    style="background-color: #ff5a5a;"
+  >
     <!-- <div v-if="taskstatus == 'pending'">Start Now</div>
     <div>
       <span v-if="days">{{ days }} : </span>
       <span v-if="hours">{{ hours | formatTime }} : </span>
       <span>{{ minutes | formatTime }} : {{ seconds | formatTime }}</span>
     </div> -->
-    <div v-if="taskstatus == 'pending'" @click="startButton()">Start Now</div>
-    <div v-else-if="taskstatus == 'ongoing'">
+    <div @click="startButton()">Start Now</div>
+  </div>
+  <div
+    class="start-button"
+    v-else-if="taskstatus == 'ongoing'"
+    style="background-color: #ff5a5a;"
+  >
+    <div>
       <span v-if="days">{{ days }} : </span>
       <span v-if="hours">{{ hours | formatTime }} : </span>
       <span>{{ minutes | formatTime }} : {{ seconds | formatTime }}</span>
     </div>
-    <div v-else-if="taskstatus == 'dispute'">Disputed</div>
-    <div v-else-if="taskstatus == 'completed'">Completed</div>
+  </div>
+  <div
+    class="start-button"
+    v-else-if="taskstatus == 'dispute'"
+    style="background-color: grey"
+  >
+    <div>{{dayjs(disputetime).format("hh:mm:ss A ")}}</div>
+  </div>
+  <div
+    class="start-button"
+    v-else-if="taskstatus == 'completed'"
+    style="background-color: #32973C"
+  >
+    <div>Completed</div>
   </div>
 </template>
 
@@ -26,7 +48,7 @@ export default {
       speed: 1000,
     };
   },
-  props: ["endtime", "taskstatus", "taskid", "starttime"],
+  props: ["endtime", "taskstatus", "taskid", "starttime", "disputetime"],
   mounted() {
     console.log("mounted");
     setTimeout(this.countdown, 1000);
@@ -41,9 +63,8 @@ export default {
 
       // if (bool <= 0) {
       this.remaining_time =
-        Date.parse(
-          this.dayjs(this.endtime).format("DD MMM YYYY H:m:ss ")
-        ) - Date.parse(new Date());
+        Date.parse(this.dayjs(this.endtime).format("DD MMM YYYY H:m:ss ")) -
+        Date.parse(new Date());
       if (this.remaining_time > 0) {
         setTimeout(this.countdown, this.speed);
       } else {
@@ -98,7 +119,7 @@ export default {
   border-radius: 15px;
   padding: 5px;
   color: white;
-  background-color: #ff5a5a;
+  /* background-color: #ff5a5a; */
   float: right;
   cursor: pointer;
 }
