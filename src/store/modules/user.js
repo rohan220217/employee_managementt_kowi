@@ -12,6 +12,7 @@ const state = {
   userEmail: localStorage.getItem('kowiEmpEmail') ? localStorage.getItem('kowiEmpEmail') : '',
 
   isKowiDark: localStorage.getItem('isKowiDark') ? localStorage.getItem('isKowiDark') : 'light',
+  userData: null,
 }
 const getters = {
   getIsDark(state) {
@@ -32,6 +33,9 @@ const getters = {
   userEmail(state) {
     return state.userEmail
   },
+  getUserData(state) {
+    return state.userData
+  },
 
 }
 
@@ -49,6 +53,10 @@ const mutations = {
     localStorage.setItem('kowiEmpDoj', data.emp_dateofjoining)
     localStorage.setItem('kowiEmpEmail', data.email)
     localStorage.setItem('kowiEmpName', data.name)
+  },
+  SET_PERSONAL_DATA: (state, data) => {
+    state.userData = data
+    
   },
 
   SET_USER_NAME: (state, name) => {
@@ -172,6 +180,20 @@ const actions = {
   toggleDark({ commit }, data) {
     commit('TOGGLE_DARK_MODE')
   },
+
+  fetchUserData({ commit }, token) {
+    return $http.get('/getemployeedata/', {
+        headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'undefined'
+        }
+    }).then(res => {
+        commit('SET_PERSONAL_DATA', res.data);
+    }).catch(err => {
+        console.log(err)
+        return Promise.reject(err)
+    })
+},
 
 }
 

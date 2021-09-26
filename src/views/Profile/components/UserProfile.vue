@@ -1,48 +1,51 @@
 <template>
-  <div>
-    <v-list-item>
+  <div v-if="getUserData">
+    <v-list-item class="pl-0">
       <v-list-item-avatar size="100">
         <v-img
-          src="https://avatars.githubusercontent.com/u/51409281?v=4"
+          :src="'https://dev.kowi.in' + getUserData.pic"
+          :style="`border: 2px solid ${getUserData.colorhex !=null ? getUserData.colorhex : '#ff5a5a' }`"
         ></v-img>
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title class="font-weight-medium text-h4"
-          >Rohan Kumar</v-list-item-title
-        >
-        <v-list-item-subtitle class="font-weight-medium"
-          >Software Developer</v-list-item-subtitle
-        >
+        <v-list-item-title class="font-weight-medium text-h4">{{
+          getUserData.name
+        }}</v-list-item-title>
+        <v-list-item-subtitle class="font-weight-medium">{{
+          getUserData.role
+        }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <h1 class="ml-2 mt-4">Profile</h1>
+    <!-- <h1 class="ml-2 mt-4">Profile</h1> -->
+    
+    <h3 style="color: #ff5a5a" class="mt-4 mb-2">Profile</h3>
     <v-simple-table>
       <template v-slot:default>
         <tbody>
           <tr>
             <td>Employee Id</td>
-            <td>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+            <td>{{ getUserData.emp_id }}</td>
           </tr>
           <tr>
             <td>Email</td>
-            <td>Sakshi.Sinha10702@gmail.com</td>
+            <td>{{ getUserData.email }}</td>
           </tr>
           <tr>
             <td>Phone Number</td>
-            <td>9999999999</td>
+            <td>{{ getUserData.number }}</td>
           </tr>
           <tr>
             <td>Address</td>
-            <td>B/47 vvsbhhkj colony, anisabad, Patna, BIhar 80002</td>
+            <td>{{ getUserData.address }}</td>
           </tr>
           <tr>
             <td>Date of birth</td>
-            <td>01 july 2002</td>
+            <td>{{ getUserData.dob }}</td>
           </tr>
           <tr>
             <td>Date of joining</td>
-            <td>10 July 2021</td>
+            <td>{{ getUserData.doj }}</td>
           </tr>
         </tbody>
       </template>
@@ -57,13 +60,14 @@
         :event-overlap-mode="mode"
         :event-overlap-threshold="30"
         :event-color="getEventColor"
-        @change="getEvents"
       ></v-calendar>
+      <!-- @change="getEvents" -->
     </v-sheet>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
     type: "month",
@@ -100,12 +104,19 @@ export default {
     ],
   }),
   methods: {
+    ...mapActions(["fetchUserData"]),
     getEventColor(event) {
       return event.color;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
+  },
+  computed: {
+    ...mapGetters(["userToken", "getUserData"]),
+  },
+  async created() {
+    await this.fetchUserData(this.userToken);
   },
 };
 </script>
