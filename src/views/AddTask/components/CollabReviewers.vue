@@ -3,12 +3,11 @@
     v-model="reviewers"
     :items="getAllReviewers"
     chips
-    multiple
     outlined
     :label="label"
     item-text="name"
     item-value="id"
-    class="mt-6"
+    class="mb-3"
     hide-details
     height="10"
     dense
@@ -49,12 +48,12 @@ export default {
   data() {
     return {
       isLoading: false,
-      reviewers: this.value ? this.value.collaborator : null,
+      reviewers: null,
     };
   },
   props: {
     value: {
-      type: Object,
+      type: Number,
     },
     label: {
       type: String,
@@ -68,7 +67,7 @@ export default {
   },
   watch: {
     reviewers: function (new_val) {
-      this.$emit("input", { collaborator: new_val });
+      this.$emit("input", new_val);
     },
   },
   computed: {

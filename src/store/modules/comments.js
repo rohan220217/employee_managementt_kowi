@@ -30,7 +30,7 @@ const getters = {
 const actions = {
     fetchAllThreads({ commit }, { token, id }) {
         var bodyFormData = new FormData();
-        bodyFormData.append('id', id);
+        bodyFormData.append('cmntid', id);
         return $http.post('/getthread/', bodyFormData, {
             headers: {
                 'Authorization': `Token ${token}`,
@@ -46,11 +46,12 @@ const actions = {
         })
     },
 
-    sendComment({ commit }, { token, task_id, comment, tags }) {
+    sendComment({ commit }, { token, task_id, comment, tags, cmntid }) {
         var bodyFormData = new FormData();
         bodyFormData.append('task_id', task_id);
         bodyFormData.append('comment', comment);
         bodyFormData.append('tags', tags);
+        bodyFormData.append('cmntid', cmntid);
 
         return $http.post('/addcomment/', bodyFormData, {
             headers: {
@@ -68,7 +69,7 @@ const actions = {
 
     sendSubComment({ commit }, { token, task_id, comment, comment_id, tags }) {
         var bodyFormData = new FormData();
-        bodyFormData.append('task_id', task_id);
+        bodyFormData.append('cmntid', task_id);
         bodyFormData.append('subcomment', comment);
         bodyFormData.append('comment_id', comment_id);
         bodyFormData.append('tags', tags);
@@ -91,10 +92,11 @@ const actions = {
         })
     },
 
-    sendDoubt({ commit }, { token, doubt_id, doubt }) {
+    sendDoubt({ commit }, { token, task_id, doubt, cmntid }) {
         var bodyFormData = new FormData();
-        bodyFormData.append('doubt_id', doubt_id);
+        bodyFormData.append('task_id', task_id);
         bodyFormData.append('doubt', doubt);
+        bodyFormData.append('cmntid', cmntid);
 
         return $http.post('/adddoubt/', bodyFormData, {
             headers: {

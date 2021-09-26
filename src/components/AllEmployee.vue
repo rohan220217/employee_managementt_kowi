@@ -7,7 +7,6 @@
     item-value="empid"
     chips
     outlined
-    multiple
     :label="label"
     class="mt-6"
     hide-details
@@ -30,12 +29,12 @@ export default {
   data() {
     return {
       isLoading: false,
-      employees: this.value ? this.value.collaborator : null,
+      employees: null,
     };
   },
   props: {
     value: {
-      type: Array,
+      type: String,
     },
     label: {
       type: String,

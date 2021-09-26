@@ -69,6 +69,10 @@ export default {
       type: Number,
       required: false,
     },
+    cmntid: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
     ...mapActions(["fetchAllEmployees", "sendComment", "sendSubComment"]),
@@ -79,6 +83,7 @@ export default {
           task_id: this.task_id,
           comment: this.comment,
           tags: this.tags,
+          cmntid: this.cmntid
         }).then((res) => {
           console.log(res.data);
           this.comment = "";
@@ -91,6 +96,7 @@ export default {
           comment: this.comment,
           tags: this.tags,
           comment_id: this.comment_id,
+          cmntid: this.cmntid
         }).then((res) => {
           console.log(res.data);
           this.comment = "";

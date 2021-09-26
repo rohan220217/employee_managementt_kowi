@@ -5,7 +5,7 @@
 
     <!-- Main content -->
     <div class="task-container">
-      <!-- {{ getTask }} -->
+      {{ getTask }}
       <v-row>
         <v-col>
           <h2>{{ getTask.title }}</h2>
@@ -114,6 +114,7 @@
             v-if="isGetPending"
             :task_id="getTask.id"
             :comment_id="message.id"
+            :cmntid="getTask.cmntids"
           ></add-comment>
         </div>
       </div>
@@ -121,6 +122,7 @@
         v-if="isGetPending"
         :task_id="getTask.id"
         class="mt-6"
+        :cmntid="getTask.cmntids"
         :isComment="true"
       ></add-comment>
 
@@ -351,7 +353,8 @@ export default {
       await this.sendDoubt({
         token: this.userToken,
         doubt: this.dispute.note,
-        doubt_id: this.id,
+        task_id: this.id,
+        cmntid: this.getTask.cmntids,
       }).then((res) => {
         console.log(res.data);
       });
