@@ -56,7 +56,7 @@ const mutations = {
   },
   SET_PERSONAL_DATA: (state, data) => {
     state.userData = data
-    
+
   },
 
   SET_USER_NAME: (state, name) => {
@@ -183,17 +183,37 @@ const actions = {
 
   fetchUserData({ commit }, token) {
     return $http.get('/getemployeedata/', {
-        headers: {
-            'Authorization': `Token ${token}`,
-            'Content-Type': 'undefined'
-        }
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'undefined'
+      }
     }).then(res => {
-        commit('SET_PERSONAL_DATA', res.data);
+      commit('SET_PERSONAL_DATA', res.data);
     }).catch(err => {
-        console.log(err)
-        return Promise.reject(err)
+      console.log(err)
+      return Promise.reject(err)
     })
-},
+  },
+  changePassword({ commit }, { token, detail }) {
+    console.log(detail);
+    var bodyFormData = new FormData();
+
+    for (let detail_key in detail)
+      bodyFormData.append(detail_key, detail[detail_key]);
+
+    return axios.put('https://dev.kowi.in/api/managepass/', bodyFormData, {
+      headers: {
+        'Authorization': `Token ${token}`,
+        "Content-Type": "multipart/form-data"
+      }
+    }).then(res => {
+      console.log(res.data)
+      return Promise.resolve(res.data)
+    }).catch(err => {
+      console.log(err)
+      return Promise.reject(err)
+    })
+  },
 
 }
 

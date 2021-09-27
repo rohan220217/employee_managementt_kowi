@@ -15,25 +15,25 @@
         Attendance
       </v-tab>
 
+      <!-- User profile -->
       <v-tab-item class="mt-7 mr-8 ml-1">
         <user-profile></user-profile>
       </v-tab-item>
+      <!-- edit Profile -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">Tasks</h3>
+        <h3 style="color: #ff5a5a">Edit Profile</h3>
         <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
           <p>sldfkjsdlf</p>
           <v-divider></v-divider>
         </v-list>
       </v-tab-item>
+      <!-- Chnage password -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <h3 style="color: #ff5a5a">Unread</h3>
-        <v-list class="pa-0" v-for="i in 3" :key="i" three-line>
-          <p>sldfkjsdlf</p>
-          <v-divider></v-divider>
-        </v-list>
+        <change-password></change-password>
       </v-tab-item>
+      <!-- User attendance -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-       <user-attendance></user-attendance>
+        <user-attendance></user-attendance>
       </v-tab-item>
     </v-tabs>
 
@@ -46,10 +46,12 @@
 import ToolBar from "@/components/ToolBar.vue";
 import UserProfile from "./components/UserProfile.vue";
 import UserAttendance from "./components/UserAttendance.vue";
+import ChangePassword from "./components/ChangePassword.vue";
 import DayNight from "@/components/DayNight";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
+    ChangePassword,
     UserAttendance,
     UserProfile,
     ToolBar,
