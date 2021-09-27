@@ -5,7 +5,7 @@
 
     <!-- Main content -->
     <div class="task-container">
-      {{ getTask }}
+      <!-- {{ getTask }} -->
       <v-row>
         <v-col>
           <h2>{{ getTask.title }}</h2>
@@ -100,13 +100,14 @@
             v-for="(sub_message, key) in message.sub"
             :key="`sub-message-${key}`"
           >
+          <!-- {{sub_message}} -->
             <my-message
               :myData="{
                 name: sub_message.username,
                 message: sub_message.comment,
                 time: sub_message.time,
                 hexcode: sub_message.hexcode,
-                tagged: message.tagged,
+                tagged: sub_message.tagged,
               }"
             ></my-message>
           </div>
@@ -436,7 +437,7 @@ export default {
         this.taskDetail.comment = res.comment;
       }
     });
-    await this.fetchAllThreads({ token: this.userToken, id: this.id });
+    await this.fetchAllThreads({ token: this.userToken, id: this.getTask.cmntids, });
 
     this.$vloading.hide();
   },

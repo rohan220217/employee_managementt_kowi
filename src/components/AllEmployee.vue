@@ -8,12 +8,12 @@
     chips
     outlined
     :label="label"
-    class="mt-6"
     hide-details
     height="10"
     dense
     :loading="isLoading"
   >
+    <!-- class="mt-6" -->
     <template v-slot:selection="data">
       <v-chip small color="#FFCBCB" v-bind="data.attrs">
         {{ data.item.name }}

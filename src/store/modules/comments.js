@@ -28,7 +28,7 @@ const getters = {
 }
 
 const actions = {
-    fetchAllThreads({ commit }, { token, id }) {
+    fetchAllThreads({ commit }, { token, id, }) {
         var bodyFormData = new FormData();
         bodyFormData.append('cmntid', id);
         return $http.post('/getthread/', bodyFormData, {
@@ -67,9 +67,9 @@ const actions = {
         })
     },
 
-    sendSubComment({ commit }, { token, task_id, comment, comment_id, tags }) {
+    sendSubComment({ commit }, { token, comment, comment_id, tags, cmntid }) {
         var bodyFormData = new FormData();
-        bodyFormData.append('cmntid', task_id);
+        bodyFormData.append('cmntid', cmntid);
         bodyFormData.append('subcomment', comment);
         bodyFormData.append('comment_id', comment_id);
         bodyFormData.append('tags', tags);

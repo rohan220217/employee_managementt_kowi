@@ -92,7 +92,6 @@ export default {
       else
         this.sendSubComment({
           token: this.userToken,
-          task_id: this.task_id,
           comment: this.comment,
           tags: this.tags,
           comment_id: this.comment_id,

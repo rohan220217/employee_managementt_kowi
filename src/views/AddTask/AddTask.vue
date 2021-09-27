@@ -66,6 +66,7 @@
         </v-col>
         <v-col cols="12" sm="4">
           <all-employee
+          class="mt-6"
             :label="'Assign'"
             v-model="task.assignedto"
           ></all-employee>
@@ -87,10 +88,12 @@
         class=""
       >
         <v-col cols="12" sm="3">
-          <collab-reviewers
+            <all-employee
             v-model="collaborators.collabids[collab_row_i]"
             :label="'Add Collaborators'"
-          ></collab-reviewers>
+      ></all-employee>
+          <!-- <collab-reviewers
+          ></collab-reviewers> -->
         </v-col>
         <v-col cols="12" sm="9">
           <v-text-field
@@ -121,7 +124,7 @@
         </template>
       </v-text-field>
 
-      <v-subheader class="mb-n5">Previous Developer</v-subheader>
+      <v-subheader class="mb-0">Previous Developer</v-subheader>
       <all-employee
         :label="'If none leave it blank'"
         v-model="task.previousdev"
@@ -190,7 +193,7 @@ export default {
         description: "",
         sugestions: "",
         comment: "",
-        previousdev: null,
+        previousdev: "",
         assignedto: null,
         endtime: "",
       },
@@ -210,40 +213,40 @@ export default {
     ...mapActions(["sendNewTask", "newTaskImageUpload"]),
     async review() {
       if (this.$refs.newTask.validate()) {
-        this.$vloading.show();
+        // this.$vloading.show();
         // collaborators and description
         this.task.collabids= this.collaborators.collabids;
         this.task.descs= this.collaborators.descs;
-
+console.log(this.task)
         // add new task
-        await this.sendNewTask({ token: this.userToken, data: this.task }).then(
-          (res) => {
-            this.task_id = res.data.task_id;
-            console.log(res);
-          }
-        );
-        // check image then run the image api
-        if (this.images != null)
-          for (var image_index in this.images) {
-            var _data = {
-              image: this.images[image_index],
-              id: this.task_id,
-              caption: "kowi",
-            };
-            await this.newTaskImageUpload({
-              token: this.userToken,
-              data: _data,
-            }).then((res) => {
-              console.log(res);
-            });
-          }
-        this.$vloading.hide();
-        this.$router.push({ name: "Tasks" });
+        // await this.sendNewTask({ token: this.userToken, data: this.task }).then(
+        //   (res) => {
+        //     this.task_id = res.data.task_id;
+        //     console.log(res);
+        //   }
+        // );
+        // // check image then run the image api
+        // if (this.images != null)
+        //   for (var image_index in this.images) {
+        //     var _data = {
+        //       image: this.images[image_index],
+        //       id: this.task_id,
+        //       caption: "kowi",
+        //     };
+        //     await this.newTaskImageUpload({
+        //       token: this.userToken,
+        //       data: _data,
+        //     }).then((res) => {
+        //       console.log(res);
+        //     });
+        //   }
+        // this.$vloading.hide();
+        // this.$router.push({ name: "Tasks" });
       }
     },
     addNewCollaborator() {
       this.collaborators.collabids.push(null);
-      this.collaborators.descs.push(null);
+      this.collaborators.descs.push("Think out of the box...");
       // this.collaborators.push({
       //   collaborator: null,
       //   collaborator_description: "",
