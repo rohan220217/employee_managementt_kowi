@@ -51,8 +51,9 @@ const routes = [
     }
   },
   {
-    path: '/review',
-    name: 'Review',
+    path: '/review/:id',
+    name: 'ReviewDetail',
+    props: true,
     component: function () {
       return import(/* webpackChunkName: "Collaborators" */ '@/views/Review/ReviewDetail.vue')
     },

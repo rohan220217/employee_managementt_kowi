@@ -9,6 +9,7 @@ const state = {
     newReviewTask: [],
     waitReviewTask: [],
     compReviewTask: [],
+    disReviewTask: [],
 
 }
 
@@ -25,6 +26,9 @@ const getters = {
     getCompReviewTask(state) {
         return state.compReviewTask
     },
+    getDisReviewTask(state) {
+        return state.disReviewTask
+    },
 
 }
 const mutations = {
@@ -39,6 +43,9 @@ const mutations = {
     },
     SET_COMPLETED_REVIEW_TASK: (state, _reviewers) => {
         state.compReviewTask = _reviewers;
+    },
+    SET_DISPUTED_REVIEW_TASK: (state, _reviewers) => {
+        state.disReviewTask = _reviewers;
     },
 
 }
@@ -74,6 +81,45 @@ const actions = {
                 commit('SET_WAITING_REVIEW_TASK', res.data);
             else if (query == 'completed')
                 commit('SET_COMPLETED_REVIEW_TASK', res.data);
+            else if (query == 'dispute')
+                commit('SET_DISPUTED_REVIEW_TASK', res.data);
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    reviewReadReceipt({ commit }, { token, id }) {
+        var bodyFormData = new FormData();
+
+        bodyFormData.append('task_id', id);
+
+        return $http.post('/reviewreceipt/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            console.log(res.data)
+            return Promise.resolve(res)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    checkReview({ commit }, { token, id }) {
+        var bodyFormData = new FormData();
+
+        bodyFormData.append('id', id);
+
+        return $http.post('/checkreview/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            console.log(res.data)
+            return Promise.resolve(res)
         }).catch(err => {
             console.log(err)
             return Promise.reject(err)

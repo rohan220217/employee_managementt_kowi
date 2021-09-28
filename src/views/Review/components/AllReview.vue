@@ -1,7 +1,7 @@
 <template>
   <Loading v-if="isLoading" />
   <div v-else>
-    {{getAllReviewTask}}
+    <!-- {{getAllReviewTask}} -->
     <div v-if="getAllReviewTask.length != 0">
       <h3 style="color: #ff5a5a">All</h3>
       <v-list

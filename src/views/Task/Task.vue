@@ -290,7 +290,7 @@ import { mapGetters, mapActions } from "vuex";
 import DayNight from "@/components/DayNight";
 import AllReviewers from "@/components/AllReviewers";
 import KowiButton from "@/components/KowiButton";
-import StartButton from "./components/StartButton";
+import StartButton from "@/components/StartButton";
 import ToolBar from "@/components/ToolBar.vue";
 import UserMessage from "./components/UserMessage.vue";
 import MyMessage from "./components/MyMessage.vue";

@@ -142,7 +142,7 @@ const actions = {
 
         for (let data_item in data)
             bodyFormData.append(data_item, data[data_item]);
-            
+
         return $http.post('/addtask/', bodyFormData, {
             headers: {
                 'Authorization': `Token ${token}`,
@@ -161,7 +161,7 @@ const actions = {
 
         for (let data_item in data)
             bodyFormData.append(data_item, data[data_item]);
-            
+
         return $http.post('/update/', bodyFormData, {
             headers: {
                 'Authorization': `Token ${token}`,
@@ -179,7 +179,7 @@ const actions = {
 
         for (let data_item in data)
             bodyFormData.append(data_item, data[data_item]);
-            
+
         return $http.post('/addimage/', bodyFormData, {
             headers: {
                 'Authorization': `Token ${token}`,
@@ -197,13 +197,31 @@ const actions = {
 
         for (let data_item in data)
             bodyFormData.append(data_item, data[data_item]);
-            
+
         return $http.post('/createtaskimg/', bodyFormData, {
             headers: {
                 'Authorization': `Token ${token}`,
                 "Content-Type": "multipart/form-data"
             }
         }).then(res => {
+            return Promise.resolve(res)
+        }).catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+    taskReadReceipt({ commit }, { token, id }) {
+        var bodyFormData = new FormData();
+
+        bodyFormData.append('task_id', id);
+
+        return $http.post('/readreceipt/', bodyFormData, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(res => {
+            console.log(res.data)
             return Promise.resolve(res)
         }).catch(err => {
             console.log(err)

@@ -18,11 +18,15 @@
       :headers="headers"
       :items="getAllTasks"
       :search="search"
-       :items-per-page="10"
+      :items-per-page="10"
       @click:row="openTask"
     >
+  
       <template v-slot:[`item.createdat`]="{ item }">
         {{ dayjs(item.createdat).format(" DD MMMM YYYY, HH:mm  A") }}
+      </template>
+      <template v-slot:[`item.title`]="{ item }">
+        <v-badge dot color="success" :value="!item.read_reciept"> {{ item.title }} </v-badge>
       </template>
       <template v-slot:[`item.taskstatus`]="{ item }">
         <div v-if="item.taskstatus == 'ongoing'" style="color: #ed8500">
@@ -82,9 +86,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchAllTasks"]),
+    ...mapActions(["fetchAllTasks", "taskReadReceipt"]),
     openTask(item) {
       this.$router.push({ name: "task_id", params: { id: item.id } });
+      this.taskReadReceipt({ token: this.userToken, id: item.id });
     },
   },
   computed: {

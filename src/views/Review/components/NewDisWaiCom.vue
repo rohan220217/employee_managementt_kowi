@@ -52,6 +52,23 @@
 
       <Empty v-else />
     </div>
+    <!-- Disputed task -->
+    <div v-else-if="isReview == 'dispute'">
+      <div v-if="getDisReviewTask.length != 0">
+        <h3 style="color: #ff5a5a">Disputed</h3>
+        <v-list
+          class="pa-0"
+          v-for="(reiviewTask, key) in getDisReviewTask"
+          :key="`review-${key}`"
+          three-line
+        >
+          <review-tile :data="reiviewTask"></review-tile>
+          <v-divider></v-divider>
+        </v-list>
+      </div>
+
+      <Empty v-else />
+    </div>
   </div>
 </template>
 
@@ -90,6 +107,7 @@ export default {
       "getNewReviewTask",
       "getWaitReviewTask",
       "getCompReviewTask",
+      "getDisReviewTask",
     ]),
   },
   async created() {
@@ -105,6 +123,11 @@ export default {
       await this.fetchNewWaiComTasks({
         token: this.userToken,
         query: "completed",
+      });
+    else if (this.isReview == "dispute")
+      await this.fetchNewWaiComTasks({
+        token: this.userToken,
+        query: "dispute",
       });
 
     this.isLoading = false;

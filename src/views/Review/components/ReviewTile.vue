@@ -10,7 +10,17 @@
     </v-list-item-avatar> -->
     <v-list-item-content>
       <v-list-item-title class="">
-        <div class="mb-1"><strong> Title: </strong>{{ data.title }}</div>
+        <div class="mb-1">
+          <strong> Title: </strong
+          ><v-badge
+            dot
+            color="success"
+            :value="!data.isreadreview"
+            offset-y="10"
+            offset-x="-5"
+            >{{ data.title }}
+          </v-badge>
+        </div>
         <div class="mb-1">
           <strong>Assigned By: </strong>
           <span :style="`color: ${data.assignedby.colorhex}`">{{
@@ -40,17 +50,37 @@
         End:
         {{ dayjs(data.endtim).format("DD-MM-YY, h:mm a") }}
       </p>
-      <div v-if="data.taskstatus == 'completed'" style="color: #32973c">
-        <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
-        <v-icon color="#32973C" size="20">mdi-check-circle-outline</v-icon>
-        Completed
-      </div>
-      <div v-if="data.taskstatus == 'dispute'" style="color: #2634af">
-        <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
-        <v-avatar size="30">
-          <img src="@/assets/animated_icon/error.gif" alt="dispute" />
-        </v-avatar>
-        Dispute
+
+      <div style="display: flex; gap: 10px; color: #32973c">
+        <div v-if="data.iscompleted">
+          <v-icon color="#32973C" size="20">mdi-check-circle-outline</v-icon>
+          Reviewed
+        </div>
+
+        <div v-if="data.taskstatus == 'completed'" style="color: #32973c">
+          <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
+          <v-icon color="#32973C" size="20">mdi-check-circle-outline</v-icon>
+          Completed
+        </div>
+        <div v-if="data.taskstatus == 'dispute'" style="color: #2634af">
+          <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
+          <v-avatar size="30">
+            <img src="@/assets/animated_icon/error.gif" alt="dispute" />
+          </v-avatar>
+          Dispute
+        </div>
+        <div v-if="data.taskstatus == 'pending'" style="color: #ff5a5a">
+          <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
+          <v-icon color="#ff5a5a" size="22">mdi-alert-octagon-outline</v-icon>
+          Pending
+        </div>
+        <div v-if="data.taskstatus == 'ongoing'" style="color: #ed8500">
+          <!-- <v-icon  color="#ED8500"> mdi-cached </v-icon> On-Going -->
+          <v-avatar size="20">
+            <img src="@/assets/animated_icon/ongoing.gif" alt="ongoing" />
+          </v-avatar>
+          On-Going
+        </div>
       </div>
     </v-list-item-action>
   </v-list-item>
@@ -65,9 +95,10 @@ export default {
   props: ["data"],
 
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["reviewReadReceipt"]),
     openReview() {
-      this.$router.push({ name: "Review" });
+      this.$router.push({ name: "ReviewDetail", params: { id: this.data.id } });
+      this.reviewReadReceipt({ token: this.userToken, id: this.data.id });
     },
   },
   computed: {
