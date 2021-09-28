@@ -1,8 +1,7 @@
 <template>
- <div>
+  <div>
     <!-- Notification app bar -->
     <tool-bar :isDate="true" />
-
     <v-tabs color="#ED8500" vertical class="my-tabs">
       <v-tab class="mt-4">
         <v-icon left> mdi-checkbox-multiple-marked </v-icon>All
@@ -28,17 +27,21 @@
       <v-tab-item class="mt-7 mr-8 ml-1">
         <all-review></all-review>
       </v-tab-item>
+      <!-- New Tasks -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <p>sldkfjsdlfk</p>
+        <new-dis-wai-com :isReview="'new'"></new-dis-wai-com>
       </v-tab-item>
+      <!-- New Tasks -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <p>sldkfjsdlfk</p>
+        <new-dis-wai-com :isReview="'dispute'"></new-dis-wai-com>
       </v-tab-item>
+      <!-- Pending Tasks -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <p>sldkfjsdlfk</p>
+        <new-dis-wai-com :isReview="'waiting'"></new-dis-wai-com>
       </v-tab-item>
+      <!-- Done Tasks -->
       <v-tab-item class="mt-7 mr-8 ml-1">
-        <p>sldkfjsdlfk</p>
+        <new-dis-wai-com :isReview="'completed'"></new-dis-wai-com>
       </v-tab-item>
     </v-tabs>
   </div>
@@ -48,10 +51,12 @@
 import { mapGetters, mapActions } from "vuex";
 import AllReview from "./components/AllReview.vue";
 import ToolBar from "@/components/ToolBar.vue";
+import NewDisWaiCom from "./components/NewDisWaiCom.vue";
 export default {
   components: {
     AllReview,
-    ToolBar
+    NewDisWaiCom,
+    ToolBar,
   },
   data() {
     return {};
@@ -62,9 +67,7 @@ export default {
   computed: {
     ...mapGetters(["userToken"]),
   },
-  async created() {
-    // await this.fetchUnreadCount(this.userToken);
-  },
+  async created() {},
 };
 </script>
 <style>

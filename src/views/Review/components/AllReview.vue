@@ -1,15 +1,16 @@
 <template>
   <Loading v-if="isLoading" />
   <div v-else>
-    <div v-if="getAllNotifications.length != 0">
+    {{getAllReviewTask}}
+    <div v-if="getAllReviewTask.length != 0">
       <h3 style="color: #ff5a5a">All</h3>
       <v-list
         class="pa-0"
-        v-for="(notification, key) in getAllNotifications"
-        :key="`notifi-${key}`"
+        v-for="(reiviewTask, key) in getAllReviewTask"
+        :key="`review-${key}`"
         three-line
       >
-        <review-tile @id="getId" :data="notification"></review-tile>
+        <review-tile :data="reiviewTask"></review-tile>
         <v-divider></v-divider>
       </v-list>
     </div>
@@ -36,18 +37,18 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchAllNotifications"]),
-    getId(value) {
-        this.id = value
-      console.log(this.id); // Raja Tamil
-    },
+    ...mapActions(["fetchAllReviewTask"]),
+    // getId(value) {
+    //     this.id = value
+    //   console.log(this.id);
+    // },
   },
   computed: {
-    ...mapGetters(["userToken", "getAllNotifications"]),
+    ...mapGetters(["userToken", "getAllReviewTask"]),
   },
   async created() {
     this.isLoading = true;
-    await this.fetchAllNotifications(this.userToken);
+    await this.fetchAllReviewTask(this.userToken);
     this.isLoading = false;
   },
 };
